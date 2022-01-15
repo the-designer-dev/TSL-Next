@@ -8,9 +8,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.8",
     "next": "12.0.8",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-material-ui-carousel": "^3.1.1",
+    "react-pro-sidebar": "^0.7.1",
+    "react-responsive-carousel": "^3.2.22",
+    "react-simply-carousel": "^5.1.4",
+    "sass": "^1.48.0",
+    "scss": "^0.2.4"
   },
   "devDependencies": {
     "eslint": "8.6.0",
