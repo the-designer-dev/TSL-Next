@@ -2,11 +2,19 @@ import { createTheme } from '@mui/material/styles';
 
 
 export const darkTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   typography: {
-    fontFamily: 'Roboto'}
-    ,
+    fontFamily: 'Roboto'},
     palette: {
-      type: 'dark',
+      mode: 'dark',
       primary: {
         main: '#DDDDDD',
       },
@@ -18,7 +26,7 @@ export const darkTheme = createTheme({
       },
       background: {
         main: '#1E3459', 
-        secondary: '#17161E'
+        secondary: '#232229'
       },
       text:{
           primary: '#DDDDDD',
@@ -29,16 +37,54 @@ export const darkTheme = createTheme({
       },
       tableBorder:{
           primary:'#9999'
+      },
+      table:{
+        tableRow1: '#203B59',
+        tableRow2: '#1E3459'
       }
     },
+    overrides: {
+      MUIRichTextEditor: {
+        toolbar:{
+              backgroundColor:'#203B59',
+              padding:'5px 10px'
+        },
+          root: {
+              marginTop: 20,
+              width: "inherit"
+          },
+          container: {
+              border: "1px solid #203B59" 
+          },
+          editorContainer:{
+            width:'inherit',
+            backgroundColor:'#FFF',
+            color:'#000',
+            minHeight:'100px'
+          },
+          placeHolder:{
+            width:'inherit'
+          }
+
+      }
+  }
   });
 
 export const lightTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 320,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   typography: {
     fontFamily: 'Roboto'}
     ,
     palette: {
-      type: 'light',
+      mode: 'light',
       primary: {
         main: '#646777',
       },

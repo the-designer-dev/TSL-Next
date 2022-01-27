@@ -1,18 +1,20 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import CustomerSidebar from './customerSidebar';
+import CustomerHeader from './customerHeader';
 
-function Layout({children}) {
+function CustomerLayout({children}) {
     return (
+        <Box>
         <Box sx={{display:'flex'}}>
-            <Sidebar/>
+            <CustomerSidebar/>
             <Box sx={{width:'100%' , backgroundColor:'background.secondary'}}>
-            <Header/>
+            <CustomerHeader/>
             {children} 
             </Box>
+        </Box>
         </Box>
     );
 }
 
-export default Layout;
+export default CustomerLayout;

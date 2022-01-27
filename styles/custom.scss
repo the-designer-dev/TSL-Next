@@ -6,5 +6,7 @@ $highlight-color: #d8d8d8 !default;
 $submenu-bg-color: inherit;
 $submenu-bg-color-collapsed: inherit;
 $icon-bg-color: #2b2b2b !default;
+$sidebar-collapsed-width: 0px;
+$breakpoint-xxl: 99999999px;
 
 @import '~react-pro-sidebar/dist/scss/styles.scss';
