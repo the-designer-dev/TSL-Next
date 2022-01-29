@@ -3,11 +3,11 @@ import { Box } from '@mui/material';
 import CustomerSidebar from './customerSidebar';
 import CustomerHeader from './customerHeader';
 
-function CustomerLayout({children}) {
+function CustomerLayout2({children}) {
     return (
         <Box>
         <Box sx={{display:'flex'}}>
-            <CustomerSidebar/>
+            <CustomerSidebar2/>
             <Box sx={{width:'100%' , backgroundColor:'background.secondary'}}>
             <CustomerHeader/>
             {children} 
@@ -17,4 +17,4 @@ function CustomerLayout({children}) {
     );
 }
 
-export default CustomerLayout;
+export default CustomerLayout2;

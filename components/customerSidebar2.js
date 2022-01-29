@@ -10,7 +10,7 @@ import LocalHotelOutlinedIcon from '@mui/icons-material/LocalHotelOutlined';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import { useState } from 'react';
-function CustomerSidebar(props) {
+function CustomerSidebar2(props) {
     const theme = useTheme()
     const [open,setOpen] = useState(false)
     const [mobileOpen,setMobileOpen] = useState(false)
@@ -46,4 +46,4 @@ function CustomerSidebar(props) {
     );
 }
 
-export default CustomerSidebar;
+export default CustomerSidebar2;

@@ -46,11 +46,11 @@ export const darkTheme = createTheme({
     overrides: {
       MUIRichTextEditor: {
         toolbar:{
-              backgroundColor:'#203B59',
+              backgroundColor:'#2AB572',
               padding:'5px 10px'
         },
           root: {
-              marginTop: 20,
+              marginTop: 0,
               width: "inherit"
           },
           container: {
@@ -60,7 +60,7 @@ export const darkTheme = createTheme({
             width:'inherit',
             backgroundColor:'#FFF',
             color:'#000',
-            minHeight:'100px'
+            minHeight:'200px'
           },
           placeHolder:{
             width:'inherit'

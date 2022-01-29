@@ -26,7 +26,7 @@ body{
 
 
 .carousel-img img{
-    border-radius: 4px;
+    border-radius: 20px 20px 0px 0px;
 }
 
 @media(max-width:577px) {
@@ -201,3 +201,11 @@ body{
   position: relative !important;
   height: unset !important;
 } */
+
+.dzu-dropzone{
+  overflow: hidden !important;
+  border: 2px dashed #2AB572 !important;
+}
+.dzu-submitButton{
+  background-color:#2AB572 !important;
+}

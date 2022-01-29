@@ -20,7 +20,7 @@ function VendorSidebar(props) {
                 <Button disableRipple  sx={{color:'primary.main' , left:'110px', ':hover':{background:'none'}, transform: open? '':'translate(110px , 0px)'  , transition:'transform 0.5s'}} className='desktopMenu' onClick={() => setOpen(!open)} ><MenuIcon/></Button>
                 <Button disableRipple  sx={{color:'primary.main'  , left:'30px', ':hover':{background:'none'}, transform: mobileOpen? 'translate(180px , 0px)':'' , transition:'transform 0.5s' }} className='mobileMenu' onClick={() => setMobileOpen(!mobileOpen)} ><MenuIcon/></Button>
                 </Box>
-        <ProSidebar style={{height:'100%',backgroundColor: theme.palette.background.main  , paddingTop:'77px' }} toggled={mobileOpen} collapsed={open} breakPoint='sm'>
+        <ProSidebar style={{minHeight:'100%',backgroundColor: theme.palette.background.main  , paddingTop:'77px' }} toggled={mobileOpen} collapsed={open} breakPoint='sm'>
             
             <SidebarContent >
                 <div style={{display:'flex', justifyContent:'space-evenly',padding:'10px'}} >

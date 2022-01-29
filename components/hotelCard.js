@@ -22,7 +22,7 @@ function HotelCard(props) {
     }
 
     return (
-        <Paper sx={{backgroundColor:'background.main' , width:'100%' , textAlign:'center'}} >
+        <Paper sx={{backgroundColor:'background.main' , width:'100%' , textAlign:'center' , borderRadius:'20px'}} >
         
         <Carousel showThumbs={false}  showIndicators={false} showStatus={false} dynamicHeight={false}	 indicators={false} autoPlay={false} >
      {items.map((el) => {return <Box className='carousel-img' sx={{width:'100%', height:'200px' , position: 'relative'}}><Image layout='fill' objectFit='fill' src={API_URL + el.url}/></Box>})}

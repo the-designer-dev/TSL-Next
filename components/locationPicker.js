@@ -33,9 +33,11 @@ function onSelect(value){
 }
 
 async function updateLocation(e){
+    if(e.target.value !== '') {
     const res = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${e.target.value}.json?access_token=${mapboxApiKey}&autocomplete=true&fuzzyMatch=true`)
     console.log(res.data.features)
     setAddress(res.data.features.map((el) => {return {label : el.place_name , center : el.center }}))
+  }  
 }
     return (
         <>
@@ -50,7 +52,7 @@ async function updateLocation(e){
       id="combo-box-demo"
       options={address.length> 0 ? address: []}
       sx={{ width: '100%' }}
-      renderInput={(params) => <StyledTextField sx={{backgroundColor:'#FFF' , color:'#000'}} {...params} placeholder='Search'  fullWidth onChange={e => updateLocation(e)}  />}
+      renderInput={(params) => <StyledTextField sx={{backgroundColor:'#FFF' , color:'#000' , borderRadius:'5px 5px 0px 0px'}} {...params} placeholder='Search'  fullWidth onChange={e => updateLocation(e)}  />}
     />    
         </Box>
     <Box>
