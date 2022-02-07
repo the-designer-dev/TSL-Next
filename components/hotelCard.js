@@ -12,11 +12,15 @@ import smokeFree from '../assets/Icon material-smoke-free.png'
 import Image from 'next/image';
 import { API_URL } from '../config';
 import StyledButton from '../styledComponents/styledButton';
+import { useEffect } from 'react';
 
 function HotelCard(props) {
     //checking code
     var items = props.images
     
+
+    useEffect(()=> {} , [])
+
     const onClick = () => {
         props.clickFunction()
     }
