@@ -1,11 +1,10 @@
 {
   "extends": "next",
   "rules": {
-    "react/no-unescaped-entities": "off",
-    "react/jsx-key": "off",
-    "react/jsx-no-duplicate-props": "off",
-    "react/jsx-no-undef": "off",
-    
-    "@next/next/no-img-element": "off",
+    "react/no-unescaped-entities": 0,
+    "react/jsx-key": 0,
+    "react/jsx-no-duplicate-props": 0,
+    "react/jsx-no-undef": 0,
+    "@next/next/no-img-element": 0,
   }
 }
