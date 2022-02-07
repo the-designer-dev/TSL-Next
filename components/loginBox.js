@@ -32,7 +32,6 @@ function LoginBox(props) {
           })
           .catch(function (error) {
             console.log(error);
-            alert
           });
     }
 

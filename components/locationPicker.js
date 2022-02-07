@@ -12,8 +12,8 @@ import {useDispatch} from 'react-redux'
 import {setCoordinates} from '../redux/addHotel'
 function LocationPicker(props) {
     const [selectedLocation, setSelectedLocation] = useState(null)
-    const [longitude, setLongitude] = useState(selectedLocation?selectedLocation.center[0]:null)
-    const [latitude, setLatitude] = useState(selectedLocation?selectedLocation.center[1]:null)
+    const [longitude, setLongitude] = useState(selectedLocation?selectedLocation.center[1]:null)
+    const [latitude, setLatitude] = useState(selectedLocation?selectedLocation.center[0]:null)
     const [address, setAddress] = useState([])
     const dispatch = useDispatch()
   const [viewport, setViewport] = useState({
@@ -28,14 +28,14 @@ function onSelect(value){
     setSelectedLocation(value)
     setViewport({
         ...viewport,
-        longitude: value.center[1],
-        latitude: value.center[0],
+        longitude: value.center[0],
+        latitude: value.center[1],
         zoom: 17,
         transitionDuration: 5000,
         transitionInterpolator: new FlyToInterpolator()
       });
-      setLongitude(value.center[1])
-      setLatitude(value.center[0])
+      setLongitude(value.center[0])
+      setLatitude(value.center[1])
       dispatch(setCoordinates([{longitude:value.center[1] , latitude:value.center[0]}]))
 
 }
@@ -54,7 +54,7 @@ const onMarkerDragEnd = (event) => {
   // Any functionality for when a drag ends
   setLongitude(event.lngLat[0]);
   setLatitude(event.lngLat[1]);
-  dispatch(setCoordinates([{longitude:event.lngLat[0] , latitude:event.lngLat[1]}]))
+  dispatch(setCoordinates([{longitude:event.lngLat[1] , latitude:event.lngLat[0]}]))
 }
 const onMarkerDrag = (event) => {
   const {latitude, longitude} = event;
