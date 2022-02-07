@@ -6,7 +6,7 @@ import largeIcon from '../assets/logoBig.png';
 import smallIcon from '../assets/logoSmall.png';
 import profilePicture from '../assets/Main Profile Picture.png';
 import { useState } from 'react';
-function VendorSidebar(props) {
+function AdminSidebar(props) {
     const theme = useTheme()
     const [open,setOpen] = useState(false)
     const [mobileOpen,setMobileOpen] = useState(false)
@@ -29,17 +29,11 @@ function VendorSidebar(props) {
             <Menu iconShape="square">
                 <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Main Menu</Typography>
                 <MenuItem >Overview</MenuItem>
- 
-                <MenuItem>All Hotel</MenuItem>
-                <MenuItem>All Rooms</MenuItem>
+                <MenuItem>Vendors</MenuItem>
+                <MenuItem>Customers</MenuItem>
                 <MenuItem>Add New Hotel</MenuItem>
-                <MenuItem>Add New Room</MenuItem>
-                <MenuItem>Booking Schedule</MenuItem>
-            
-                <MenuItem>Overview</MenuItem>
-                <MenuItem>Refunds</MenuItem>
-            
-            <MenuItem>Request Withdrawal</MenuItem>
+                <MenuItem>Rooms</MenuItem>
+                <MenuItem>Withdrawal Requests</MenuItem>
 
             </Menu>
             
@@ -51,4 +45,4 @@ function VendorSidebar(props) {
     );
 }
 
-export default VendorSidebar;
+export default AdminSidebar;

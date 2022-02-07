@@ -13,8 +13,8 @@ const [selectedLocation, setSelectedLocation] = useState({})
     width: "100%",
     height: "400px",
     borderRadius:'20px',
-    latitude: locations[0].geometry.coordinates[1],
-    longitude: locations[0].geometry.coordinates[0],
+    latitude: locations.latitude,
+    longitude: locations.longitude,
     zoom: 15
   });
 return(
@@ -25,11 +25,10 @@ return(
   {...viewport}
   onViewportChange={(nextViewport) => setViewport(nextViewport)}
   >
-  {locations.map((location) => (
-    <div key={location.id}>
+  
       <Marker
-      latitude={location.center[1]}
-      longitude={location.center[0]}
+      latitude={locations.latitude}
+      longitude={locations.longitude}
       offsetLeft={-20}
       offsetTop={-10}>
            <a onClick={() => {
@@ -38,16 +37,9 @@ return(
         <span role="img" aria-label="push-pin">📌</span>
         </a>
       </Marker>
-      {selectedLocation.id === location.id ? (
-      <Popup
-      onClose={() => setSelectedLocation({})}
-      closeOnClick={true}
-      latitude={location.center[1]}
-      longitude={location.center[0]}>
-        {location.place_name}
-      </Popup>) : (false)}
-    </div>
-  ))}
+  
+    
+  
   {restaurants.map((location) => (
     <div key={location.id}>
       <Marker

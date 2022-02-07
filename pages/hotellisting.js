@@ -83,7 +83,7 @@ export default function HotelListing(props) {
        PaperProps: {
          style: {
            backgroundColor: `${theme.palette.background.main}`,
-           width: 210
+           width: 200
          },    
        },  
      };
@@ -95,20 +95,21 @@ export default function HotelListing(props) {
           <Grid container spacing={3}>
 
           <Grid container item spacing={2} direction='row' alignItems="flex-end" justifyContent='space-evenly' columns={15} sx={{textAlign:'left'}} >
-     <Grid alignContent='space-around' container item xs={7} sm={3}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Destination</Typography></Grid>  <Grid> <StyledTextField value={DestinationState} onChange={(e) => setDestinationState(e.target.value)} size="small" id="outlined-basic" variant="outlined" placeholder="Where are you going?" /></Grid></Grid>
-     <Grid alignContent='space-around' container item xs={7} sm={3}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Check In</Typography></Grid>  <Grid> <DatePicker value={CheckInState} onChange={(newValue) => {setCheckInState(newValue)}} renderInput={(params) => <TextField sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF' , borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/></Grid></Grid>
-     <Grid alignContent='space-around' container item xs={7} sm={3}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Check Out</Typography></Grid>  <Grid> <DatePicker value={CheckOutState} onChange={(newValue) => {setCheckOutState(newValue)}} renderInput={(params) => <TextField sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF' , borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/></Grid></Grid>
-     <Grid alignContent='space-around' container item xs={7} sm={3}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Guests</Typography></Grid>  <Grid> <FormControl fullWidth variant="standard">
+     <Grid alignContent='space-around' container item xs={12} sm={4}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Destination</Typography></Grid>  <Grid> <StyledTextField value={DestinationState} onChange={(e) => setDestinationState(e.target.value)} size="small" id="outlined-basic" variant="outlined" placeholder="Where are you going?" /></Grid></Grid>
+     <Grid alignContent='space-around' container item xs={12} sm={4}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Check In</Typography></Grid>  <Grid> <DatePicker value={CheckInState} onChange={(newValue) => {setCheckInState(newValue)}} renderInput={(params) => <TextField sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF' , borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/></Grid></Grid>
+     <Grid alignContent='space-around' container item xs={12} sm={4}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Check Out</Typography></Grid>  <Grid> <DatePicker value={CheckOutState} onChange={(newValue) => {setCheckOutState(newValue)}} renderInput={(params) => <TextField sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF' , borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/></Grid></Grid>
+     <Grid alignContent='space-around' container item xs={12} sm={4}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Guests</Typography></Grid>  <Grid> <FormControl fullWidth variant="standard">
        <Select
           multiple
+          required
           value={[AdultState , ChildState]}
           MenuProps={MenuProps}
           renderValue={() => `Adult : ${AdultState} , Child : ${ChildState}`}
           input={ <OutlinedInput sx={{'&.MuiInputBase-root':{backgroundColor:'#FFF !important' , color:'#808080' ,'& .MuiSelect-select':{padding:'8.5px 32px 8.5px 14px' ,width:'166px'}}}}/>}
         >
-          <Grid container direction='column' spacing={2}  >
-     <Grid container item xs={15} direction='column' ><Grid sx={{paddingBottom:'8px' ,  paddingLeft:'8px'}}><Typography color='#FFF' variant='p'>Adult</Typography></Grid>  <Grid> <StyledTextField  onChange={(e) => e.target.value>0?setAdultState(e.target.value):setAdultState(0) } type='number' sx={{width:'200px' , margin:'auto'}} value={AdultState}   size="small" id="outlined-basic" variant="outlined" placeholder="# of Adult" /></Grid></Grid>
-     <Grid container item xs={15} direction='column' ><Grid sx={{paddingBottom:'8px' ,  paddingLeft:'8px'}}><Typography color='#FFF' variant='p'>Child</Typography></Grid>  <Grid> <StyledTextField  onChange={(e) => e.target.value>0?setChildState(e.target.value):setChildState(0) } type='number' sx={{width:'200px' , margin:'auto'}} value={ChildState}   size="small" id="outlined-basic" variant="outlined" placeholder="# of Child" /></Grid></Grid>
+          <Grid container direction='column' spacing={2} justifyContent={'center'} alignItems='center' >
+     <Grid container item xs={15}  direction='column' ><Grid sx={{paddingBottom:'8px' ,  paddingLeft:'8px' }}><Typography color='#FFF' variant='p'>Adult</Typography></Grid>  <Grid item sx={{display:'flex'}}> <StyledTextField  onChange={(e) => e.target.value>0?setAdultState(e.target.value):setAdultState(0) } type='number' sx={{width:'200px' }} value={AdultState}   size="small" id="outlined-basic" variant="outlined" placeholder="# of Adult" /></Grid></Grid>
+     <Grid container item xs={15}  direction='column' ><Grid sx={{paddingBottom:'8px' ,  paddingLeft:'8px' }}><Typography color='#FFF' variant='p'>Child</Typography></Grid>  <Grid item sx={{display:'flex'}}> <StyledTextField  onChange={(e) => e.target.value>0?setChildState(e.target.value):setChildState(0) } type='number' sx={{width:'200px' }} value={ChildState}   size="small" id="outlined-basic" variant="outlined" placeholder="# of Child" /></Grid></Grid>
      </Grid>
         </Select>
         </FormControl></Grid></Grid>

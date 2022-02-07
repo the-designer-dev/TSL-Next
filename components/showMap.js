@@ -8,18 +8,19 @@ import { mapboxApiKey } from './mapComponent';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
-import {useDispatch} from 'react-redux'
+import {useDispatch , useSelector} from 'react-redux'
 import {setCoordinates} from '../redux/addHotel'
-function LocationPicker(props) {
+function ShowMap(props) {
     const [selectedLocation, setSelectedLocation] = useState(null)
-    const [longitude, setLongitude] = useState(selectedLocation?selectedLocation.center[0]:null)
-    const [latitude, setLatitude] = useState(selectedLocation?selectedLocation.center[1]:null)
+    const hotel = useSelector(state => state.addHotel)
+    const [longitude, setLongitude] = useState(hotel.coordinates[0].longitude)
+    const [latitude, setLatitude] = useState(hotel.coordinates[0].latitude)
     const [address, setAddress] = useState([])
     const dispatch = useDispatch()
   const [viewport, setViewport] = useState({
     width: "100%",
-    longitude: 67.035286,
-    latitude:24.849957,
+    longitude: hotel.coordinates[0].longitude,
+    latitude:hotel.coordinates[0].latitude,
     height: "400px",
     borderRadius:'20px',
     zoom: 15,
@@ -28,15 +29,15 @@ function onSelect(value){
     setSelectedLocation(value)
     setViewport({
         ...viewport,
-        longitude: value.center[1],
-        latitude: value.center[0],
+        longitude: value.center[0],
+        latitude: value.center[1],
         zoom: 17,
         transitionDuration: 5000,
         transitionInterpolator: new FlyToInterpolator()
       });
-      setLongitude(value.center[1])
-      setLatitude(value.center[0])
-      dispatch(setCoordinates([{longitude:value.center[1] , latitude:value.center[0]}]))
+      setLongitude(value.center[0])
+      setLatitude(value.center[1])
+      dispatch(setCoordinates([{longitude:value.center[0] , latitude:value.center[1]}]))
 
 }
 async function updateLocation(e){
@@ -62,21 +63,9 @@ const onMarkerDrag = (event) => {
 }
     return (
         <>
-        <Box sx={{display:'flex' , flexDirection:'column',width:'100%' , position:'relative'}}>    
-        <Autocomplete
-      disablePortal
-      value={selectedLocation}
-      onChange={(event, newValue) => {
-          newValue?
-        onSelect(newValue):''
-      }}
-      id="combo-box-demo"
-      options={address.length> 0 ? address: []}
-      sx={{ width: '100%' }}
-      renderInput={(params) => <StyledTextField sx={{backgroundColor:'#FFF' , color:'#000' , borderRadius:'5px 5px 0px 0px'}} {...params} placeholder='Search'  fullWidth onChange={e => updateLocation(e)}  />}
-    />    
+        <Box sx={{display:'flex' , flexDirection:'column'}}>      
         </Box>
-    <Box sx={{width:'100%' , position:'relative'}}>
+    <Box>
 <ReactMapGL
   mapStyle="mapbox://styles/mapbox/streets-v11"
   mapboxApiAccessToken={mapboxApiKey}
@@ -87,7 +76,6 @@ const onMarkerDrag = (event) => {
     <Marker
       latitude={latitude}
       longitude={longitude}
-      draggable
       onDragStart={(e) => onMarkerDragStart(e)}
       onDragEnd={(e) => onMarkerDragEnd(e)}
       onDrag={(e) => onMarkerDrag(e)}
@@ -101,4 +89,4 @@ const onMarkerDrag = (event) => {
   </>
     );
 }
-export default LocationPicker;
+export default ShowMap;

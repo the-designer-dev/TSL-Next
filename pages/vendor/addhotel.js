@@ -4,11 +4,10 @@ import VendorLayout from '../../components/vendorLayout';
 import StyledContainer from '../../styledComponents/styledContainer';
 import StepperForm from '../../components/stepper';
 import AddHotelForm from '../../components/addHotelForm';
-import StyledButton from '../../styledComponents/styledButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { nextStep } from '../../redux/formSlice';
 import AddServicesForm from '../../components/addServicesForm';
 import AddRoomForm from '../../components/addRoomForm';
+import Overview from '../../components/overview';
 
 export default function AddHotel() {
     const active = useSelector(state => state.formData.activeStep)
@@ -33,11 +32,8 @@ export default function AddHotel() {
     </Grid>:''}
     {active == 3?
     <Grid item xs={12}>
-    <AddHotelForm/>
+    <Overview/>
     </Grid>:''}
-    <Grid container item xs={12} justifyContent='space-around'>
-        <Grid item><StyledButton onClick={() => dispatch(nextStep())}>Next</StyledButton></Grid>
-    </Grid>
     </Grid>
     </StyledContainer>
   );

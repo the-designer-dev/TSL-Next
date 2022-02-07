@@ -6,6 +6,7 @@ export const addHotelSlice = createSlice({
     city :'',
     address :'',
     description:'',
+    coordinates:[{}],
     images:[],
     amenities:[],
     facilities:[],
@@ -56,13 +57,11 @@ export const addHotelSlice = createSlice({
     setFaqs: (state,action) => {
       state.faqs = action.payload
     },
-    
- 
+    setCoordinates: (state,action) => {
+      state.coordinates = action.payload
+    },
    }
-  
 })
-
 // Action creators
-export const { setName,setCity,setAddress,setDescription,setImages,setAmenities,setFacilities,setRules,setCheckIn,setCheckOut,setServices,setDaysToRefund,setFaqs} = addHotelSlice.actions;
-
+export const { setName,setCity,setAddress,setDescription,setImages,setAmenities,setFacilities,setRules,setCheckIn,setCheckOut,setServices,setDaysToRefund,setFaqs,setCoordinates} = addHotelSlice.actions;
 export default addHotelSlice.reducer;

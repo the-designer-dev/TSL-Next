@@ -24,7 +24,7 @@ function HotelCard(props) {
     return (
         <Paper sx={{backgroundColor:'background.main' , width:'100%' , textAlign:'center' , borderRadius:'20px'}} >
         
-        <Carousel showThumbs={false}  showIndicators={false} showStatus={false} dynamicHeight={false}	 indicators={false} autoPlay={false} >
+        <Carousel showThumbs={false}  showIndicators={false} showStatus={false} dynamicHeight={false} indicators={false} autoPlay={false} >
      {items.map((el) => {return <Box className='carousel-img' sx={{width:'100%', height:'200px' , position: 'relative'}}><Image layout='fill' objectFit='fill' src={API_URL + el.url}/></Box>})}
 
       </Carousel>
@@ -45,7 +45,7 @@ function HotelCard(props) {
       <Typography fontSize='18px' fontWeight='700'sx={{paddingTop:'5px'}} variant='p'>PKR {props.startingPrice}/-</Typography>
       <Typography  variant='p'>(Per Night)</Typography>
       </Box>
-      <StyledButton onClick={onClick} sx={{margin:'15px'}} >View Details</StyledButton>
+      <StyledButton type='submit' onClick={onClick} sx={{margin:'15px'}} >View Details</StyledButton>
       </Box>
         </Paper>
     );

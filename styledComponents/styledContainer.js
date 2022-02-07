@@ -3,7 +3,8 @@ import { Paper } from '@mui/material';
 const StyledContainer = styled(Paper)(({ theme }) => ({
   backgroundColor : `${theme.palette.background.secondary} !important`,
   padding:'15px',
-  minHeight:'100vh',
-  backgroundImage : 'none'
+  minHeight:'calc( 100vh - 30px )',
+  backgroundImage : 'none',
+  boxShadow:'none'
 }));
 export default StyledContainer;

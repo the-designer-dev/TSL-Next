@@ -27,7 +27,7 @@ function CarouselWithThumbnail(props) {
         slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: '.slider-for',
-        dots: true,
+        dots: false,
         centerMode: false,
         swipeToSlide: true,
         focusOnSelect: true,
@@ -60,7 +60,7 @@ function CarouselWithThumbnail(props) {
       return (
         <Box >
 
-<div className="slider-wrapper">
+<div className="slider-wrapper" style={{padding:'0px 5px'}}>
 
   <Slider
     {...settings}

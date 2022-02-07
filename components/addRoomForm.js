@@ -1,21 +1,36 @@
-import { useEffect } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import FormWrapper from '../styledComponents/formWrapper';
 import React from 'react';
 import StyledTextField from '../styledComponents/styledTextField';
-import LocationPicker from './locationPicker';
 import dynamic from 'next/dynamic';
 import Dropfile from './dropzone';
-import Features from './features';
-import {setName ,setCity,setAddress,setDescription,setImages,setCheckIn,setCheckOut,setDaysToRefund,setFaqs} from '../redux/addHotel'
+import { nextStep, prevStep } from '../redux/formSlice';
+import {InputAdornment} from '@mui/material'
+import {  setRoomName, setRoomDescription, setRoomQuantity } from '../redux/addRoom';
 const MUIRichTextEditor = dynamic(() => import('mui-rte'), {ssr: false });
-import {useDispatch} from 'react-redux';
+import StyledButton from '../styledComponents/styledButton';
+import {useDispatch , useSelector} from 'react-redux';
 import Capacity from './capacity';
+import {setRefundableRates , setNonRefundableRates} from '../redux/addRoom'
+import DateRange from './dateRange';
+import RoomType from './roomType';
+import RoomFeatures from './roomFeatures';
 function AddRoomForm(props) {
+   const room = useSelector(state => state.addRoom) 
    const dispatch = useDispatch();
+
+   async function submit(e){
+    e.preventDefault()
+    const mod = await import('./dropzone')
+    if(mod.roomImgs.length > 0){
+ dispatch(nextStep())
+}
+ else{alert('fill all required fields')}
+}
+
     return (
         <FormWrapper>
-            <form>
+            <form onSubmit={submit}>
                 <Grid container spacing={3}>
                     <Grid container item  spacing={1}>
                     <Grid item xs={12}><Typography variant='h6'>Add you hotel's rooms</Typography></Grid>
@@ -25,36 +40,61 @@ function AddRoomForm(props) {
                     </Grid>
                     <Grid container item spacing={1}>
                     <Grid item xs={12} sm={4}><Typography variant='p'>Room name</Typography></Grid>
-                    <Grid item xs={12} sm={8}><StyledTextField fullWidth onChange={(e) => dispatch(setName(e.currentTarget.value))} placeholder='Enter Name' /></Grid>
+                    <Grid item xs={12} sm={8}><StyledTextField required value={room.roomName} fullWidth onChange={(e) => dispatch(setRoomName(e.target.value))} placeholder='Enter Name' /></Grid>
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography  variant='p'>Room Description:</Typography></Grid>
-                    <Grid item xs={12} ><MUIRichTextEditor onChange={(e) => dispatch(setDescription(e.getCurrentContent().getPlainText()))} label="Start typing..." /></Grid>
+                    <Grid item xs={12} ><MUIRichTextEditor required value={room.roomDescription} onChange={(e) => dispatch(setRoomDescription(e.getCurrentContent().getPlainText()))} label="Start typing..." /></Grid>
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Room Images:</Typography></Grid>
-                    <Grid item xs={12} ><Dropfile/></Grid>
+                    <Grid item xs={12} ><Dropfile hotel={false}/></Grid>
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Capacity</Typography></Grid>
                     <Grid item xs={12} ><Capacity/></Grid>
                     </Grid>
+                    <Grid container item spacing={2}>
+                    <Grid item xs={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Rates For Room</Typography></Grid>
+                    <Grid item xs={12} sm={6}><Typography variant='p'>Refundable Rates</Typography></Grid>
+                    <Grid item xs={12} sm={6} ><StyledTextField required value={room.refundableRates} onChange={(e) => dispatch(setRefundableRates(e.target.value))} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start">PKR</InputAdornment> , endAdornment: <InputAdornment  position="end">Per Person</InputAdornment> }} fullWidth/></Grid>
+                    <Grid item xs={12} sm={6}><Typography variant='p'>Non-Refundable Rates</Typography></Grid>
+                    <Grid item xs={12} sm={6} ><StyledTextField required value={room.nonRefundableRates} onChange={(e) => dispatch(setNonRefundableRates(e.target.value))} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start">PKR</InputAdornment> , endAdornment: <InputAdornment  position="end">Per Person</InputAdornment> }} fullWidth/></Grid>
+                    </Grid>
+                    <Grid container item>
+                        <Grid item>
+                        <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Set Pricing For Specific Dates:</Typography></Grid>
+                        </Grid>
+                        <Grid item>
+                        <DateRange/>
+                        </Grid>
+                    </Grid>
                     <Grid container item spacing={1}>
-                    <Grid item xs={12} sm={4}><Typography variant='p'>Address</Typography></Grid>
-                    <Grid item xs={12} sm={8}><StyledTextField fullWidth onChange={(e) => dispatch(setAddress(e.currentTarget.value))} placeholder='Enter Address' /></Grid>
+                        <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Select Room Type:</Typography></Grid>
+                        <Grid item xs={12}>
+                            <RoomType/>
+                        </Grid>
                     </Grid>
-                    <Grid container item spacing={2}>
-                    <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Place a pin to locate your hotel</Typography></Grid>
-                    <Grid item xs={12} ><LocationPicker/></Grid>
+                    <Grid container item spacing={1}>
+                    <Grid item xs={12} sm={4}><Typography variant='p'>Room Quantity</Typography></Grid>
+                    <Grid item xs={12} sm={8}><StyledTextField required fullWidth value={room.roomQuantity} onChange={(e) => dispatch(setRoomQuantity(e.target.value))} placeholder='Enter Quantity' /></Grid>
                     </Grid>
-                    <Grid container item spacing={2}>
-                    <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Tell us more about the features of your hotel:</Typography></Grid>
-                    <Grid item xs={12} ><Features/></Grid>
+                    
+                    <Grid container item spacing={1}>
+                    <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Tell us more about the features of your room:</Typography></Grid>
+                    <Grid item xs={12}>
+                        <RoomFeatures/>
                     </Grid>
+                    </Grid>
+
+                    <Grid container item xs={12} spacing={2} justifyContent='flex-end'>
+                        <Grid item><StyledButton type='button' onClick={() => dispatch(prevStep())}>Previous</StyledButton></Grid>
+                        <Grid item><StyledButton type='submit'>Next</StyledButton></Grid>
+                    </Grid>
+
                 </Grid>
             </form>
         </FormWrapper>
     );
 }
-
 export default AddRoomForm;

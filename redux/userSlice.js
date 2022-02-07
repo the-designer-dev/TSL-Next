@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 export const userSlice = createSlice({
   name: 'userToken',
-  initialState: { Token: '',
+  initialState: { token: '',
   user:{},
   allusers:[],
   isAdmin:false
    },
   reducers: {
     setToken: (state,action) => {
-      state.Token = action.payload
+      state.token = action.payload
     },
     setUser: (state,action) => {
       state.user = action.payload

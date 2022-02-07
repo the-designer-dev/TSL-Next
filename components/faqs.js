@@ -6,14 +6,25 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useDispatch } from 'react-redux';
 import { DeleteOutlined } from '@mui/icons-material';
 import StyledButton from '../styledComponents/styledButton';
+import {setFaqs} from '../redux/addHotel'
 function FAQs(props) {
-    const [faqs , setFAQs] = useState([])
+  const dispatch = useDispatch()
+    const [faqs , setStateFaqs] = useState([])
     const [answer , setAnswer] = useState('')
     const [question , setQuestion] = useState('')
+    var faqVar = []
     function removeQuestion(question){
-            setFAQs(faqs.filter((el) => {return question != el.faq_question}))
+            setStateFaqs(faqs.filter((el) => {return question != el.faq_question}))
+            faqVar = faqVar.filter((el) => {return question != el.faq_question})
+            dispatch(setFaqs(faqVar))
+    }
+    function addQuestion(){
+          setStateFaqs(faqs =>[...faqs , {faq_question: question, faq_answer:answer}])
+          faqVar = [...faqVar , {faq_question: question, faq_answer:answer} ]
+          dispatch(setFaqs(faqVar))
     }
     return (
         <Box>
@@ -47,7 +58,7 @@ function FAQs(props) {
                         <StyledTextField onChange={(e) => {setAnswer(e.target.value)}} fullWidth multiline minRows={5} placeholder='Write Answer'/>
                     </Grid>
                     <Grid container item xs={12} justifyContent='flex-end'>
-                        <StyledButton onClick={() => {setFAQs(faqs =>[...faqs , {faq_question: question, faq_answer:answer}])}}>Add Question</StyledButton>
+                        <StyledButton onClick={() => {addQuestion()}}>Add Question</StyledButton>
                     </Grid>
                 </Grid>
 

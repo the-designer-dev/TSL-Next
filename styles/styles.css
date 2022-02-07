@@ -42,7 +42,7 @@ body{
 }
 
 .slider-wrapper {
-    width: 90%;
+    max-width: 723px;
     margin: auto;
   }
 
@@ -124,13 +124,6 @@ body{
     top: 0;
 }
 
-/* .right_arr{
-    top: -100;
-}
-
-.left_arr{
-    top: -100;
-} */
 
 .hero_dots button{ 
  display: none;
@@ -147,7 +140,7 @@ body{
  margin: 0px;
  position: absolute;
  bottom: 15px;
- left: 46vw;
+ left: 50vw;
  padding: 0px !important;
 }
 
@@ -208,4 +201,31 @@ body{
 }
 .dzu-submitButton{
   background-color:#2AB572 !important;
+}
+
+.logo-wrapper img {
+  width:200px !important;
+}
+
+
+/* width */
+.poi_box::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.poi_box::-webkit-scrollbar-track {
+  width: 2px;
+  background: transparent;
+}
+
+/* Handle */
+.poi_box::-webkit-scrollbar-thumb {
+  width: 15px;
+  background: #2AB572;
+}
+
+/* Handle on hover */
+.poi_box::-webkit-scrollbar-thumb:hover {
+  background: #208154;
 }

@@ -1,6 +1,4 @@
 import { createTheme } from '@mui/material/styles';
-
-
 export const darkTheme = createTheme({
   breakpoints: {
     values: {
@@ -9,6 +7,7 @@ export const darkTheme = createTheme({
       md: 900,
       lg: 1200,
       xl: 1536,
+      xxl: 1920,
     },
   },
   typography: {
@@ -25,7 +24,7 @@ export const darkTheme = createTheme({
         main: '#2AB572'
       },
       background: {
-        main: '#1E3459', 
+        main: '#1E3459',
         secondary: '#232229'
       },
       text:{
@@ -33,7 +32,6 @@ export const darkTheme = createTheme({
           secondary:'#6B718A',
           brevity:'#22806E',
           message:'#FFF',
-          
       },
       tableBorder:{
           primary:'#9999'
@@ -54,7 +52,7 @@ export const darkTheme = createTheme({
               width: "inherit"
           },
           container: {
-              border: "1px solid #203B59" 
+              border: "1px solid #203B59"
           },
           editorContainer:{
             width:'inherit',
@@ -65,11 +63,33 @@ export const darkTheme = createTheme({
           placeHolder:{
             width:'inherit'
           }
-
       }
   }
+  ,
+  components: {
+    MuiList:{
+      styleOverrides:{
+      root:{
+        backgroundColor:'#1E3459'}
+}} ,
+MuiPickersDay:{
+  styleOverrides:{
+  root:{
+    backgroundColor:'#203B59'
+  },
+}
+},
+MuiDialog:{
+  styleOverrides:{
+    paper:{
+      backgroundColor:'#203B59',
+      backgroundImage:'none'
+    },
+}
+  }
+}
+ 
   });
-
 export const lightTheme = createTheme({
   breakpoints: {
     values: {
@@ -102,7 +122,7 @@ export const lightTheme = createTheme({
         message:'#000'
     },
     tableBorder:{
-        primary:'#e0e0e0'
+        primary:'#E0E0E0'
     }
     },
   });

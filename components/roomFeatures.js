@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import { ElevatorOutlined, PoolOutlined, Restaurant, Wifi } from '@mui/icons-material';
 import RulesModal from './rulesModal'
-import {setAmenities,setFacilities,setRules} from '../redux/addHotel';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid } from '@mui/material';
 import {  Button , FormControlLabel } from '@mui/material';
@@ -17,6 +16,10 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { client_id, client_secret, ICON_KEY } from '../config';
 import StyledButton from '../styledComponents/styledButton';
+import { setRoomAmenities,setRoomFacilities,setRoomRules,setRoomIncludes } from '../redux/addRoom';
+var selectedAmenities = []
+var selectedFacilities = []
+var selectedIncludes = []
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   
@@ -50,19 +53,19 @@ function a11yProps(index) {
   };
 }
 
-export default function Features() {
+export default function RoomFeatures() {
   const [value, setValue] = React.useState(0);
+  const [includes , setStateIncludes] = React.useState([])
   const [amenities , setStateAmenities] = React.useState([])
-  var selectedAmenities = []
   const [facilities , setStateFacilities] = React.useState([])
-  var selectedFacilities = []
   const [serviceType , setServiceType] = React.useState('Facility')
+
   const [selectedIcon , setSelectedIcon] = React.useState(null)
   const [icon , setIcons] = React.useState([])
   const [serviceName , setServiceName] = React.useState('')
   const [serviceDescription , setserviceDescription] = React.useState('')
   const dispatch = useDispatch()
-  const rules = useSelector(state => state.addHotel.rules)
+  const rules = useSelector(state => state.addRoom.roomRules)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -90,7 +93,7 @@ export default function Features() {
     selectedAmenities =  [...selectedAmenities ,  {service_icon:icon ,service_name: name , service_description : description}]}
     else
     {selectedAmenities = selectedAmenities.filter((el) => {return el.service_name !== name})}
-    dispatch(setAmenities(selectedAmenities))
+    dispatch(setRoomAmenities(selectedAmenities))
   }
 
   function addFacility(checked , icon ,name , description){
@@ -98,15 +101,27 @@ export default function Features() {
     selectedFacilities =  [...selectedFacilities ,  {service_icon:icon ,service_name: name , service_description : description}]}
     else
     {selectedFacilities = selectedFacilities.filter((el) => {return el.service_name !== name})}
-    dispatch(setFacilities(selectedFacilities))
+    dispatch(setRoomFacilities(selectedFacilities))
+  }
+
+  function addIncludes(checked , icon ,name , description){
+    if(checked == true){
+    selectedIncludes =  [...selectedIncludes ,  {service_icon:icon ,service_name: name , service_description : description}]}
+    else
+    {selectedIncludes = selectedIncludes.filter((el) => {return el.service_name !== name})}
+    dispatch(setRoomIncludes(selectedIncludes))
   }
 
   function addService(){
     if(serviceType === 'Facility'){
     setStateFacilities(facilities => [...facilities , {service_icon:selectedIcon ,service_name: serviceName ,service_description: serviceDescription }])
     setValue(1)}
-    else{
+    else if (serviceType === 'Amenity'){
     setStateAmenities(amenities => [...amenities , {service_icon:selectedIcon ,service_name: serviceName ,service_description: serviceDescription }])
+    setValue(0)
+  }
+  else{
+    setStateIncludes(includes => [...includes , {service_icon:selectedIcon ,service_name: serviceName ,service_description: serviceDescription }])
     setValue(2)
   }
   }
@@ -117,13 +132,13 @@ export default function Features() {
         <Tabs allowScrollButtonsMobile variant='scrollable' scrollButtons sx={{'& .MuiTabs-indicator':{height:'5px',backgroundColor:'#FFF'} , '& .MuiTabs-flexContainer':{justifyContent:'space-between'}}} value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab sx={{color:'#FFF'}} label="Amenities" {...a11yProps(0)} />
           <Tab sx={{color:'#FFF'}} label="Facilities" {...a11yProps(1)} />
-          <Tab sx={{color:'#FFF'}} label="Rules" {...a11yProps(2)} />
-          <Tab sx={{color:'#FFF'}} label="Custom" {...a11yProps(3)} />
+          <Tab sx={{color:'#FFF'}} label="Included" {...a11yProps(2)} />
+          <Tab sx={{color:'#FFF'}} label="Rules" {...a11yProps(3)} />
+          <Tab sx={{color:'#FFF'}} label="Custom" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
           <Box sx={{width:'100%'}}>
-
             <Grid container spacing={2}>       
                 <Grid container item xs={12} sm={6} alignItems='center'>
                     <Grid item xs={2}><ElevatorOutlined sx={{fontSize:'30px'}}/></Grid>
@@ -220,6 +235,53 @@ export default function Features() {
       </TabPanel>
       <TabPanel value={value} index={2}>
       <Box sx={{width:'100%'}}>
+<Grid container spacing={2}>
+    <Grid container item xs={12} sm={6} alignItems='center'>
+        <Grid item xs={2}><ElevatorOutlined sx={{fontSize:'30px'}}/></Grid>
+        <Grid container item direction='column' xs={8}>
+        <Grid item xs={6}><Typography fontWeight={700} variant='p'>Elevator</Typography></Grid>
+        <Grid item xs={6}><Typography fontWeight={300} variant='p'>Elevator available in hotel</Typography></Grid>
+        </Grid>
+        <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addIncludes(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Elevator' ,'Elevator available in hotel')}/></Grid>
+    </Grid>
+    <Grid container item xs={12} sm={6} alignItems='center'>
+        <Grid item xs={2}><Wifi sx={{fontSize:'30px'}}/></Grid>
+        <Grid container item direction='column' xs={8}>
+        <Grid item xs={6}><Typography fontWeight={700} variant='p'>Free Wifi</Typography></Grid>
+        <Grid item xs={6}><Typography fontWeight={300} variant='p'>Free Wifi available in hotel</Typography></Grid>
+        </Grid>
+        <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addIncludes(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Free Wifi' ,'Free Wifi available in hotel')}/></Grid>
+    </Grid>
+    <Grid container item xs={12} sm={6} alignItems='center'>
+        <Grid item xs={2}><PoolOutlined sx={{fontSize:'30px'}}/></Grid>
+        <Grid container item direction='column' xs={8}>
+        <Grid item xs={6}><Typography fontWeight={700} variant='p'>Swimming Pool</Typography></Grid>
+        <Grid item xs={6}><Typography fontWeight={300} variant='p'>Well maintained swimming pool available in hotel</Typography></Grid>
+        </Grid>
+        <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addIncludes(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Swimming Pool' ,'Well maintained swimming pool available in hotel')}/></Grid>
+    </Grid>
+    <Grid container item xs={12} sm={6} alignItems='center'>
+        <Grid item xs={2}><Restaurant sx={{fontSize:'30px'}}/></Grid>
+        <Grid container item direction='column' xs={8}>
+        <Grid item xs={6}><Typography fontWeight={700} variant='p'>Restaurant</Typography></Grid>
+        <Grid item xs={6}><Typography fontWeight={300} variant='p'>Restaurant available with top notch food</Typography></Grid>
+        </Grid>
+        <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addIncludes(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Restaurant' ,'Restaurant available with top notch food')}/></Grid>
+    </Grid>
+    {includes.map((el) =>(
+                <Grid container item xs={12} sm={6} alignItems='center'>
+                    <Grid item xs={2}><img style={{height:'25px'}} src={el.service_icon}/></Grid>
+                    <Grid container item direction='column' xs={8}>
+                    <Grid item xs={6}><Typography fontWeight={700} variant='p'>{el.service_name}</Typography></Grid>
+                    <Grid item xs={6}><Typography fontWeight={300} variant='p'>{el.service_description}</Typography></Grid>
+                    </Grid>
+                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addIncludes(e.target.checked,el.service_icon , el.service_name ,el.service_description)}/></Grid>
+                </Grid>))}
+</Grid>
+</Box>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+      <Box sx={{width:'100%'}}>
 
           <Grid container>
         {rules.map((el) => (
@@ -230,13 +292,13 @@ export default function Features() {
         ))}
         <Grid container item alignItems='center' direction='column' xs={12}>
             <Grid item>
-                <RulesModal hotel={true}/>
+                <RulesModal/>
             </Grid>
             </Grid>
         </Grid>
         </Box>
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={4}>
       <Box sx={{width:'100%'}}>
 
         <Grid container spacing={2}>
@@ -280,6 +342,7 @@ export default function Features() {
               >
                 <FormControlLabel value="Facility" control={<Radio />} label="Facility" />
                 <FormControlLabel value="Amenity" control={<Radio />} label="Amenity" />
+                <FormControlLabel value="Included" control={<Radio />} label="Included" />
               </RadioGroup>             
               </Grid>
               <Grid item xs={12} sm={6}>

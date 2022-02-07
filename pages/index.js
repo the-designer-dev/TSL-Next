@@ -6,7 +6,7 @@ import StyledTextField from '../styledComponents/styledTextField'
 import StyledContainer from "../styledComponents/styledContainer";
 import SearchIcon from '@mui/icons-material/Search';
 import { DatePicker } from "@mui/lab";
-import CustomerLayout from "../components/customerLayout";
+import CustomerLayout2 from "../components/customerLayout2";
 import cookieCutter from 'cookie-cutter';
 import { useRouter } from 'next/router';
 import FormControl from '@mui/material/FormControl';
@@ -63,9 +63,8 @@ export default function Home() {
      <Typography sx={{padding:'0px 10px'}} fontWeight={600} color='#FEFEFE' variant="h1" fontFamily='Breathing'>Travelling</Typography><Typography sx={{padding:'0px 10px'}} fontWeight={600} color='#FEFEFE' variant="h1">Partner</Typography></Grid>
      <Grid container item spacing={2} direction='row' alignItems="flex-end" justifyContent='space-evenly' sx={{textAlign:'left'}} >
      <Grid alignContent='space-around' container item xs={15} md={5} lg={3} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography color='#FFF' variant='p'>Destination</Typography></Grid>  <Grid> <StyledTextField required onChange={(e) => setDestinationState(e.target.value)}  size="small" id="outlined-basic" variant="outlined" placeholder="Where are you going?" /></Grid></Grid>
-     <Grid alignContent='space-around' container item xs={15} md={5} lg={3} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography color='#FFF' variant='p'>Check In</Typography></Grid>  <Grid> <DatePicker value={checkIn} onChange={(newValue) => { setCheckInState(newValue)   }} renderInput={(params) => <TextField required sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/></Grid></Grid>
-     <Grid alignContent='space-around' container item xs={15} md={5} lg={3} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography color='#FFF' variant='p'>Check Out</Typography></Grid>  <Grid> <DatePicker value={checkOut} onChange={(newValue) => { setCheckOutState(newValue)   }} renderInput={(params) => <TextField required sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/></Grid></Grid>
-     {/* <Grid alignContent='space-around' container item xs={15} md={5} lg={3} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography color='#FFF' variant='p'>Guests</Typography></Grid>  <Grid> <StyledTextField  onChange={(e) => setAdultState(e.target.value)} type='number'  size="small" id="outlined-basic" variant="outlined" placeholder="# of persons" /></Grid></Grid> */}
+     <Grid alignContent='space-around' container item xs={15} md={5} lg={3} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography color='#FFF' variant='p'>Check In</Typography></Grid>  <Grid> <DatePicker PaperProps={{style:{backgroundColor:theme.palette.background.main , backgroundImage:'none'}}} value={checkIn} onChange={(newValue) => { setCheckInState(newValue)   }} renderInput={(params) => <TextField required sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/></Grid></Grid>
+     <Grid alignContent='space-around' container item xs={15} md={5} lg={3} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography color='#FFF' variant='p'>Check Out</Typography></Grid>  <Grid> <DatePicker PaperProps={{style:{backgroundColor:theme.palette.background.main , backgroundImage:'none'}}} value={checkOut} onChange={(newValue) => { setCheckOutState(newValue)   }} renderInput={(params) => <TextField required sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/></Grid></Grid>
      <Grid alignContent='space-around' container item xs={15} md={5} lg={3} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography color='#FFF' variant='p'>Guests</Typography></Grid>  <Grid> 
      <FormControl fullWidth variant="standard">
        <Select
@@ -76,7 +75,7 @@ export default function Home() {
           input={ <OutlinedInput sx={{'&.MuiInputBase-root':{backgroundColor:'#FFF !important' , color:'#808080' ,'& .MuiSelect-select':{padding:'8.5px 32px 8.5px 14px' ,width:'167px'}}}}/>}
         >
           <Grid container direction='column' spacing={2}  >
-     <Grid container item xs={15} direction='column' ><Grid sx={{paddingBottom:'8px', paddingLeft:'8px'}}><Typography color='#FFF' variant='p'>Adult</Typography></Grid>  <Grid container item> <StyledTextField  onChange={(e) => e.target.value>0?setAdultState(e.target.value): setAdultState(0)} type='number' value={adult}  size="small" id="outlined-basic" variant="outlined"  sx={{width:'200px' , margin:'auto'}} placeholder="# of Adult" /></Grid></Grid>
+     <Grid container item xs={15} direction='column' ><Grid sx={{paddingBottom:'8px', paddingLeft:'8px'}}><Typography color='#FFF' variant='p'>Adult</Typography></Grid>  <Grid container item> <StyledTextField  onChange={(e) => e.target.value>0?setAdultState(e.target.value): setAdultState(0)} type='number'  value={adult}  size="small" id="outlined-basic" variant="outlined"  sx={{width:'200px' , margin:'auto'}} placeholder="# of Adult" /></Grid></Grid>
      <Grid container item xs={15} direction='column' ><Grid sx={{paddingBottom:'8px', paddingLeft:'8px'}}><Typography color='#FFF' variant='p'>Child</Typography></Grid>  <Grid container item> <StyledTextField  onChange={(e) => e.target.value>0?setChildState(e.target.value): setChildState(0)} type='number' value={child}  size="small" id="outlined-basic" variant="outlined"  sx={{width:'200px' , margin:'auto'}} placeholder="# of Child" /></Grid></Grid>
      </Grid>
         </Select>
@@ -93,8 +92,8 @@ export default function Home() {
 
 Home.getLayout = function getLayout(Home) {
   return (
-    <CustomerLayout>
+    <CustomerLayout2>
       {Home}
-    </CustomerLayout>
+    </CustomerLayout2>
   )
 }

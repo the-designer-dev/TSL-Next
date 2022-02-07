@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
-import VendorSidebar from './vendorSidebar';
-import VendorHeader from './vendorHeader';
+import AdminHeader from './adminHeader';
+import AdminSidebar from './adminSidebar';
 import { useDispatch } from 'react-redux';
 import { API_URL } from '../config';
 import {useRouter} from 'next/router'
 import { setUser } from '../redux/userSlice';
 import axios from 'axios';
-function VendorLayout({children}) {
+function AdminLayout({children}) {
 
     const dispatch = useDispatch()
     const router = useRouter()
@@ -15,9 +15,8 @@ function VendorLayout({children}) {
     useEffect(()=>{
         axios.get(`${API_URL}/users/me`,  {headers: {
     'Authorization': `Bearer ${sessionStorage.getItem('token')}`}}).then(res =>
-        {if(res.data.role.type === 'vendor')
+        {if(res.data.role.type === 'admin')
         {
-            console.log('not redirect')
             dispatch(setUser(res.data)) 
         }
         else{
@@ -30,13 +29,13 @@ function VendorLayout({children}) {
 
     return (
         <Box sx={{display:'flex'}}>
-            <VendorSidebar />
+            <AdminSidebar />
             <Box sx={{width:'100%' , backgroundColor:'background.secondary'}}>
-            <VendorHeader/>
+            <AdminHeader/>
             {children} 
             </Box>
         </Box>
     );
 }
 
-export default VendorLayout;
+export default AdminLayout;
