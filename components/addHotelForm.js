@@ -16,7 +16,6 @@ function AddHotelForm(props) {
    const coordinates = useSelector(state => state.addHotel.coordinates)
    const addHotel = useSelector(state => state.addHotel)
    const dispatch = useDispatch();
-   var description = addHotel.description
     async function submit(e){
        e.preventDefault()
        const mod = await import('./dropzone')
@@ -50,7 +49,7 @@ function AddHotelForm(props) {
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Hotel Description:</Typography></Grid>
-                    <Grid item xs={12} ><MUIRichTextEditor required  onChange={(e) => dispatch(setDescription(e.getCurrentContent()))} label="Start typing..." /></Grid>
+                    <Grid item xs={12} ><MUIRichTextEditor required  onChange={(e) => dispatch(setDescription(e.getCurrentContent().getPlainText()))} label="Start typing..." /></Grid>
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Hotel Images:</Typography></Grid>

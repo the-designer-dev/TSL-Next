@@ -28,7 +28,7 @@ function CustomerDetails(props) {
             >
               View More
             </StyledButton>
-          )}]   
+          )}]
     return (
         <StyledContainer>
             <Grid container spacing={2}>

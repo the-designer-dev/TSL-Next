@@ -5,7 +5,7 @@ import VendorHeader from './vendorHeader';
 import { useDispatch } from 'react-redux';
 import { API_URL } from '../config';
 import {useRouter} from 'next/router'
-import { setUser } from '../redux/userSlice';
+import { setToken, setUser } from '../redux/userSlice';
 import axios from 'axios';
 function VendorLayout({children}) {
 
@@ -19,6 +19,7 @@ function VendorLayout({children}) {
         {
             console.log('not redirect')
             dispatch(setUser(res.data)) 
+            dispatch(setToken(sessionStorage.getItem('token'))) 
         }
         else{
         console.log('redirect')

@@ -13,14 +13,14 @@ import {setCoordinates} from '../redux/addHotel'
 function ShowMap(props) {
     const [selectedLocation, setSelectedLocation] = useState(null)
     const hotel = useSelector(state => state.addHotel)
-    const [longitude, setLongitude] = useState(hotel.coordinates[0].longitude)
-    const [latitude, setLatitude] = useState(hotel.coordinates[0].latitude)
+    const [longitude, setLongitude] = useState(hotel.coordinates[0].latitude)
+    const [latitude, setLatitude] = useState(hotel.coordinates[0].longitude)
     const [address, setAddress] = useState([])
     const dispatch = useDispatch()
   const [viewport, setViewport] = useState({
     width: "100%",
-    longitude: hotel.coordinates[0].longitude,
-    latitude:hotel.coordinates[0].latitude,
+    longitude: hotel.coordinates[0].latitude,
+    latitude:hotel.coordinates[0].longitude,
     height: "400px",
     borderRadius:'20px',
     zoom: 15,

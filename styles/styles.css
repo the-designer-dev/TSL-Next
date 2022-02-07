@@ -140,7 +140,7 @@ body{
  margin: 0px;
  position: absolute;
  bottom: 15px;
- left: 50vw;
+ left: calc( 50vw - 30px ) ;
  padding: 0px !important;
 }
 

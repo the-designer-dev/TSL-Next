@@ -15,15 +15,16 @@ import {setRefundableRates , setNonRefundableRates} from '../redux/addRoom'
 import DateRange from './dateRange';
 import RoomType from './roomType';
 import RoomFeatures from './roomFeatures';
-function AddRoomForm(props) {
+function AddRoomForm() {
+    const dispatch = useDispatch();
    const room = useSelector(state => state.addRoom) 
-   const dispatch = useDispatch();
    async function submit(e){
     e.preventDefault()
     const mod = await import('./dropzone')
+    console.log(mod)
     if(mod.roomImgs.length > 0){
- dispatch(nextStep())
-}
+    dispatch(nextStep())
+    }
  else{alert('fill all required fields')}
 }
 

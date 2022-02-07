@@ -5,6 +5,7 @@ import Checkbox from '@mui/material/Checkbox';
 import StyledButton from '../styledComponents/styledButton';
 import { DatePicker } from '@mui/lab';
 import { useSelector , useDispatch } from 'react-redux';
+import { useTheme } from '@mui/material';
 import { setAdultCards,setAdultInfo,setOneLead } from '../redux/bookingSlice';
 function AdultCard(props) {
     const [checked, setChecked] = React.useState(false);
@@ -16,7 +17,7 @@ function AdultCard(props) {
     const [cnic , setCnic] = useState('')
     const [phone , setPhone] = useState(null)
     const [saved , setSaved] = useState(false)
-    
+    const theme = useTheme()
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
@@ -28,14 +29,14 @@ function AdultCard(props) {
       dispatch(setAdultInfo(copyAdultinfo))
       setSaved(true)
   }
+  
+    useEffect(() => {
+      setSaved(false)
+      } ,[dob,name,cnic,phone])
 
   useEffect(()=> {
     dispatch(setOneLead(checked))
   } , [checked])
-
-  useEffect(() => {
-    setSaved(false)
-    } ,[dob,name,cnic,phone])
 
 
     return (
@@ -66,7 +67,7 @@ function AdultCard(props) {
                         <Typography fontWeight={400} variant='p'>Date of Birth</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                    <DatePicker value={dob} required onChange={(newValue) => { setDOB(newValue)   }} renderInput={(params) => <TextField required sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/>                    </Grid>
+                    <DatePicker value={dob} required PaperProps={{style:{backgroundColor:theme.palette.background.main , backgroundImage:'none'}}} onChange={(newValue) => { setDOB(newValue)   }} renderInput={(params) => <TextField required sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/>                    </Grid>
                 </Grid>
                 <Grid container item>
                     <Grid item xs={12}>
