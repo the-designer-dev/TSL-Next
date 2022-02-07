@@ -1,7 +1,6 @@
 module.exports = {
-  reactStrictMode: true,
+  eslint: { ignoreDuringBuilds: true, },
   images: {
     domains: ['localhost', 'cdn0.iconfinder.com' , 'tsl.designer-dev.com'],
   },
-  eslint: { ignoreDuringBuilds: true },
 }
