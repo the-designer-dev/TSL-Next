@@ -1,5 +1,5 @@
 // const API_URL = 'http://localhost:1337'
-const API_URL = 'tsl.designer-dev.com'
+const API_URL = process.env.API_URL
 const ICON_KEY = 'XQpcxcPyK9bvBbUf9uiOl371nXHFKrsoHeILiWwQj1uUPfESjPLImA071O4Tbvnu'
 const grant_type = "jwt_bearer"
 const client_id = "vqvtlFREMigwx8FJwlz6YXTfJrKHu6tGzKKzK92FOVyKgMYFU38RlIO8ykcfpElc"

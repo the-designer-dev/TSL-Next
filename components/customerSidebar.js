@@ -9,8 +9,10 @@ import FlightTakeoffOutlinedIcon from '@mui/icons-material/FlightTakeoffOutlined
 import LocalHotelOutlinedIcon from '@mui/icons-material/LocalHotelOutlined';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState } from 'react';
 function CustomerSidebar(props) {
+    const matches = useMediaQuery('(max-width:577px)');
     const theme = useTheme()
     const [open,setOpen] = useState(false)
     const [mobileOpen,setMobileOpen] = useState(false)
@@ -22,7 +24,7 @@ function CustomerSidebar(props) {
             <Box sx={{left:'10px'}} className='desktopMenu'><Image   layout='fixed' src={largeIcon}/></Box>
             <Box sx={{left:'10px'}} className='mobileMenu'><Image  layout='fixed' src={smallIcon}/></Box>
                 {/* <Button disableRipple  sx={{color:'primary.main' , left:'110px', ':hover':{background:'none'}, transform: open? '':'translate(110px , 0px)'  , transition:'transform 0.5s'}} className='desktopMenu' onClick={() => setOpen(!open)} ><MenuIcon/></Button> */}
-                <Button disableRipple  sx={{color:'primary.main'  , left:'30px', ':hover':{background:'none'}, transform: mobileOpen? 'translate(180px , 0px)':'' , transition:'transform 0.5s' }} className='mobileMenu' onClick={() => setMobileOpen(!mobileOpen)} ><MenuIcon/></Button>
+                <Button disableRipple  sx={{display:matches?'block':'none', color:'primary.main'  , left:'30px', ':hover':{background:'none'}, transform: mobileOpen? 'translate(180px , 0px)':'' , transition:'transform 0.5s' }}  onClick={() => setMobileOpen(!mobileOpen)} ><MenuIcon/></Button>
                 </Box>
         <ProSidebar style={{height:'100%',backgroundColor: theme.palette.background.main  , paddingTop:'77px' }} toggled={mobileOpen} collapsed={!mobileOpen} breakPoint='sm'>
             
