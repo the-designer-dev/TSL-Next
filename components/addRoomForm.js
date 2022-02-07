@@ -18,7 +18,6 @@ import RoomFeatures from './roomFeatures';
 function AddRoomForm(props) {
    const room = useSelector(state => state.addRoom) 
    const dispatch = useDispatch();
-
    async function submit(e){
     e.preventDefault()
     const mod = await import('./dropzone')
