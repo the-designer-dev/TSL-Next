@@ -77,7 +77,7 @@ function AddRoomForm() {
                     </Grid>
                     <Grid container item spacing={1}>
                     <Grid item xs={12} sm={4}><Typography variant='p'>Room Quantity</Typography></Grid>
-                    <Grid item xs={12} sm={8}><StyledTextField required fullWidth value={room.roomQuantity} onChange={(e) => dispatch(setRoomQuantity(e.target.value))} placeholder='Enter Quantity' /></Grid>
+                    <Grid item xs={12} sm={8}><StyledTextField required fullWidth value={room.roomQuantity} onChange={(e) => dispatch(setRoomQuantity(e.target.value))} type='number' placeholder='Enter Quantity' /></Grid>
                     </Grid>
                     
                     <Grid container item spacing={1}>

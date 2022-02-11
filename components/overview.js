@@ -52,7 +52,7 @@ function Overview(props) {
             Rules : hotel.rules,
             hotel_extra_fields : hotel.services,
             roomname : room.roomName,
-            roomdescrition : room.roomDescription,
+            roomdescription : room.roomDescription,
             adult : room.adultCapacity,
             child : room.childCapacity,
             bedcapacity : room.bedCapacity,

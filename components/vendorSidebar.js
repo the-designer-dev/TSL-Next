@@ -7,6 +7,7 @@ import smallIcon from '../assets/logoSmall.png';
 import profilePicture from '../assets/Main Profile Picture.png';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState } from 'react';
+import Link from 'next/link';
 function VendorSidebar(props) {
     const matches = useMediaQuery('(max-width:577px)');
     const theme = useTheme()
@@ -22,7 +23,7 @@ function VendorSidebar(props) {
                 <Button disableRipple  sx={{color:'primary.main' , left:'110px', ':hover':{background:'none'}, transform: open? '':'translate(110px , 0px)'  , transition:'transform 0.5s'}} className='desktopMenu' onClick={() => setOpen(!open)} ><MenuIcon/></Button>
                 <Button disableRipple  sx={{display:matches?'block':'none', color:'primary.main'  , left:'30px', ':hover':{background:'none'}, transform: mobileOpen? 'translate(180px , 0px)':'' , transition:'transform 0.5s' }}  onClick={() => setMobileOpen(!mobileOpen)} ><MenuIcon/></Button>
                 </Box>
-        <ProSidebar style={{minHeight:'100%',backgroundColor: theme.palette.background.main  , paddingTop:'77px' }} toggled={mobileOpen} collapsed={open} breakPoint='sm'>
+        <ProSidebar style={{height:'calc( 100% )',backgroundColor: theme.palette.background.main  , paddingTop:'77px' }} toggled={mobileOpen} collapsed={open} breakPoint='sm'>
             
             <SidebarContent >
                 <div style={{display:'flex', justifyContent:'space-evenly',padding:'10px'}} >
@@ -31,16 +32,18 @@ function VendorSidebar(props) {
             <Menu iconShape="square">
                 <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Main Menu</Typography>
                 <MenuItem >Overview</MenuItem>
- 
-                <MenuItem>All Hotel</MenuItem>
-                <MenuItem>All Rooms</MenuItem>
-                <MenuItem>Add New Hotel</MenuItem>
-                <MenuItem>Add New Room</MenuItem>
+                <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Hotels</Typography>
+
+                <Link href={'/vendor/allhotels'}><MenuItem>All Hotel</MenuItem></Link>
+                <Link href={'/vendor/allrooms'}><MenuItem>All Rooms</MenuItem></Link>
+                <Link href={'/vendor/addhotel'}><MenuItem>Add New Hotel</MenuItem></Link>
                 <MenuItem>Booking Schedule</MenuItem>
-            
-                <MenuItem>Overview</MenuItem>
+                <Link href={'/vendor/blackoutdates/hotels'}><MenuItem>Blackout Dates</MenuItem></Link>
+                <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Orders</Typography>
+                <Link href={'/vendor/orderlisting'}><MenuItem>Overview</MenuItem></Link>
                 <MenuItem>Refunds</MenuItem>
-            
+                <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Withdrawals</Typography>
+
             <MenuItem>Request Withdrawal</MenuItem>
 
             </Menu>

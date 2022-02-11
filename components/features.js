@@ -17,6 +17,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { client_id, client_secret, ICON_KEY } from '../config';
 import StyledButton from '../styledComponents/styledButton';
+var selectedAmenities = []
+var selectedFacilities = []
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   
@@ -53,9 +55,7 @@ function a11yProps(index) {
 export default function Features() {
   const [value, setValue] = React.useState(0);
   const [amenities , setStateAmenities] = React.useState([])
-  var selectedAmenities = []
   const [facilities , setStateFacilities] = React.useState([])
-  var selectedFacilities = []
   const [serviceType , setServiceType] = React.useState('Facility')
   const [selectedIcon , setSelectedIcon] = React.useState(null)
   const [icon , setIcons] = React.useState([])

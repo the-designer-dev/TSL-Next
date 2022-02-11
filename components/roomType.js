@@ -8,8 +8,8 @@ import { setRoomType } from '../redux/addRoom';
 
 
 function RoomType(props) {
-    const matches = useMediaQuery("(min-width:370px)");
     const dispatch = useDispatch()
+    const matches = useMediaQuery("(min-width:370px)");
     const [formats, setFormats] = useState(() => ['Suite']);
     
     const handleFormat = (event, newFormats) => {

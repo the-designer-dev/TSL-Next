@@ -4,6 +4,7 @@ import bookingReducer from './bookingSlice';
 import hotelQuery from './hotelQuery';
 import addHotel from './addHotel';
 import formSlice from './formSlice';
+import blackoutDates from './blackoutDates';
 import  addRoomSlice  from './addRoom';
 export default configureStore({
   reducer:{
@@ -12,6 +13,7 @@ export default configureStore({
   booking: bookingReducer,
   formData : formSlice,
   addHotel: addHotel,
-  addRoom: addRoomSlice
+  addRoom: addRoomSlice,
+  blackoutDates : blackoutDates
   } 
 })

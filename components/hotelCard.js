@@ -49,7 +49,7 @@ function HotelCard(props) {
       <Typography fontSize='18px' fontWeight='700'sx={{paddingTop:'5px'}} variant='p'>PKR {props.startingPrice}/-</Typography>
       <Typography  variant='p'>(Per Night)</Typography>
       </Box>
-      <StyledButton type='submit' onClick={onClick} sx={{margin:'15px'}} >View Details</StyledButton>
+      <StyledButton type='submit' onClick={onClick} sx={{margin:'15px'}} >{props.buttonText}</StyledButton>
       </Box>
         </Paper>
     );

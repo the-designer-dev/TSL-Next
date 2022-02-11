@@ -112,7 +112,7 @@ function RoomInfo(props) {
                 {open?<LoginModal/>:''}
                 <Grid container item justifyContent='space-evenly' direction='row' alignItems='stretch' spacing={2} xs={12}>
                      <Grid item xs={12} sm={8} md={4} >
-                    <Box sx={{backgroundColor:'background.main' , padding:'20px 25px'  , height:'calc(100% - 40px)' , borderRadius:'8px'}}>
+                    <Box sx={{backgroundColor:'background.main' , padding:'20px 25px'  , height:'100%' , borderRadius:'8px'}}>
                         <Grid container sx={{height:'100%'}} spacing={1}>
                             <Grid item xs={12}>
                     <Typography fontWeight={500} variant='p'>{el.roomname}</Typography>
@@ -126,7 +126,7 @@ function RoomInfo(props) {
                     </Box>
                     </Grid>
                 <Grid item xs={12} sm={4} md={2} >
-                <Box sx={{ backgroundColor:'background.main' , height:'calc(100% - 40px)' , padding:'20px 25px' , borderRadius:'8px'}}>
+                <Box sx={{ backgroundColor:'background.main' , height:'100%' , padding:'20px 25px' , borderRadius:'8px'}}>
                         <Grid  container spacing={2}>
                             <Grid item xs={12}>
                     <Typography fontWeight={300} variant='p'>Capacity</Typography>
@@ -160,7 +160,7 @@ function RoomInfo(props) {
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} >
-                    <Box  sx={{backgroundColor:'background.main', height:'calc(100% - 40px)'  , padding:'20px 25px', borderRadius:'8px' }} >
+                    <Box  sx={{backgroundColor:'background.main', height:'100%'  , padding:'20px 25px', borderRadius:'8px' }} >
                     <Grid container spacing={2} item direction='row' justifyContent='space-between'>
                         <Grid xs={12} sm={3} container item direction='column' spacing={1}>
                             <Grid item>

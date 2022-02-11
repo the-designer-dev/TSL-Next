@@ -8,7 +8,7 @@ import { useSelector , useDispatch } from 'react-redux';
 import {useRouter} from 'next/router'
 import { API_URL } from '../config';
 import axios from 'axios';
-import { setUser } from '../redux/userSlice';
+import { setToken, setUser } from '../redux/userSlice';
 function CustomerHeader(props) {
     const dispatch = useDispatch()
     const router = useRouter()
@@ -70,7 +70,7 @@ function CustomerHeader(props) {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={()=>{handleClose ; sessionStorage.removeItem('token') }}>Logout</MenuItem>
+        <MenuItem onClick={()=>{handleClose ; sessionStorage.removeItem('token') ; dispatch(setToken('')) ;dispatch(setUser({})) ; router.push('/') }}>Logout</MenuItem>
       </Menu>
       </>
             }

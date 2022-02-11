@@ -7,6 +7,13 @@ import AdapterMoment from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { Provider } from 'react-redux';
 import store from '../redux/store.js';
+import "@fullcalendar/common/main.css";
+import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/timegrid/main.css";
+import "@fullcalendar/list/main.css";
+import "@fullcalendar/bootstrap5/main.css";
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
 
 let theme = createTheme();
 const darkResposive1 = responsiveFontSizes(darkTheme);

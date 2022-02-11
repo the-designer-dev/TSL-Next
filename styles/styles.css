@@ -229,3 +229,32 @@ body{
 .poi_box::-webkit-scrollbar-thumb:hover {
   background: #208154;
 }
+
+.events::-webkit-scrollbar {
+  width: 5px;
+}
+
+.events::-webkit-scrollbar-track {
+  /* background: #14633d; */
+  width: 5px;}
+
+.events::-webkit-scrollbar-thumb {
+  width: 5px;
+  background: #2AB572;
+}
+.events::-webkit-scrollbar-thumb:hover {
+  background: #208154;
+}
+
+.fc-media-screen {
+  height: 100%;
+}
+
+.fc-theme-bootstrap5-shaded {
+  background-color: #1E3459 !important;
+}
+
+.fc-event:hover {
+  background-color: #0A58CA !important;
+  border-color: #0A58CA;
+}

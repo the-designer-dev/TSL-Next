@@ -18,7 +18,7 @@ function Login(props) {
 
     },[user])
     return (
-        <StyledContainer square={true} sx={{display:'flex' , justifyContent:'center' , alignItems:'center'}}>
+        <StyledContainer square={true} sx={{height:'100vh' , display:'flex' , justifyContent:'center' , alignItems:'center'}}>
          <LoginBox/>
         </StyledContainer>
     );

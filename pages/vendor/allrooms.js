@@ -1,28 +1,48 @@
 import {React , useEffect , useState } from "react";
 import {  Grid , Typography , TextField , InputAdornment } from "@mui/material";
 import StyledContainer from "../../styledComponents/styledContainer";
-import StyledDatagrid from "../../components/styledDatagrid";
+import { DataGrid } from '@mui/x-data-grid';
 import SearchIcon from '@mui/icons-material/Search';
+import StyledButton from "../../styledComponents/styledButton";
 import VendorLayout from "../../components/vendorLayout";
+import axios from "axios";
+import { API_URL } from "../../config";
+import { useSelector } from "react-redux";
+import useSWR from "swr";
+
+const fetch = (user,token) =>  axios({
+  method: 'GET',
+  url: `${API_URL}/rooms?hotel.users_permissions_user=${user.id}`,
+  headers:{
+    Accept: 'application/json',
+    'Authorization': `Bearer ${token}`
+  }
+}).then(res => res.data)
+
 function AllRooms(props) { 
     const [tableData, setTableData] = useState([])
-
+    const token = useSelector(state => state.user.token)
+    const user = useSelector(state => state.user.user)
+    const { data, error } = useSWR([user , token] ,fetch)
 useEffect(()=> {
-    setTableData([
-        {id:1 ,roomname:'asdasd', capacityAdult : 3, capacityChild : 3, price : 3, priceNonRef : 3, details : 'asdxcasd'},
-        {id:2 ,roomname:'asdasd', capacityAdult : 3, capacityChild : 3, price : 3, priceNonRef : 3, details : 'asdxcasd'},
-        {id:3 ,roomname:'asdasd', capacityAdult : 3, capacityChild : 3, price : 3, priceNonRef : 3, details : 'asdxcasd'},
-        {id:4 ,roomname:'asdasd', capacityAdult : 3, capacityChild : 3, price : 3, priceNonRef : 3, details : 'asdxcasd'},
-    ])
-} , [])
-    const columns = [
-  { field: 'roomname', headerName: 'Room Name' , flex:1 },
-  { field: 'capacityAdult', headerName: 'Capacity Adult',flex:1 },
-  { field: 'capacityChild', headerName: 'Capacity Child',flex:1 },
-  { field: 'price', headerName: 'Price (Refundable)',flex:1 },
-  { field: 'priceNonRef', headerName: 'Price (Non-Refundable)',flex:1 },
-  { field: 'details', headerName: 'Details',flex:1 },
-]    
+  data !=undefined && data != null?
+    setTableData(data.map((el , index) => {return {id:index+1 ,roomname:el.roomname , capacityAdult: el.adult, capacityChild:el.child, price: `PKR ${el.roomrefundprice}/-` ,priceNonRef:`PKR ${el.roomnonrefundprice}/-`}})):''
+  } , [data])
+const columns = [
+  { field: 'roomname', headerName: 'Room Name' , flex:1 ,headerAlign: 'center'},
+  { field: 'capacityAdult', headerName: 'Adult Capacity',flex:1 ,headerAlign: 'center'},
+  { field: 'capacityChild', headerName: 'Child Capacity',flex:1 ,headerAlign: 'center'},
+  { field: 'price', headerName: 'Price',flex:1 ,headerAlign: 'center'},
+  { field: 'priceNonRef', headerName: 'Price (Non-Refundable)',flex:1 ,headerAlign: 'center'},
+  { field: 'details', headerName: 'Details',flex:1 ,headerAlign: 'center',renderCell: (params) => (
+      <StyledButton
+        onClick={() => { 
+          console.log(params.row)
+        }}
+      >
+        View More
+      </StyledButton>
+    )}]
     return (
         <StyledContainer  square={true}>
             <Grid container spacing={2}>
@@ -30,10 +50,11 @@ useEffect(()=> {
                 <Typography variant="h6">All Rooms</Typography>
                 </Grid>
                 <Grid item xs={12}>
-            <TextField sx={{'& .MuiOutlinedInput-notchedOutline':{borderColor:'primary.main'} ,'& .MuiSvgIcon-root':{color:'#FFF'} ,'& .MuiOutlinedInput-root' :{paddingRight:'0px'} , '& .MuiInputAdornment-outlined' :{padding:'27px 10px' , borderRadius:'4px' ,backgroundColor:'button.main'}  }} placeholder="Search by Room Name" fullWidth variant='outlined' InputProps={{endAdornment: <InputAdornment><SearchIcon style={{fontSize:'2.5rem'}}/></InputAdornment>}}/>
+            <TextField InputLabelProps={{shrink: false}} label='' sx={{'& .MuiOutlinedInput-notchedOutline':{borderColor:'primary.main'} ,'& .MuiSvgIcon-root':{color:'#FFF'} ,'& .MuiOutlinedInput-root' :{paddingRight:'0px'} , '& .MuiInputAdornment-outlined' :{padding:'27px 10px' , borderRadius:'4px' ,backgroundColor:'button.main'}  }} placeholder="Search by Room Name" fullWidth variant='outlined' InputProps={{endAdornment: <InputAdornment><SearchIcon style={{fontSize:'2.5rem'}}/></InputAdornment>}}/>
             </Grid>
             <Grid item xs={12}>
-            <StyledDatagrid columns={columns} rows={tableData}/></Grid>
+            <DataGrid sx={{ '& .MuiDataGrid-columnSeparator':{display:'none'}, '& .MuiDataGrid-footerContainer':{backgroundColor:'table.tableRow2' , borderRadius:'0px  0px 8px 8px'}, '& .MuiDataGrid-columnHeaders':{backgroundColor:'table.tableRow1' , borderRadius:'8px 8px 0px 0px'} , border:'none' , "& .MuiDataGrid-virtualScroller": { "& .MuiDataGrid-row": {'& .MuiDataGrid-cell':{border:'none' , justifyContent:'center'},  "&:nth-child(2n)": {   backgroundColor: "table.tableRow1" } , "&:nth-child(2n-1)": {  backgroundColor: "table.tableRow2" }}}}} columns={columns} rows={tableData} autoHeight/>
+            </Grid>
             </Grid>
         </StyledContainer> 
     );

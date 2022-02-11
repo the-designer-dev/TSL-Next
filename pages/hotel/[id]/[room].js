@@ -71,13 +71,13 @@ function checkOut(){
           :console.log('not entered')} 
     var reqData = {
         "total_days":moment(checkout).diff(moment(checkin), 'days')+1,
-"booking_start_date":checkin,
-"booking_end_date":checkout,
-"room_qty":roomQuantity,
-"room_id":room,
-"adult_booking":adultInfo,
-"child_booking":childInfo,
-"extras":extras
+        "booking_start_date":checkin,
+        "booking_end_date":checkout,
+        "room_qty":roomQuantity,
+        "room_id":room,
+        "adult_booking":adultInfo,
+        "child_booking":childInfo,
+        "extras":extras
     }
     const headers={
          Authorization:`Bearer ${token}`
@@ -89,6 +89,7 @@ function checkOut(){
       .then((response) => {
         console.log(response)
         alert('Order created!')
+        router.push('/')
       })
       .catch((error) => {
        console.log(error)
@@ -226,7 +227,7 @@ function checkOut(){
       {adultCards.map((el , index) => <Grid item xs={12} sm={4} md ={3} lg={2} ><AdultCard num={index}/></Grid>  )}
       {childCards.map((el , index) =>  <Grid item xs={12} sm={4} md ={3} lg={2} ><ChildCard num={index}/></Grid> )}
       </Grid>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} alignItems='stretch'>
         <Grid item xs={12} sm={8}><TotalTable columns={columns} rows={rows} total={price}/></Grid>
         <Grid item xs={12} sm={4}><Box sx={{backgroundColor:'background.main' , padding:'16px' , borderRadius:'5px'}}> 
         <Grid container item spacing={1}>

@@ -54,9 +54,9 @@ export default function Home() {
   };
 
   return (
-    <Box sx={{maxHeight:'100vh'}}>
+    <Box sx={{height:'calc( 100vh - 77px )'}}>
        <form style={{display:'inherit'}} onSubmit={(e) => handleSubmit(e)}>
-    <StyledContainer sx={{ backgroundImage:`url(/Banner-Home.jpg)` , display:'flex' , flexDirection:'column'  ,justifyContent:'space-around' , minHeight:'calc(100vh - 107px) !important' }} square={true}>
+    <StyledContainer sx={{ backgroundImage:`url(/Banner-Home.jpg)` , display:'flex' , flexDirection:'column'  ,justifyContent:'space-around' , minHeight:'calc(100vh - 77px) !important' }} square={true}>
      <Grid container spacing={5}  columns={15}>
       <Grid container item justifyContent="center" alignItems="center" direction='row' xs={15}> 
       <Typography sx={{padding:'0px 10px'}} fontWeight={600} color='#FEFEFE' variant="h1">Your</Typography><Typography sx={{padding:'0px 10px'}} fontWeight={600} color='#FEFEFE' variant="h1">Online</Typography>

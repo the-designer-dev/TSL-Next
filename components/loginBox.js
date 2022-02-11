@@ -17,8 +17,6 @@ function LoginBox(props) {
     const router =  useRouter()
     function submit(e){
         e.preventDefault()
-        console.log(API_URL)
-        console.log(`${API_URL}/auth/local`)
 
         axios.post(`${API_URL}/auth/local`, {
             identifier: email,

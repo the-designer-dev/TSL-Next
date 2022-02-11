@@ -2,11 +2,15 @@ import { Box , Typography , Button , Menu , MenuItem } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 import smallProfilePicture from '../assets/Left Top Profile Picture.png';
-import {useSelector} from 'react-redux'
+import {setToken , setUser} from '../redux/userSlice'
+import {useSelector , useDispatch} from 'react-redux'
+import {useRouter} from 'next/router';
 function VendorHeader(props) {
     const user = useSelector(state => state.user.user);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const dispatch = useDispatch()
+    const router = useRouter()
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -42,7 +46,7 @@ function VendorHeader(props) {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={()=>{handleClose ; sessionStorage.removeItem('token') }}>Logout</MenuItem>
+        <MenuItem onClick={()=>{handleClose ; sessionStorage.removeItem('token') ; dispatch(setToken('')) ;dispatch(setUser({})) ; router.push('/') }}>Logout</MenuItem>
       </Menu>
       </>
         </Box>
