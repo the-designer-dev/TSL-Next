@@ -67,6 +67,11 @@ export const darkTheme = createTheme({
   }
   ,
   components: {
+
+    MuiTextField:{
+      defaultProps:{
+        InputLabelProps:{shrink: false}
+    }} ,
     MuiList:{
       styleOverrides:{
       root:{
@@ -86,9 +91,9 @@ MuiDialog:{
       backgroundImage:'none'
     },
 }
-  }
-}
+  },
  
+}
   });
 export const lightTheme = createTheme({
   breakpoints: {

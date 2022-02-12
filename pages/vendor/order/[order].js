@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 function OrderDetails(props) {
     const router = useRouter()
     const { order } = router.query
-    useEffect(() => {
+    // useEffect(() => {
         
-    } ,[order])
+    // } ,[order])
     return (
         <StyledContainer>
             <Grid container>

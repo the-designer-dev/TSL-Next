@@ -51,7 +51,7 @@ function AddEventBox(props) {
     function editEvent(e){
         e.preventDefault()
         var copyBlackoutDates = blackoutDates.map(el => el)
-        copyBlackoutDates[copyBlackoutDates.findIndex(el => {el.title === props.name && el.start === props.start && el.end === props.end && el.refundableRates === props.refundableRates && el.nonRefundableRates === props.nonRefundableRates && el.quantity === props.quantity })] =  {title:name ,start:start.format('YYYY-MM-DD') ,end: end.format('YYYY-MM-DD') ,roomType:formats[0] ,refundableRates: refundableRates ,nonRefundableRates: nonRefundableRates ,quantity: quantity}
+        copyBlackoutDates.splice(copyBlackoutDates.findIndex(el => {el.title === props.name && el.start === props.start && el.end === props.end && Number(el.refundableRates) === props.refundableRates && Number(el.nonRefundableRates) === props.nonRefundableRates && Number(el.quantity) === props.quantity }) , 1 ,{title:name ,start:start.format('YYYY-MM-DD') ,end: end.format('YYYY-MM-DD') ,roomType:formats[0] ,refundableRates: refundableRates ,nonRefundableRates: nonRefundableRates ,quantity: quantity} )
         dispatch(setBlackoutDates(copyBlackoutDates))
         var oldObj ={
             title : props.name,  

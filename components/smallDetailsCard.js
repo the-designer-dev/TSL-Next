@@ -3,7 +3,7 @@ import React from 'react';
 
 function SmallDetailsCard(props) {
     return (
-        <Box sx={{paddingTop:'30px' , height:'calc( 100% - 60px )'   }}>
+        <Box sx={{paddingTop:'30px' , height:'100%'   }}>
             <Box sx={{backgroundColor:'background.main' , borderRadius:'8px' , paddingTop:'30px', position:'relative' , paddingBottom:'10px',height:'100%'}}>
                 <Grid container>
                     <Grid item xs={12}>
