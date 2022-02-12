@@ -17,7 +17,7 @@ function OrderDetails(props) {
                     <Typography fontSize={12} variant='p'>Lorem ipsum dolor sit amet, consectuer</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <TotalTable/>
+                    {/* <TotalTable/> */}
                 </Grid>
             </Grid>
         </StyledContainer>
