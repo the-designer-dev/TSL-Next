@@ -62,12 +62,12 @@ function LoginBox(props) {
                 </Grid>
             </Grid>
             <Grid container item xs={12} alignItems='center' spacing={1}>
-                <Grid container item xs={12} sm={6}  alignItems='center' >
-                    <Grid item>
-                        <Checkbox sx={{}}/> 
+                <Grid container item xs={12}   alignItems='center' >
+                    <Grid item xs={1} sm={1}>
+                        <Checkbox/> 
                     </Grid>
-                    <Grid item>
-                        <Typography  sx={{color:'text.primary'}}  variant='p'>Remember my credentials</Typography>
+                    <Grid item sx={{textAlign: 'left'}} xs={12} sm={5}>
+                        <Typography  sx={{color:'text.primary' }}  variant='p'>Remember my credentials</Typography>
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>

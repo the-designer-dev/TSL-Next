@@ -69,7 +69,8 @@ export const darkTheme = createTheme({
   components: {
     MuiTextField:{
       defaultProps:{
-        InputLabelProps:{shrink: false}
+        InputLabelProps:{shrink: false},
+        label:''
     }} ,
     MuiList:{
       styleOverrides:{

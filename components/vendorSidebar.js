@@ -37,6 +37,7 @@ function VendorSidebar(props) {
                 <Link href={'/vendor/allhotels'}><MenuItem>All Hotel</MenuItem></Link>
                 <Link href={'/vendor/allrooms'}><MenuItem>All Rooms</MenuItem></Link>
                 <Link href={'/vendor/addhotel'}><MenuItem>Add New Hotel</MenuItem></Link>
+                <Link href={'/vendor/addroom'}><MenuItem>Add New Room</MenuItem></Link>
                 <MenuItem>Booking Schedule</MenuItem>
                 <Link href={'/vendor/blackoutdates/hotels'}><MenuItem>Blackout Dates</MenuItem></Link>
                 <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Orders</Typography>

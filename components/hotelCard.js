@@ -19,7 +19,6 @@ function HotelCard(props) {
     var items = props.images
     
 
-    useEffect(()=> {} , [])
 
     const onClick = () => {
         props.clickFunction()
