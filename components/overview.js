@@ -16,7 +16,7 @@ function Overview(props) {
     const dispatch = useDispatch()
     const [value, setValue] = useState(0);
     const matches = useMediaQuery("(min-width:370px)");
-    const [formats, setFormats] = useState(() => ['Hotel']);
+    const [formats, setFormats] = useState(() => [!props.room?'Hotel':'Room']);
     const hotel = useSelector(state => state.addHotel)
     const room = useSelector(state => state.addRoom)
     const user = useSelector(state => state.user.user)
@@ -98,9 +98,10 @@ function Overview(props) {
                         orientation={`${matches ? `horizontal` : `vertical`}`}
                         aria-label="text formatting"
                         >
+                        {!props.room?
                         <ToggleButton   sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}}  value="Hotel" aria-label="bold">
                             <Typography variant='p'>Hotel Details</Typography>
-                        </ToggleButton>
+                        </ToggleButton>:''}
                         <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="Room" aria-label="italic">
                         <Typography variant='p'>Room Details</Typography>
                         </ToggleButton>

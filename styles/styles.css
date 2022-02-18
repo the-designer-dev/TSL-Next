@@ -258,3 +258,65 @@ body{
   background-color: #0A58CA !important;
   border-color: #0A58CA;
 }
+
+.textField1{
+  overflow: hidden;
+  width:100%;
+  padding:10px 20px;
+  display:flex; 
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 50px;
+}
+
+.textField1:hover {
+  background-color: #EBEBEB;
+}
+
+.textField2{
+  overflow: hidden;
+  width:197px;
+  height: 100%;
+  padding:10px 20px;
+  display:flex; 
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 50px;
+}
+
+.textField2:hover {
+  background-color: #EBEBEB;
+}
+
+.textField3{
+  overflow: hidden;
+  width:197px;
+  height: 100%;
+  padding:10px 20px;
+  display:flex; 
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 50px;
+}
+
+.textField3:hover {
+  background-color: #EBEBEB;
+}
+
+.textField4{
+  overflow: hidden;
+  width:100%;
+  padding:10px 20px;
+  display:flex; 
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 50px;
+}
+
+.textField4:hover {
+  background-color: #EBEBEB;
+}
+
+.dateRange{
+  background-color: #1E3459;
+}

@@ -51,16 +51,16 @@ function OrderListing(props) {
                 </Grid>
                 <Grid container item spacing={2}   alignItems="stretch">
                 <Grid item xs={3}>
-                    <SmallDetailsCard heading='All Orders' number='20' img={AllOrders}/>
+                    <SmallDetailsCard heading='All Orders' number={tableData.length} img={AllOrders}/>
                 </Grid>
                 <Grid item xs={3}>
-                    <SmallDetailsCard heading='Refunded Orders' number='20' img={RefundedOrders}/>
+                    <SmallDetailsCard heading='Refunded Orders' number={tableData.filter(el => el.paymentstatus === 'refunded').length} img={RefundedOrders}/>
                 </Grid>
                 <Grid item xs={3}>
-                    <SmallDetailsCard heading='Cancelled Orders' number='20' img={CancelledOrders}/>
+                    <SmallDetailsCard heading='Cancelled Orders' number={tableData.filter(el => el.paymentstatus === 'cancelled').length} img={CancelledOrders}/>
                 </Grid>
                 <Grid item xs={3}>
-                    <SmallDetailsCard heading='Completed Orders' number='20' img={CompletedOrders}/>
+                    <SmallDetailsCard heading='Completed Orders' number={tableData.filter(el => el.paymentstatus === 'completed').length} img={CompletedOrders}/>
                 </Grid>
                 </Grid>
                 <Grid item xs={12}>

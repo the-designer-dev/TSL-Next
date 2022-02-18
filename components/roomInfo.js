@@ -18,6 +18,7 @@ function RoomInfo(props) {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
     const [price, setPrice] = useState(0);
+    const [roomPrice, setRoomPrice] = useState(0);
     const [rooms, setRooms] = useState(0);
     const [extraFields, setExtraFields] = useState({})
     const [currRoomPrice, setCurrRoomPrice] = useState(null)
@@ -48,6 +49,18 @@ function RoomInfo(props) {
           temp_price = temp_price + (currRoomPrice * rooms)
           setPrice(temp_price)
     }
+
+    const calculatePrice2 = () =>{ 
+        var temp_price =0;
+   
+          temp_price = temp_price + (currRoomPrice * rooms)
+          setRoomPrice(temp_price)
+    }
+
+    
+    useEffect(()=>
+    { calculatePrice2()
+    } , [rooms , currRoomPrice])
 
     useEffect(()=>{
         setOpen(false)
@@ -162,12 +175,12 @@ function RoomInfo(props) {
                 <Grid item xs={12} sm={12} md={6} >
                     <Box  sx={{backgroundColor:'background.main', height:'100%'  , padding:'20px 25px', borderRadius:'8px' }} >
                     <Grid container spacing={2} item direction='row' justifyContent='space-between'>
-                        <Grid xs={12} sm={3} container item direction='column' spacing={1}>
+                        <Grid xs={12} sm={6} container item direction='column' spacing={1}>
                             <Grid item>
                     <Typography fontWeight={300} variant='p'>Price</Typography>
                     </Grid>
                     <Grid item>
-                    <Typography fontWeight={500} fontSize={25} color='button.main' variant='p'>PKR {price}</Typography>
+                    <Typography fontWeight={500} fontSize={25} color='button.main' variant='p'>PKR {roomPrice}</Typography>
                     </Grid>
 
                     </Grid>

@@ -12,6 +12,7 @@ import { API_URL } from '../config';
 import {useDispatch , useSelector} from 'react-redux'
 import axios from 'axios';
 import { setBlackoutDates } from '../redux/blackoutDates';
+
 function AddEventBox(props) {
     console.log(props)
     const matches = useMediaQuery("(min-width:370px)");
@@ -32,10 +33,21 @@ function AddEventBox(props) {
     setFormats(newFormats)}
     };
 
+    function isOverlapping(Blackoutdates , event){
+        var array = Blackoutdates
+        for(const i in array){
+            if (event.end >= array[i].start && event.start <= array[i].end){
+               return true;
+            }
+        }
+        return false;
+    }
+
     async function AddNewEvent(e){
         e.preventDefault()
         var copyBlackoutDates = blackoutDates.map(el => el)
-        await axios({
+        if(!isOverlapping(copyBlackoutDates , {title:name ,start:props.range? props.range[0]:start.format('YYYY-MM-DD') ,end: props.range? props.range[1] :end.format('YYYY-MM-DD') ,roomType:formats[0] ,refundableRates: refundableRates ,nonRefundableRates: nonRefundableRates ,quantity: quantity}))
+        {await axios({
             method: "post",
             url: `${API_URL}/rooms/blackoutdates`,
             headers:{
@@ -43,8 +55,11 @@ function AddEventBox(props) {
               },
             data:{hotel: currentHotel , title:name ,start:props.range? props.range[0]:start.format('YYYY-MM-DD') ,end: props.range? props.range[1] :end.format('YYYY-MM-DD') ,roomType:formats ,refundableRates: refundableRates ,nonRefundableRates: nonRefundableRates ,quantity: quantity} } ).then(res => 
                 {
-                    dispatch(setBlackoutDates([...copyBlackoutDates , {title:name ,start:props.range? props.range[0]:start.format('YYYY-MM-DD') ,end: props.range? props.range[1] :end.format('YYYY-MM-DD') ,roomType:formats[0] ,refundableRates: refundableRates ,nonRefundableRates: nonRefundableRates ,quantity: quantity}]))
-                }).catch(err => {alert('Room type not found.')})
+                    dispatch(setBlackoutDates([...copyBlackoutDates , {title:name ,start:props.range? props.range[0]:start.format('YYYY-MM-DD') ,end: props.range? props.range[1] :end.format('YYYY-MM-DD') ,roomType:formats[0] ,refundableRates: refundableRates ,nonRefundableRates: nonRefundableRates ,quantity: quantity , overlap: false }]))
+                }).catch(err => {alert('Room type not found.')})}
+            else{
+                alert('Events cannot overlap.')
+            }
             props.handleClose()
     }
 

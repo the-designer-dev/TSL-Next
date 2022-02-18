@@ -1,12 +1,12 @@
 import React from "react";
 import {  Grid , Typography , TextField , InputAdornment } from "@mui/material";
-import HotelCard from "../../../../components/hotelCard";
+import HotelCard from "../../../components/hotelCard";
 import SearchIcon from '@mui/icons-material/Search';
-import StyledContainer from "../../../../styledComponents/styledContainer";
-import VendorLayout from "../../../../components/vendorLayout";
+import StyledContainer from "../../../styledComponents/styledContainer";
+import VendorLayout from "../../../components/vendorLayout";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { API_URL } from "../../../../config";
+import { API_URL } from "../../../config";
 import useSWR from 'swr'
 import { useRouter } from "next/router";
 
@@ -36,7 +36,7 @@ function Index(props) {
                 {data && data[0].hotelname? data.map((element)=>
                 (<Grid item xs={12} sm={6} md={4} sx={{textAlign:'center'}}>
                     {console.log(data)}
-                <HotelCard name={element.hotelname} icons={[...element.amenities , ...element.facilities]} startingPrice={element.starting_price} images={element.images} buttonText={'Add blackout dates'} clickFunction={() => router.push({pathname:`/vendor/blackoutdates/hotels/${element.id}`})} /> </Grid>)):''}
+                <HotelCard name={element.hotelname} icons={[...element.amenities , ...element.facilities]} startingPrice={element.starting_price} images={element.images} buttonText={'Add room in this hotel'} clickFunction={() => router.push({pathname:`/vendor/addroom/${element.id}`})} /> </Grid>)):''}
                 </Grid>
         </StyledContainer>
     );

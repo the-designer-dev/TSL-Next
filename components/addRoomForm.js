@@ -33,7 +33,7 @@ function AddRoomForm() {
             <form onSubmit={submit}>
                 <Grid container spacing={3}>
                     <Grid container item  spacing={1}>
-                    <Grid item xs={12}><Typography variant='h6'>Add you hotel's rooms</Typography></Grid>
+                    <Grid item xs={12}><Typography variant='h6'>Add your hotel's rooms</Typography></Grid>
                     </Grid>
                     <Grid container item  spacing={1}>
                     <Grid item xs={12}><Typography fontSize={18} variant='p'>Room Details</Typography></Grid>

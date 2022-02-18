@@ -105,7 +105,7 @@ export default function Hotel({resData , reqData,id}) {
             </Grid>
 
             <Grid  item xs={12}  md={4}>
-                <Box sx={{backgroundColor:'background.main' , height:'103%' , maxWidth:{ md:'312px' , sm:'100%'} , padding:'20px 20px 0px 20px' , borderRadius:'8px'}}>
+                <Box sx={{backgroundColor:'background.main' , height:'103%' , maxWidth:{ md:'350px' , sm:'100%'} , padding:'20px 20px 0px 20px' , borderRadius:'8px'}}>
                 <Grid container spacing={4}>
                 <Grid container item spacing={2}>
                 <Grid item xs={12}>
@@ -113,7 +113,7 @@ export default function Hotel({resData , reqData,id}) {
                 </Grid>
                 <Grid container item alignItems='center' xs={12}><Typography sx={{   overflow: 'hidden' , textOverflow:'ellipsis' , display:'-webkit-box' , WebkitLineClamp:'1' , WebkitBoxOrient:'vertical'  }} fontSize={14} variant='p'><LocationOnOutlinedIcon/>{data.hoteladdress}</Typography></Grid>
                 </Grid>
-                <Grid item xs={12}><Typography sx={{   overflow: 'hidden' , textOverflow:'ellipsis' , display:'-webkit-box' , WebkitLineClamp:'3' , WebkitBoxOrient:'vertical'  }} fontSize={14} variant='p'>{data.hoteldescription}</Typography></Grid>
+                <Grid item xs={12}><Typography sx={{overflow: 'hidden' , textOverflow:'ellipsis' , display:'-webkit-box' , WebkitLineClamp:'3' , WebkitBoxOrient:'vertical'  }} fontSize={14} variant='p'>{data.hoteldescription}</Typography></Grid>
                 <Grid container item spacing={2}>
                 <Grid item xs={12}><Typography fontWeight={500} variant='p'>About Hotel</Typography></Grid>
                 <Grid alignItems='center' container item xs={12}><AccessTimeOutlinedIcon sx={{color:'button.main'}}/><Typography sx={{paddingLeft:'10px'}} variant='p'>Check-In: {data.checkintime}</Typography></Grid>

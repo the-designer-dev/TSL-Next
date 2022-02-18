@@ -34,7 +34,7 @@ function Allhotels(props) {
                 </Grid>
                 {data && data[0].hotelname? data.map((element)=>
                 (<Grid item xs={12} sm={6} md={4} sx={{textAlign:'center'}}>
-                <HotelCard buttonText={'View Details'} name={element.hotelname} startingPrice={element.starting_price} images={element.images} clickFunction={() => router.push({pathname:`/hotel/${element.id}`})} /> </Grid>)):''}
+                <HotelCard buttonText={'View Details'} name={element.hotelname} icons={[...element.amenities , ...element.facilities]} startingPrice={element.starting_price} images={element.images} clickFunction={() => router.push({pathname:`/hotel/${element.id}`})} /> </Grid>)):''}
                 </Grid>
         </StyledContainer>
     );

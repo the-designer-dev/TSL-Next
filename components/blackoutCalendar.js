@@ -17,21 +17,22 @@ function BlackoutCalendar(props) {
     const [showModal , setShowModal] = useState(false)
     const [showModal2 , setShowModal2] = useState(false)
     const [selectable , setSelectable] = useState(false)
-    const allBlackoutDates = useSelector(state => state.blackoutDates.blackoutDates)
+    const allBlackoutDates = useSelector(state => state.blackoutDates.blackoutDates).map(el =>  {return {...el , end: el.end+'T01:00:00'}})
     const calender = useRef();
-    function makeEvent(startDate , endDate){
 
-    }
     return (
         <Box sx={{height:'calc( 100vh - 107px )'}}>
         <SelectEventModal setNewDate={() => setRange(null)}open={showModal2} handleClose={() => setShowModal2(false)} secondModal = {()=> setShowModal(true) } setSelectable={(value) => setSelectable(value)}/>
         <EventModal  range={range} open={showModal} handleClose={() => setShowModal(false)}/>
         <FullCalendar
         ref = {calender}
+        selectOverlap ={false}
+        eventOverlap = {false}
         plugins={[ dayGridPlugin , interactionPlugin  ,momentPlugin ,timeGridPlugin , listPlugin , bootstrap5Plugin ]}
         themeSystem= 'bootstrap5'
         selectable={selectable}
         events={allBlackoutDates}
+        nextDayThreshold= '00:00:00'
         // editable={selectable}
         customButtons= {{
             addEventButton : {
@@ -48,7 +49,8 @@ function BlackoutCalendar(props) {
         }}
 
         select={ (info)=> {
-        setRange([info.startStr ,info.endStr])
+        const end_date = new Date(info.end);  
+        setRange([info.startStr ,end_date.toISOString().slice(0, 10)])
         setShowModal(!showModal)
         console.log(info)}}
         initialView="dayGridMonth"/>

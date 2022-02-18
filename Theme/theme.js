@@ -88,7 +88,7 @@ MuiDialog:{
   styleOverrides:{
     paper:{
       backgroundColor:'#203B59',
-      backgroundImage:'none'
+      backgroundImage:'none',
     },
 }
   },

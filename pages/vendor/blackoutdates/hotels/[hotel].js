@@ -30,8 +30,7 @@ function BlackoutDates(props) {
     async function removeEvent(id){
     const copyallBlackoutDates = allBlackoutDates.map(el => el)
     const objectRemoved =copyallBlackoutDates.splice(copyallBlackoutDates.findIndex((el) => el.id === id) , 1)
-   
-    
+  
         dispatch(setBlackoutDates(copyallBlackoutDates))
         await axios({
             method: 'POST',
@@ -64,7 +63,7 @@ function BlackoutDates(props) {
           var blackoutDates = hotels.rooms.map(el => el.blackout_dates)
           var unique = removeDuplicateObjectFromArray(blackoutDates.flat())
           console.log(blackoutDates)
-          dispatch(setBlackoutDates(unique.map(el => {return {id:el.id, title :el.title ,start :el.start_date ,end : el.end_date,roomType :el.room_type ,refundableRates : el.refundable_rates,nonRefundableRates : el.nonrefundable_rates ,quantity : el.quantity }} )))}
+          dispatch(setBlackoutDates(unique.map(el => {return {id:el.id, title :el.title ,start :el.start_date ,end : el.end_date,roomType :el.room_type ,refundableRates : el.refundable_rates,nonRefundableRates : el.nonrefundable_rates ,quantity : el.quantity , overlap: false }} )))}
         } , [hotel])
     return (
 
@@ -72,9 +71,9 @@ function BlackoutDates(props) {
             <AddEventModal start={start}  end={end}  name={title}  refundableRates={refundableRates}  nonRefundableRates={nonRefundableRates}  quantity={quantity}  roomType ={roomType} open={openModal}  handleClose={() => setOpenModal(false)} />
             <Grid container spacing={1}>
                 {allBlackoutDates.length > 0?
-                <Grid container spacing={1} className='events' sx={{maxHeight:'calc( 100vh - 107px )' , overflow:'scroll' , overflowX:'hidden'}} item xs={12} sm={3}>
+                <Grid container spacing={1} alignContent={'flex-start'}  className='events' sx={{maxHeight:'calc( 100vh - 107px )' , overflow:'scroll' , overflowX:'hidden'}} item xs={12} sm={3}>
                 {allBlackoutDates.map(el=>(
-                    <Grid item xs={12}>
+                    <Grid item >
                         <Box sx={{backgroundColor:'background.main' , padding:'10px' , borderRadius:'8px'}}>
                         <Grid container item spacing={1}>
                             <Grid item xs={12}><Typography fontSize={16} fontWeight={600} variant='p'>{el.title}</Typography></Grid>

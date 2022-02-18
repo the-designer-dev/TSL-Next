@@ -18,8 +18,6 @@ function HotelCard(props) {
     //checking code
     var items = props.images
     
-
-
     const onClick = () => {
         props.clickFunction()
     }
@@ -34,14 +32,7 @@ function HotelCard(props) {
       <Box sx={{paddingTop: '15px'}}>
       <Typography sx={{fontSize:'18px',fontWeight:'700'}} variant='p'>{props.name}</Typography>
       <Box sx={{padding:'10px 30px',display:'flex' , justifyContent:'space-between'}}>
-            <Image src={bath}/>
-            <Image src={parking}/>
-            <Image src={swimmer}/>
-            <Image src={wifi}/>
-            <Image src={gym}/>
-            <Image src={breakfast}/>
-            <Image src={restaurant}/>
-            <Image src={smokeFree}/>
+          {props.icons.map((el, index) => {if(index<7){return <img style={{height:'32px' , width:'32px'}} src={el.service_icon}/>}})}
       </Box>
       <Box sx={{display:'flex' , flexDirection:'column'}}>
       <Typography fontWeight='300' fontSize='16px' variant='p'>Starting from</Typography>
