@@ -75,7 +75,7 @@ function ColorlibStepIcon(props) {
 const steps = ['Add Room','Overview'];
 
 export default function StepperForm2() {
-    const active = useSelector(state=> state.formData.activeStep)
+    const active = useSelector(state=> state.formData.activeStep2)
   return (
     <Stack sx={{ width: '100%' }} spacing={4}>
       <Stepper alternativeLabel activeStep={active} connector={<ColorlibConnector />}>

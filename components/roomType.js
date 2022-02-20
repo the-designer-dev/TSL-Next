@@ -27,13 +27,13 @@ function RoomType(props) {
         orientation={`${matches ? `horizontal` : `vertical`}`}
         aria-label="text formatting"
         >
-        <ToggleButton   sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}}  value="Suite" aria-label="bold">
+        <ToggleButton   sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}}  value="suite" aria-label="bold">
             <Typography variant='p'>Suite</Typography>
         </ToggleButton>
-        <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="Executive Room" aria-label="italic">
+        <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="executive" aria-label="italic">
         <Typography variant='p'>Executive Room</Typography>
         </ToggleButton>
-        <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="Standard Room" aria-label="italic">
+        <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="standard" aria-label="italic">
         <Typography variant='p'>Standard Room</Typography>
         </ToggleButton>
     

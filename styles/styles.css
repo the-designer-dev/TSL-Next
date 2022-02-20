@@ -320,3 +320,61 @@ body{
 .dateRange{
   background-color: #1E3459;
 }
+
+.mobileCalendar{
+  position: absolute;
+  /* display: flex; */
+  flex-direction: row;
+align-self: center;  width: 90%;
+top:120px;
+left: 36px;
+  height:100% ;
+}
+
+.mobileCalendar:nth-child(3){
+justify-content: space-between;
+width: 100%;
+
+}
+
+.mobileCalendar .MuiDateRangePickerDay-root{
+  width: 100%;
+  height: 100%;
+}
+
+.mobileCalendar .MuiButtonBase-root{
+  width: 100%;
+}
+
+.mobileCalendar .PrivatePickersToolbar-dateTitleContainer{
+  width: 100%;
+  justify-content: center;
+}
+
+.mobileCalendar .PrivatePickersToolbar-root{
+  width: 100%;
+  align-items: center;
+}
+
+.mobileCalendar .PrivateDateRangePickerToolbar-penIcon{
+  display: none;
+}
+
+
+
+
+.cities::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cities::-webkit-scrollbar-track {
+  /* background: #14633d; */
+  width: 5px;}
+
+.cities::-webkit-scrollbar-thumb {
+  width: 5px;
+  background: #2AB572;
+}
+.cities::-webkit-scrollbar-thumb:hover {
+  background: #208154;
+}

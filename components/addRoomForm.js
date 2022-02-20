@@ -4,7 +4,7 @@ import React from 'react';
 import StyledTextField from '../styledComponents/styledTextField';
 import dynamic from 'next/dynamic';
 import Dropfile from './dropzone';
-import { nextStep, prevStep } from '../redux/formSlice';
+import { nextStep, nextStep2, prevStep } from '../redux/formSlice';
 import {InputAdornment} from '@mui/material'
 import {  setRoomName, setRoomDescription, setRoomQuantity } from '../redux/addRoom';
 const MUIRichTextEditor = dynamic(() => import('mui-rte'), {ssr: false });
@@ -15,14 +15,16 @@ import {setRefundableRates , setNonRefundableRates} from '../redux/addRoom'
 import DateRange from './dateRange';
 import RoomType from './roomType';
 import RoomFeatures from './roomFeatures';
-function AddRoomForm() {
+function AddRoomForm(props) {
     const dispatch = useDispatch();
    const room = useSelector(state => state.addRoom) 
    async function submit(e){
     e.preventDefault()
     const mod = await import('./dropzone')
-    console.log(mod)
     if(mod.roomImgs.length > 0){
+        props.hotel?
+        dispatch(nextStep2())
+        :
     dispatch(nextStep())
     }
  else{alert('fill all required fields')}
@@ -88,7 +90,7 @@ function AddRoomForm() {
                     </Grid>
 
                     <Grid container item xs={12} spacing={2} justifyContent='flex-end'>
-                        <Grid item><StyledButton type='button' onClick={() => dispatch(prevStep())}>Previous</StyledButton></Grid>
+                        {props.hotel?'':<Grid item><StyledButton type='button' onClick={() => dispatch(prevStep())}>Previous</StyledButton></Grid>}
                         <Grid item><StyledButton type='submit'>Next</StyledButton></Grid>
                     </Grid>
 

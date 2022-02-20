@@ -7,7 +7,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FormWrapper from '../styledComponents/formWrapper';
-import {nextStep , prevStep} from '../redux/formSlice'
+import {nextStep , prevStep, prevStep2} from '../redux/formSlice'
 import ShowMap from '../components/showMap'
 import { API_URL } from '../config';
 import axios from 'axios';
@@ -16,7 +16,7 @@ function Overview(props) {
     const dispatch = useDispatch()
     const [value, setValue] = useState(0);
     const matches = useMediaQuery("(min-width:370px)");
-    const [formats, setFormats] = useState(() => [!props.room?'Hotel':'Room']);
+    const [formats, setFormats] = useState(() => [!props.hotel?'Hotel':'Room']);
     const hotel = useSelector(state => state.addHotel)
     const room = useSelector(state => state.addRoom)
     const user = useSelector(state => state.user.user)
@@ -35,6 +35,38 @@ function Overview(props) {
             Authorization:`Bearer ${token}`
           }
 
+        if(props.hotel){
+
+            const data = {
+                roomname : room.roomName,
+                roomdescription : room.roomDescription,
+                adult : room.adultCapacity,
+                child : room.childCapacity,
+                bedcapacity : room.bedCapacity,
+                roomcategories : room.roomType,
+                roomslug : room.roomName ,
+                roomqty : room.roomQuantity ,
+                roomrefundprice : room.refundableRates ,
+                roomnonrefundprice : room.nonRefundableRates ,
+                extra_bed : room.bedType,
+                room_amenities : room.roomAmenities,
+                room_facilities : room.roomFacilities,
+                room_rules : room.roomRules,
+                room_included : room.roomIncludes,
+                hotel: props.hotel
+            }  
+            formData.append('data' , JSON.stringify(data))
+            mod.roomImgs.forEach(element => {
+                formData.append('files.roomimages' , element , element.name)
+            });
+            console.log(formData)
+            axios.post(`${API_URL}/rooms/createnew`, formData , {headers : headers})
+                .then((res) => {
+                console.log(res);
+                }).catch((err) => console.log(err))
+
+        }
+        else{
         const data = {
             hotelname : hotel.name,
             hoteldescription : hotel.description,
@@ -56,7 +88,7 @@ function Overview(props) {
             adult : room.adultCapacity,
             child : room.childCapacity,
             bedcapacity : room.bedCapacity,
-            roomcategories : room.roomType,
+            roomcategories : room.roomType[0],
             roomslug : room.roomName ,
             roomqty : room.roomQuantity ,
             roomrefundprice : room.refundableRates ,
@@ -78,7 +110,9 @@ function Overview(props) {
         axios.post(`${API_URL}/hotel-rooms`, formData , {headers : headers})
             .then((res) => {
             console.log(res);
-            }).catch((err) => console.log(err))
+            }).catch((err) => console.log(err))}
+        
+        
     }
 
     const handleChange = (event, newValue) => {
@@ -98,10 +132,10 @@ function Overview(props) {
                         orientation={`${matches ? `horizontal` : `vertical`}`}
                         aria-label="text formatting"
                         >
-                        {!props.room?
+                        
                         <ToggleButton   sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}}  value="Hotel" aria-label="bold">
                             <Typography variant='p'>Hotel Details</Typography>
-                        </ToggleButton>:''}
+                        </ToggleButton>
                         <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="Room" aria-label="italic">
                         <Typography variant='p'>Room Details</Typography>
                         </ToggleButton>
@@ -273,9 +307,10 @@ function Overview(props) {
                     orientation={`${matches ? `horizontal` : `vertical`}`}
                     aria-label="text formatting"
                     >
+                        {!props.hotel?
                     <ToggleButton   sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}}  value="Hotel" aria-label="bold">
                         <Typography variant='p'>Hotel Details</Typography>
-                    </ToggleButton>
+                    </ToggleButton>:''}
                     <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="Room" aria-label="italic">
                     <Typography variant='p'>Room Details</Typography>
                     </ToggleButton>
@@ -434,7 +469,7 @@ function Overview(props) {
 
                 
                 <Grid container item spacing={1} justifyContent='flex-end'>
-                <Grid item><StyledButton onClick={() => dispatch(prevStep())}>Previous</StyledButton></Grid>
+                <Grid item><StyledButton onClick={() => {!props.hotel?dispatch(prevStep()):dispatch(prevStep2())}}>Previous</StyledButton></Grid>
                 <Grid item><StyledButton onClick={() => submit()} >Submit</StyledButton></Grid>       
                 </Grid>
             </Grid>

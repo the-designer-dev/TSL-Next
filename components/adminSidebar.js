@@ -32,7 +32,7 @@ function AdminSidebar(props) {
                 <Link href='/admin/vendor/vendoroverview'><MenuItem>Vendors</MenuItem></Link>
                 <Link href='/admin/customer/customeroverview'><MenuItem>Customers</MenuItem></Link>
                 <MenuItem>Add New Hotel</MenuItem>
-                <MenuItem>Rooms</MenuItem>
+                <Link href='/admin/roomrequests'><MenuItem>Room Requests</MenuItem></Link>
                 <MenuItem>Withdrawal Requests</MenuItem>
 
             </Menu>

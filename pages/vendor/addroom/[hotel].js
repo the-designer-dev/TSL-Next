@@ -6,22 +6,25 @@ import AddRoomForm from '../../../components/addRoomForm';
 import Overview from '../../../components/overview';
 import StyledContainer from '../../../styledComponents/styledContainer';
 import {useSelector , useDispatch} from 'react-redux';
+import {useRouter} from 'next/router'
 function AddRoom(props) {
+  const router = useRouter()
+    const { hotel } = router.query
     const active = useSelector(state => state.formData.activeStep2)
     const dispatch = useDispatch()
     return (
         <StyledContainer>
             <Grid container>
         <Grid item xs={12}>
-        <StepperForm2/>
+        <StepperForm2 />
     </Grid>
     {active == 0?
     <Grid item xs={12}>
-    <AddRoomForm/>
+    <AddRoomForm hotel={hotel}/>
     </Grid>:''}
     {active == 1?
     <Grid item xs={12}>
-    <Overview room={true}/>
+    <Overview hotel={hotel}/>
     </Grid>:''}
     </Grid>
         </StyledContainer>

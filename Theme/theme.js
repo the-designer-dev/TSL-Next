@@ -10,8 +10,6 @@ export const darkTheme = createTheme({
       xxl: 1920,
     },
   },
-  typography: {
-    fontFamily: 'Roboto'},
     palette: {
       mode: 'dark',
       primary: {
