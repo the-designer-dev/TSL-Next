@@ -11,6 +11,7 @@ export const addRoomSlice = createSlice({
     bedType:[],
     refundableRates:0,
     nonRefundableRates:0,
+    extraBedCapacity:{extra_bed_rates: 0 ,extra_bed_qty:0} ,
     dateRange : [],
     roomType : '',
     roomQuantity : 0,
@@ -68,10 +69,16 @@ export const addRoomSlice = createSlice({
     setRoomIncludes: (state,action) => {
       state.roomIncludes = action.payload
     },
+    setExtraBedCapacityRates: (state,action) => {
+      state.extraBedCapacity.extra_bed_rates = action.payload
+    },
+    setExtraBedCapacityQuantity: (state,action) => {
+      state.extraBedCapacity.extra_bed_qty = action.payload
+    },
    }
 })
 
 // Action creators
-export const { setRoomName,setRoomDescription,setRoomImages,setAdultCapacity,setChildCapacity,setBedCapacity,setDateRange , setRoomType , setRoomQuantity,setRoomAmenities,setRoomFacilities,setRoomRules,setRoomIncludes,setRefundableRates,setNonRefundableRates , setBedType} = addRoomSlice.actions;
+export const { setRoomName,setRoomDescription,setRoomImages,setAdultCapacity,setChildCapacity,setBedCapacity,setDateRange , setRoomType , setRoomQuantity,setRoomAmenities,setRoomFacilities,setRoomRules,setRoomIncludes,setRefundableRates,setNonRefundableRates , setBedType , setExtraBedCapacityRates , setExtraBedCapacityQuantity} = addRoomSlice.actions;
 
 export default addRoomSlice.reducer;

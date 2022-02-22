@@ -105,7 +105,7 @@ export default function Home() {
     setFocused4(num === 4)}
   return (
     <Box sx={{height:'calc( 100vh - 77px )' , overflow:'hidden' , position:'relative'}}>
-       <form style={{display:'inherit'}} onSubmit={(e) => handleSubmit(e)}>
+       <form autocomplete="off" style={{display:'inherit'}} onSubmit={(e) => handleSubmit(e)}>
     <StyledContainer  sx={{ backgroundRepeat:'round' , backgroundImage:`url(/Banner-Home.jpg)` , display:'flex' , flexDirection:'column'  ,justifyContent:'space-around' , minHeight:'calc(100vh - 77px) !important' }} square={true}>
      <Grid container spacing={5}  columns={15}>
      {mobile?

@@ -11,7 +11,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import React ,{ useState , useEffect}from 'react';
 import LoginModal from './loginModal';
 import GuestsModal from './guestsModal';
-
+import moment from 'moment';
 function RoomInfo(props) {
     const el = props.el
     const data = props.data
@@ -22,6 +22,7 @@ function RoomInfo(props) {
     const [rooms, setRooms] = useState(0);
     const [extraFields, setExtraFields] = useState({})
     const [currRoomPrice, setCurrRoomPrice] = useState(null)
+    const [extraBed, setExtraBed] = useState({extra_bed_qty:0 , extra_bed_rates: el.extraBeds[0].extra_bed_rates})
     const user = useSelector(state => state.user.user)
     const guestsSet = useSelector(state => state.booking.guestSet)
     const router = useRouter();
@@ -39,14 +40,17 @@ function RoomInfo(props) {
 
     useEffect(()=>
     { calculatePrice()
-    } , [extraFields , rooms , currRoomPrice])
+    } , [extraFields , rooms , currRoomPrice , extraBed])
 
     const calculatePrice = () =>{ 
+        var days= moment(sessionStorage.getItem('checkOut')).diff(moment(sessionStorage.getItem('checkIn')), 'days')+1
         var temp_price =0;
+        console.log(days)
         Object.values(data.hotel_extra_fields).forEach(key => {
             temp_price = temp_price + (key.extra_field_price * extraFields[key.extra_field_name])
           });
-          temp_price = temp_price + (currRoomPrice * rooms)
+          temp_price = temp_price + (extraBed.extra_bed_qty * extraBed.extra_bed_rates *(days))
+          temp_price = temp_price + (currRoomPrice * rooms *(days))
           setPrice(temp_price)
     }
 
@@ -73,7 +77,8 @@ function RoomInfo(props) {
         if(Object.keys(user).length !== 0){
         if(guestsSet === true){
         const price2 = price.toString()
-        const fields = extraFields
+        var fields = extraFields
+        fields.extraBeds = extraBed.extra_bed_qty 
         dispatch(setReduxPrice(price2))
         dispatch(setExtra_items(fields))
         dispatch(setCurrentHotel(id))
@@ -210,6 +215,12 @@ function RoomInfo(props) {
                             <Grid xs={6} sm={3} item><Typography  fontSize={14} fontWeight={300} variant='p'>PKR {ele.extra_field_price}</Typography></Grid>
                             <Grid xs={12} sm={6} alignItems='center' spacing={2} direction='row' justifyContent='center' container item><Grid justifyContent='flex-end' alignContent='center' container item xs={4}> <Button onClick={()=>extraFieldChange(ele.extra_field_name , extraFields[ele.extra_field_name] -1 )} sx={{ borderRadius:'100%' , backgroundColor:'transparent' , color:'button.main'  , border:'1px solid' , minWidth:'40px !important'}}>-</Button></Grid> <Grid container item sx={{textAlign:'center'}} xs={4}> <StyledTextField defaultValue="0" onChange={(e) =>extraFieldChange(ele.extra_field_name , parseInt(e.target.value) )} id="outlined-name" name={ele.extra_field_name} value={extraFields[ele.extra_field_name] ? extraFields[ele.extra_field_name] : 0 } size='small' sx={{width:'100%'}} type='number' /></Grid> <Grid justifyContent='flex-start' alignContent='center' container item xs={4}> <Button onClick={()=>extraFieldChange(ele.extra_field_name , extraFields[ele.extra_field_name] +1 )} sx={{ borderRadius:'100%' , backgroundColor:'transparent' , color:'button.main'  , border:'1px solid' , minWidth:'40px !important'}}>+</Button></Grid></Grid>
                         </Grid>))}
+                        {el.extraBeds ? 
+                        <Grid container item>
+                            <Grid xs={6} sm={3} item><Typography fontSize={14} fontWeight={300} variant='p'>Extra Beds: </Typography></Grid>
+                            <Grid xs={6} sm={3} item><Typography  fontSize={14} fontWeight={300} variant='p'>PKR {el.extraBeds[0].extra_bed_rates}</Typography></Grid>
+                            <Grid xs={12} sm={6} alignItems='center' spacing={2} direction='row' justifyContent='center' container item><Grid justifyContent='flex-end' alignContent='center' container item xs={4}> <Button onClick={()=>setExtraBed({...extraBed , extra_bed_qty: extraBed.extra_bed_qty -1} )} sx={{ borderRadius:'100%' , backgroundColor:'transparent' , color:'button.main'  , border:'1px solid' , minWidth:'40px !important'}}>-</Button></Grid> <Grid container item sx={{textAlign:'center'}} xs={4}> <StyledTextField defaultValue="0" onChange={(e)=>setExtraBed({...extraBed , extra_bed_qty: e.target.value } )} id="outlined-name" value={extraBed.extra_bed_qty } size='small' sx={{width:'100%'}} type='number' /></Grid> <Grid justifyContent='flex-start' alignContent='center' container item xs={4}> <Button onClick={()=>setExtraBed({...extraBed , extra_bed_qty: extraBed.extra_bed_qty +1} )} sx={{ borderRadius:'100%' , backgroundColor:'transparent' , color:'button.main'  , border:'1px solid' , minWidth:'40px !important'}}>+</Button></Grid></Grid>
+                        </Grid>: ''}
                     </Grid>
                     <Grid container item alignItems='baseline' spacing={2}>
                     <Grid item xs={6} sm={3}><Typography fontWeight={600} variant='p'>Total</Typography></Grid>
