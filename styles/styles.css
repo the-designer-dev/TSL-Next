@@ -442,3 +442,11 @@ width: 100%;
 .cities::-webkit-scrollbar-thumb:hover {
   background: #208154;
 }
+
+.mobileCalender{
+  left: 16px;
+  position: absolute;
+  top: calc(50% - 350px);
+  width: 100vw;
+  height: fit-content;
+}

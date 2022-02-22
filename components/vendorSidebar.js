@@ -14,7 +14,7 @@ function VendorSidebar(props) {
     const [open,setOpen] = useState(false)
     const [mobileOpen,setMobileOpen] = useState(false)
     return (
-        <Box sx={{margin:0 , padding: 0,zIndex:'7'}}>
+        <Box sx={{margin:0 , padding: 0,zIndex:'7' }}>
   
         <Box sx={{margin:0 , padding: 0,position:'sticky',top:0 , left:0 , height:'100vh'}}>
         <Box sx={{display:'flex' , flexDirection:'row' ,alignItems:'center' ,justifyContent:'space-between' ,position:'absolute' , top: matches?'20px' :'27px'  , zIndex:'1010' }}>
@@ -42,6 +42,7 @@ function VendorSidebar(props) {
                 <Link href={'/vendor/blackoutdates/hotels'}><MenuItem>Blackout Dates</MenuItem></Link>
                 <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Orders</Typography>
                 <Link href={'/vendor/orderlisting'}><MenuItem>Overview</MenuItem></Link>
+                <Link href={'/vendor/vendorwallet'}><MenuItem>Wallet</MenuItem></Link>
                 <MenuItem>Refunds</MenuItem>
                 <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Withdrawals</Typography>
 

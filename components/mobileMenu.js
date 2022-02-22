@@ -50,10 +50,9 @@ function MobileMenu(props) {
         <>
         <Button onClick={() => props.closeMenu()} sx={{height:'40px' ,position:'absolute', top:'80px' , left:'30px' , width:'41px',backgroundColor:'button.main' , borderRadius:'50px' , minWidth:'0px' ,padding:'5px', '&.MuiButton-root':{'& .MuiSvgIcon-root':{padding:'0px'},  '&:hover':{backgroundColor:'button.main'}} }}><ChevronLeftOutlined/></Button>   
         <div style={{position:"absolute",top: "95px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    width: "100%"
+
+    left:'calc(50vw - 80px) ',
+    width:'calc(100% - 86px)'
 }}>
           <Typography variant='h6' fontWeight={400} >When will you be there?</Typography>
           </div>
@@ -84,7 +83,7 @@ displayStaticWrapperAs="desktop"
       </React.Fragment>
     )}
   /> */}
-
+<Box className='mobileCalender'>
  <DateRangePickerCalendar
           month={new Date()}
           touchDragEnabled = {true}
@@ -98,7 +97,7 @@ displayStaticWrapperAs="desktop"
           locale={enGB}
           
         />
-
+</Box>
         </>}
         {activeStep ===2 &&
         <>

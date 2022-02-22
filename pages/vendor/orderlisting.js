@@ -39,7 +39,7 @@ function OrderListing(props) {
               'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
           }).then(res => res.data)
-        setTableData(orders.map((el , index) => {return {id: index+1 ,orderid: el.id,customername:`${el.booking.users_permissions_user.first_name} ${el.booking.users_permissions_user.last_name}` ,roomname: el.booking.room.roomname ,totalprice:el.order_total ,paymentstatus: el.order_status }}))
+        setTableData(orders.map((el , index) => {return {id: index+1 ,orderid: el.id,customername:`${el.first_name} ${el.last_name}` ,roomname: el.roomname ,totalprice:el.order_total ,paymentstatus: el.order_status }}))
     } , [])
 
     return (

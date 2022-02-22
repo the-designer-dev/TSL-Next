@@ -22,8 +22,8 @@ function OrderDetails(props) {
     ]
 
    
-    // useEffect(() => {
-    // } ,[order])
+    useEffect(() => {
+    } ,[order])
     return (
         <StyledContainer>
             <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent='space-between' alignItems="stretch" sx={{ padding: '20px 0px' }}>
@@ -110,7 +110,7 @@ function OrderDetails(props) {
             <Grid container justifyContent='space-around' alignItems="stretch" sx={{ padding: '20px 0px' }} >
 
                 <Grid item xs={12} sx={{ backgroundColor: 'background.main', padding: '10px', borderRadius: '20px' }}>
-                    <TotalTable columns={columns} rows={tableData} />
+                    {/* <TotalTable columns={columns} rows={tableData} /> */}
                 </Grid>
             </Grid>
 
