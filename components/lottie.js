@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-// import Lottie from "react-lottie";
+import Lottie from "react-lottie";
 import animationData from "./room.json";
 import { Box, Grid, Typography , Button } from '@mui/material';
 import Modal from '@mui/material/Modal';
@@ -50,7 +50,7 @@ function RoomLottie(props) {
              <Typography color={'primary.main'} variant="h6">Room Approved</Typography>
          </Grid>
          <Grid item xs={12}>
-  {/* <Lottie options={defaultOptions} height={300} width={300} /> */}
+  <Lottie options={defaultOptions} height={300} width={300} />
   </Grid>
   </Grid>
   </Box>
