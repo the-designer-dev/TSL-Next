@@ -14,7 +14,7 @@ import "@fullcalendar/list/main.css";
 import "@fullcalendar/bootstrap5/main.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'react-dates/lib/css/_datepicker.css';
+// import 'react-dates/lib/css/_datepicker.css';
 
 
 let theme = createTheme();
