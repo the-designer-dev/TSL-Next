@@ -105,10 +105,10 @@ export default function Home() {
     setFocused4(num === 4)}
   return (
     <Box sx={{height:'calc( 100vh - 77px )' , overflow:'hidden' , position:'relative'}}>
-       <form style={{display:'inherit'}} onSubmit={(e) => handleSubmit(e)}>
+       <form autocomplete="off" style={{display:'inherit'}} onSubmit={(e) => handleSubmit(e)}>
     <StyledContainer  sx={{ backgroundRepeat:'round' , backgroundImage:`url(/Banner-Home.jpg)` , display:'flex' , flexDirection:'column'  ,justifyContent:'space-around' , minHeight:'calc(100vh - 77px) !important' }} square={true}>
      <Grid container spacing={5}  columns={15}>
-     {mobile?
+     {mobile ?
      <>
       <Grid container item justifyContent="center" alignItems="center" direction='row' xs={15}> 
       <Typography sx={{padding:'0px 10px'}} fontWeight={600} color='#FEFEFE' variant="h1">Your</Typography><Typography sx={{padding:'0px 10px'}} fontWeight={600} color='#FEFEFE' variant="h1">Online</Typography>
@@ -156,11 +156,7 @@ export default function Home() {
         <Grid sx={{display:'flex' , alignItems:'center' , justifyContent:'center' }} item><Button type='submit' ref={buttonRef} sx={{marginRight:'5px' ,height:'90%' , width:'90%',backgroundColor:'button.main',borderRadius:'50%','&:hover':{backgroundColor:'button.main',boxShadow: '0px 0px 56px 18px rgba(0,0,0,0.25)'}}} type='submit' ><SearchIcon style={{color:'#FFF', fontSize:'1.8rem'}}/></Button></Grid>
 
       </Box>
-      {focused1 &&<Box className='cities' sx={{marginTop:'10px' ,padding:'20px' , backgroundColor:'background.main' , borderRadius:'10px' , width:'890px' , maxHeight:'25vh' , overflow:'scroll' , overflowX:'hidden' }}>
-      {options.map(el => (
-            <Button fullWidth onClick={() => {setDestinationState(el); setFocused(2);text2Ref.current.focus()  ; setValue([null,null])}} sx={{justifyContent:'left' , borderBottom:'1px solid #2e3f5b' , borderRadius:'0px' }} >{el}</Button>
-          ))}
-      </Box>}
+      
       </Grid>
       </>:<>
       <Grid container item justifyContent="center" alignItems="center" direction='row' xs={15}> 

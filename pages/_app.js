@@ -16,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'react-dates/lib/css/_datepicker.css';
 
+
 let theme = createTheme();
 const darkResposive1 = responsiveFontSizes(darkTheme);
 const lightResponsive1 = responsiveFontSizes(lightTheme);

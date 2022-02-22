@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Button , Grid, Typography } from '@mui/material';
 import FormWrapper from '../styledComponents/formWrapper';
 import React from 'react';
 import StyledTextField from '../styledComponents/styledTextField';
@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import Dropfile from './dropzone';
 import { nextStep, nextStep2, prevStep } from '../redux/formSlice';
 import {InputAdornment} from '@mui/material'
-import {  setRoomName, setRoomDescription, setRoomQuantity } from '../redux/addRoom';
+import {setRoomName, setRoomDescription, setRoomQuantity , setExtraBedCapacityQuantity , setExtraBedCapacityRates } from '../redux/addRoom';
 const MUIRichTextEditor = dynamic(() => import('mui-rte'), {ssr: false });
 import StyledButton from '../styledComponents/styledButton';
 import {useDispatch , useSelector} from 'react-redux';
@@ -52,10 +52,21 @@ function AddRoomForm(props) {
                     <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Room Images:</Typography></Grid>
                     <Grid item xs={12} ><Dropfile hotel={false}/></Grid>
                     </Grid>
+                    
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Capacity</Typography></Grid>
                     <Grid item xs={12} ><Capacity/></Grid>
                     </Grid>
+
+                    <Grid container item spacing={2}>
+                    <Grid item xs={12} sm={4} ><Typography fontWeight={600} fontSize={18} variant='p'>Extra Bed Capacity:</Typography></Grid>
+                    <Grid item xs={12} sm={4}>
+                    <StyledTextField fullWidth value={room.extraBedCapacity.extra_bed_qty} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px'  ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start"><Button onClick={()=> {room.extraBedCapacity.extra_bed_rates>0? dispatch(setExtraBedCapacityQuantity(room.extraBedCapacity.extra_bed_rates - 1)) : ''}}>-</Button></InputAdornment> , endAdornment: <InputAdornment  position="end"><Button onClick={()=> {dispatch(setExtraBedCapacityQuantity(room.extraBedCapacity.extra_bed_rates +1)) }}>+</Button></InputAdornment> }} /></Grid>
+                    <Grid item xs={12} sm={4}>
+                    <StyledTextField required value={room.extraBedCapacity.extra_bed_rates} onChange={(e) => setExtraBedCapacityRates(e.target.value)} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start">PKR</InputAdornment> , endAdornment: <InputAdornment  position="end">Per Bed</InputAdornment> }} fullWidth/>
+                    </Grid>
+                    </Grid>
+
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Rates For Room</Typography></Grid>
                     <Grid item xs={12} sm={6}><Typography variant='p'>Refundable Rates</Typography></Grid>
@@ -71,12 +82,14 @@ function AddRoomForm(props) {
                         <DateRange/>
                         </Grid>
                     </Grid>
+
                     <Grid container item spacing={1}>
                         <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Select Room Type:</Typography></Grid>
                         <Grid item xs={12}>
                             <RoomType/>
                         </Grid>
                     </Grid>
+
                     <Grid container item spacing={1}>
                     <Grid item xs={12} sm={4}><Typography variant='p'>Room Quantity</Typography></Grid>
                     <Grid item xs={12} sm={8}><StyledTextField required fullWidth value={room.roomQuantity} onChange={(e) => dispatch(setRoomQuantity(e.target.value))} type='number' placeholder='Enter Quantity' /></Grid>

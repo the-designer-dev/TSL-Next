@@ -137,9 +137,8 @@ function checkOut(){
       : setRows([])
       for (const [key, value] of Object.entries(extra_items)) {
         data !== undefined  && id !== undefined && room !== undefined?
-          setRows(rows => [...rows , {id: ++index , sign:'>' , particular: key , quantity : 'x'+value , 'unit price' : data.hotel_extra_fields.find((el) => el.extra_field_name === key).extra_field_price , price: data.hotel_extra_fields.find((el) => el.extra_field_name === key).extra_field_price*value  } ])
+          key !== 'extraBeds'?setRows(rows => [...rows , {id: ++index , sign:'>' , particular: key , quantity : 'x'+value , 'unit price' : data.hotel_extra_fields.find((el) => el.extra_field_name === key).extra_field_price , price: data.hotel_extra_fields.find((el) => el.extra_field_name === key).extra_field_price*value  } ]) : setRows(rows => [...rows , {id: ++index , sign:'>' , particular: 'Extra Beds' , quantity : 'x'+value , 'unit price' : data.rooms.find((el) => el.id === parseInt(room)).extraBeds[0].extra_bed_rates , price: data.rooms.find((el) => el.id === parseInt(room)).extraBeds[0].extra_bed_rates*value  } ])
           :setRows(rows => [...rows])} 
-        console.log(rows)
         },[data])
 
     const settings = {
@@ -224,8 +223,8 @@ function checkOut(){
       </Grid>
       </Box>
     <Grid container spacing={2}  sx={{padding:'16px 0px'}}>
-      {adultCards.map((el , index) => <Grid item xs={12} sm={4} md ={3} lg={2} ><AdultCard num={index}/></Grid>  )}
-      {childCards.map((el , index) =>  <Grid item xs={12} sm={4} md ={3} lg={2} ><ChildCard num={index}/></Grid> )}
+      {adultCards.map((el , index) => <Grid item xs={12} sm={4} md ={3}  ><AdultCard num={index}/></Grid>  )}
+      {childCards.map((el , index) =>  <Grid item xs={12} sm={4} md ={3}  ><ChildCard num={index}/></Grid> )}
       </Grid>
       <Grid container spacing={2} alignItems='stretch'>
         <Grid item xs={12} sm={8}><TotalTable columns={columns} rows={rows} total={price}/></Grid>
