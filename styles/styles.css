@@ -293,61 +293,61 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before{
 }
 
 .textField1{
-  overflow: hidden;
-  width:100%;
-  padding:10px 20px;
-  display:flex; 
-  flex-direction: column;
-  align-items: flex-start;
-  border-radius: 50px;
+  overflow: hidden !important;
+  width:100% !important;
+  padding:10px 20px !important;
+  display:flex !important; 
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  border-radius: 50px !important;
 }
 
 .textField1:hover {
-  background-color: #EBEBEB;
+  background-color: #EBEBEB !important;
 }
 
 .textField2{
-  overflow: hidden;
-  width:197px;
-  height: 100%;
-  padding:10px 20px;
-  display:flex; 
-  flex-direction: column;
-  align-items: flex-start;
-  border-radius: 50px;
+  overflow: hidden !important;
+  width:197px !important;
+  height: 100% !important;
+  padding:10px 20px !important;
+  display:flex !important; 
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  border-radius: 50px !important;
 }
 
 .textField2:hover {
-  background-color: #EBEBEB;
+  background-color: #EBEBEB !important;
 }
 
 .textField3{
-  overflow: hidden;
-  width:197px;
-  height: 100%;
-  padding:10px 20px;
-  display:flex; 
-  flex-direction: column;
-  align-items: flex-start;
-  border-radius: 50px;
+  overflow: hidden !important;
+  width:197px !important;
+  height: 100% !important;
+  padding:10px 20px !important;
+  display:flex !important; 
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  border-radius: 50px !important;
 }
 
 .textField3:hover {
-  background-color: #EBEBEB;
+  background-color: #EBEBEB !important;
 }
 
 .textField4{
-  overflow: hidden;
-  width:100%;
-  padding:10px 20px;
-  display:flex; 
-  flex-direction: column;
-  align-items: flex-start;
-  border-radius: 50px;
+  overflow: hidden !important;
+  width:100% !important;
+  padding:10px 20px !important;
+  display:flex !important; 
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  border-radius: 50px !important;
 }
 
 .textField4:hover {
-  background-color: #EBEBEB;
+  background-color: #EBEBEB !important;
 }
 
 .dateRange{

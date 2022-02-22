@@ -15,7 +15,7 @@ function Capacity(props) {
     useEffect(() => { 
         var arr =[];
         for (let index = 0; index < room.bedCapacity; index++) {
-         arr.push({bedname:'',bedvalue:''})   
+         arr.push({bednName:'',bedValue:''})   
         }
         dispatch(setBedType(arr))
     } , [room.bedCapacity])
