@@ -28,6 +28,32 @@ body{
 .carousel-img img{
     border-radius: 20px 20px 0px 0px;
 }
+.nice-dates-day.-disabled{
+  opacity: 0.5;
+}
+
+.nice-dates-navigation{
+  margin-top: 110px;
+  color: #fff!important;
+}
+.nice-dates-day{
+  color: #fff!important;
+}
+.nice-dates-day.-selected:not(:hover) *, .nice-dates-day.-selected.-disabled * {
+  color: #2AB572!important;
+}
+.nice-dates-day:before {
+  background-color: #fff!important;
+  z-index: 1;
+  /* border: 1px solid #2AB572; */
+  border-top: 1px solid #2AB572;
+}
+span.nice-dates-day.-selected.-selected-end.-outside.-wide::before{
+  border-right: 1px solid #2AB572;
+}
+span.nice-dates-day.-today.-selected.-selected-start.-wide::before{
+  border-left: 1px solid #2AB572;
+}
 
 @media(max-width:577px) {
     .mobileMenu{
@@ -38,6 +64,13 @@ body{
     }
     .customerMenu{
         display:none;
+    }
+    .nice-dates-week-header{
+      padding-left: 20px!important;
+      padding-right: 10px!important;
+    }
+    .nice-dates-grid_container{
+      padding: 0px 10px 0px 20px;
     }
 }
 
