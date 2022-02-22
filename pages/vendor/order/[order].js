@@ -10,6 +10,7 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SliderGuests from '../../../components/sliderGuests';
+import VendorLayout from '../../../components/vendorLayout';
 function OrderDetails(props) {
     const router = useRouter()
     const { order } = router.query
