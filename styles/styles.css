@@ -164,6 +164,7 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before{
  color: #6cc098;
 }
 
+
 .hero_dots{ 
     font-size: 50px;
  color: #1E3459;
@@ -182,11 +183,35 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before{
     padding: 0px 15px;
    }
    
+.guests_dots button{ 
+    display: none;
+    padding: 5px;
+    color: #6cc098;
+   }
+  
+.guests_dots{ 
+    font-size: 20px;
+ color: white;
+ display: flex !important;
+ flex-direction: row;
+ justify-content: center;
+ margin: 0px 0px 0px 20px;
+ 
+ padding: 0px !important;
+}
 
+.guests_dots li{ 
+  padding: 0px 10px;
+ }
 .slick-active{ 
  color: #2AB572;
 }
-
+.order-detail-guest-slider {
+  max-width: 100vw;
+  width: 100%;
+  overflow: hidden;
+  text-align: left!important;
+}
 .hero_slider .slick-prev{
     top: 50% !important;
     left: 2px !important;
@@ -196,6 +221,12 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before{
     top: 50% !important;
     right: 25px !important;
 }
+
+.order-detail-guest-slider.guests_right_arr{
+  position: absolute;
+  top:50%;
+}
+
 
 .slick-track { 	display: flex !important; }  
 .slick-slide { 	height: inherit !important; 

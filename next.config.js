@@ -16,4 +16,5 @@ module.exports = withTM({
   images: {
     domains: ['localhost', 'cdn0.iconfinder.com' , 'tsl.designer-dev.com'],
   },
+  
 })
