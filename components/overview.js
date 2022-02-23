@@ -10,6 +10,7 @@ import FormWrapper from '../styledComponents/formWrapper';
 import {nextStep , prevStep, prevStep2} from '../redux/formSlice'
 import ShowMap from '../components/showMap'
 import { API_URL } from '../config';
+import { useRouter } from 'next/router';
 import axios from 'axios';
   
 function Overview(props) {
@@ -17,16 +18,23 @@ function Overview(props) {
     const [value, setValue] = useState(0);
     const matches = useMediaQuery("(min-width:370px)");
     const [formats, setFormats] = useState(() => [!props.hotel?'Hotel':'Room']);
+    const [hotelImgs , setHotelImgs] = useState(null)
+    const [roomImgs , setRoomImgs] = useState(null)
     const hotel = useSelector(state => state.addHotel)
     const room = useSelector(state => state.addRoom)
     const user = useSelector(state => state.user.user)
     const token = useSelector(state => state.user.token)
+    const router = useRouter()
     const handleFormat = (event, newFormats) => {
         if(newFormats !== null){
       setFormats(newFormats)
         console.log(formats)}
     };
-    
+    useEffect(async () => {
+        const mod = await import('./dropzone')
+        setHotelImgs(mod.hotelImgs)
+        setRoomImgs(mod.roomImgs)
+    } , [])
     const submit = async () => {
         const mod = await import('./dropzone')
         const formData = new FormData()
@@ -113,7 +121,7 @@ function Overview(props) {
             console.log(res);
             }).catch((err) => console.log(err))}
         
-        
+        router.push('/vendor/allrooms')
     }
 
     const handleChange = (event, newValue) => {
@@ -220,6 +228,12 @@ function Overview(props) {
                     </Grid>))}
                     </Grid>
               
+                    <Grid container item spacing={2}>
+                    <Grid item xs={12} >
+                        <Typography fontWeight={300} variant='h6'>Hotel Images:</Typography>
+                    </Grid>
+                    {hotelImgs?hotelImgs.map(el =>  (<Grid item xs={3}><img style={{width:'100%' , height:'100%' , borderRadius:'8px'}} src={URL.createObjectURL(el)}/></Grid>)):''}
+                    </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} >
                         <Typography fontWeight={300} variant='h6'>Rules:</Typography>
@@ -391,6 +405,12 @@ function Overview(props) {
                         <Typography fontWeight={400} variant='h6'>Non-Refundable Price : PKR {el.nonrefundable_price}/- </Typography>
                     </Grid>
                     </Grid>))}
+                    </Grid>
+                    <Grid container item spacing={2}>
+                    <Grid item xs={12} >
+                        <Typography fontWeight={300} variant='h6'>Room Images:</Typography>
+                    </Grid>
+                    {roomImgs?roomImgs.map(el =>  (<Grid item xs={3}><img style={{width:'100%' , height:'100%' , borderRadius:'8px'}} src={URL.createObjectURL(el)}/></Grid>)):''}
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} >

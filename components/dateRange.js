@@ -61,11 +61,11 @@ function DateRange(props) {
                 <Grid container item spacing={1}>
                 <Grid item xs={12} sm={6}><Typography variant='p'>Start date</Typography></Grid>
                     <Grid item xs={12} sm={6}>
-                    <DatePicker value={startDate}  onChange={(newValue) => { setStartDate(newValue)   }} renderInput={(params) => <TextField fullWidth required sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }}  variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/>
+                    <DatePicker value={startDate}  onChange={(newValue) => { setStartDate(newValue)   }} renderInput={(params) => <TextField fullWidth  sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }}  variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/>
                     </Grid>
                     <Grid item xs={12} sm={6}><Typography variant='p'>End date</Typography></Grid>
                     <Grid item xs={12} sm={6}>
-                    <DatePicker value={endDate}  onChange={(newValue) => { setEndDate(newValue)   }} renderInput={(params) => <TextField fullWidth required sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }}  variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/>
+                    <DatePicker value={endDate}  onChange={(newValue) => { setEndDate(newValue)   }} renderInput={(params) => <TextField fullWidth  sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF', borderRadius:'5px' }}  variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/>
                     </Grid>
                     <Grid item xs={12} sm={6}><Typography variant='p'>Refundable Price</Typography></Grid>
                     <Grid item xs={12}  sm={6}>
