@@ -37,7 +37,7 @@ async function setRowData(){
   const data = await axios({
     method:'GET',
     url:`${API_URL}/rooms`
-  }).then(res => res.data.filter(el => el.approved !== true ))
+  }).then(res => res.data.filter(el => el.approved === 'pending' ))
 
   setRows(data.map(el => {return {id : el.id ,roomname : el.roomname , hotelname: el.hotel.hotelname , category: el.roomcategories , refundableprice : el.roomrefundprice , nonrefundableprice : el.roomnonrefundprice }}))
 

@@ -30,7 +30,7 @@ function AcceptRoomModal(props) {
         axios({
             method:'PUT',
             url:`${API_URL}/rooms/${props.room.id}`,
-            data:{commission: commission , approved:true}
+            data:{commission: commission , approved:'approved'}
         }).then(res => {props.onClose()
             setOpen(true) })
         

@@ -75,7 +75,6 @@ export default function HotelListing(props) {
         setCheckOutState(moment(sessionStorage.getItem('checkOut') , 'YYYY-MM-DD' ))
         setAdultState(sessionStorage.getItem('adult'))
         setChildState(sessionStorage.getItem('child'))
-        console.log(sessionStorage)
     }
         else{
              router.push({pathname:'/'})

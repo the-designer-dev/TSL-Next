@@ -19,7 +19,7 @@ function SliderGuests() {
         slidesToShow: 3,
         slidesToScroll: 1,
         arrows: true,
-        autoplay: true,
+        autoplay: false,
         nextArrow: (
             <div className="guests_right_arr"> <ChevronRightIcon sx={{ fontSize: '40px', color: '#FFF', borderRadius: '50px' }} /> </div>
 
@@ -36,21 +36,15 @@ function SliderGuests() {
 
         <Grid item xs={12} >
             <Box sx={{ backgroundColor: 'background.main', padding: '10px', borderRadius: '20px', margin: '10px 0px' }}>
-                <Slider className='order-detail-guest-slider' style={{ backgroundColor: 'transparent' }} {...settings}>
-
-                    <Grid xs={10}>  <AdultCard /> </Grid>
-
-
-                    <Grid xs={10}> <AdultCard /></Grid>
-
-
-                    <Grid xs={10}> <AdultCard /></Grid>
-
-                    <Grid xs={10}> <AdultCard /></Grid>
-                    <Grid xs={10}> <AdultCard /></Grid>
-                    <Grid xs={10}> <AdultCard /></Grid>
-
-                </Slider>
+            <Slider {...settings}>
+          <div>
+            <h3>1</h3>
+          </div>
+          <div>
+            <h3>2</h3>
+          </div>
+          
+        </Slider>
             </Box>
         </Grid>
 

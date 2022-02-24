@@ -30,7 +30,7 @@ function AddEventBox(props) {
     const dispatch = useDispatch()
     const handleFormat = (event, newFormats) => {
     if(newFormats !== null){
-    setFormats(newFormats)}
+    setFormats([newFormats])}
     };
 
     function isOverlapping(Blackoutdates , event){
@@ -53,7 +53,7 @@ function AddEventBox(props) {
             headers:{
                 'Authorization': `Bearer ${token}`
               },
-            data:{hotel: currentHotel , title:name ,start:props.range? props.range[0]:start.format('YYYY-MM-DD') ,end: props.range? props.range[1] :end.format('YYYY-MM-DD') ,roomType:formats ,refundableRates: refundableRates ,nonRefundableRates: nonRefundableRates ,quantity: quantity} } ).then(res => 
+            data:{hotel: currentHotel , title:name ,start:props.range? props.range[0]:start.format('YYYY-MM-DD') ,end: props.range? props.range[1] :end.format('YYYY-MM-DD') ,roomType:formats[0] ,refundableRates: refundableRates ,nonRefundableRates: nonRefundableRates ,quantity: quantity} } ).then(res => 
                 {
                     dispatch(setBlackoutDates([...copyBlackoutDates , {title:name ,start:props.range? props.range[0]:start.format('YYYY-MM-DD') ,end: props.range? props.range[1] :end.format('YYYY-MM-DD') ,roomType:formats[0] ,refundableRates: refundableRates ,nonRefundableRates: nonRefundableRates ,quantity: quantity , overlap: false }]))
                 }).catch(err => {alert('Room type not found.')})}

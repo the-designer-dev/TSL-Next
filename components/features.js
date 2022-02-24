@@ -63,6 +63,8 @@ export default function Features() {
   const [serviceDescription , setserviceDescription] = React.useState('')
   const dispatch = useDispatch()
   const rules = useSelector(state => state.addHotel.rules)
+  const amenitiesRedux = useSelector(state => state.addHotel.amenities)
+  const facilitiesRedux = useSelector(state => state.addHotel.facilities)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -131,7 +133,7 @@ export default function Features() {
                     <Grid item xs={6}><Typography fontWeight={700} variant='p'>Elevator</Typography></Grid>
                     <Grid item xs={6}><Typography fontWeight={300} variant='p'>Elevator available in hotel</Typography></Grid>
                     </Grid>
-                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addAmenity(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Elevator' ,'Elevator available in hotel')}/></Grid>
+                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={amenitiesRedux.find((el) => el.service_name === 'Elevator')} onChange={(e) => addAmenity(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Elevator' ,'Elevator available in hotel')}/></Grid>
                 </Grid>
                 <Grid container item xs={12} sm={6} alignItems='center'>
                     <Grid item xs={2}><Wifi sx={{fontSize:'30px'}}/></Grid>
@@ -139,7 +141,7 @@ export default function Features() {
                     <Grid item xs={6}><Typography fontWeight={700} variant='p'>Free Wifi</Typography></Grid>
                     <Grid item xs={6}><Typography fontWeight={300} variant='p'>Free Wifi available in hotel</Typography></Grid>
                     </Grid>
-                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addAmenity(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Free Wifi' ,'Free Wifi available in hotel')}/></Grid>
+                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={amenitiesRedux.find((el) => el.service_name === 'Free Wifi')} onChange={(e) => addAmenity(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Free Wifi' ,'Free Wifi available in hotel')}/></Grid>
                 </Grid>
                 <Grid container item xs={12} sm={6} alignItems='center'>
                     <Grid item xs={2}><PoolOutlined sx={{fontSize:'30px'}}/></Grid>
@@ -147,7 +149,7 @@ export default function Features() {
                     <Grid item xs={6}><Typography fontWeight={700} variant='p'>Swimming Pool</Typography></Grid>
                     <Grid item xs={6}><Typography fontWeight={300} variant='p'>Well maintained swimming pool available in hotel</Typography></Grid>
                     </Grid>
-                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addAmenity(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Swimming Pool' ,'Well maintained swimming pool available in hotel')}/></Grid>
+                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={amenitiesRedux.find((el) => el.service_name === 'Swimming Pool')} onChange={(e) => addAmenity(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Swimming Pool' ,'Well maintained swimming pool available in hotel')}/></Grid>
                 </Grid>
                 <Grid container item xs={12} sm={6} alignItems='center'>
                     <Grid item xs={2}><Restaurant sx={{fontSize:'30px'}}/></Grid>
@@ -155,7 +157,7 @@ export default function Features() {
                     <Grid item xs={6}><Typography fontWeight={700} variant='p'>Restaurant</Typography></Grid>
                     <Grid item xs={6}><Typography fontWeight={300} variant='p'>Restaurant available with top notch food</Typography></Grid>
                     </Grid>
-                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addAmenity(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Restaurant' ,'Restaurant available with top notch food')}/></Grid>
+                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={amenitiesRedux.find((el) => el.service_name === 'Restaurant')} onChange={(e) => addAmenity(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Restaurant' ,'Restaurant available with top notch food')}/></Grid>
                 </Grid>
                 {amenities.map((el) =>(
                 <Grid container item xs={12} sm={6} alignItems='center'>
@@ -164,7 +166,7 @@ export default function Features() {
                     <Grid item xs={6}><Typography fontWeight={700} variant='p'>{el.service_name}</Typography></Grid>
                     <Grid item xs={6}><Typography fontWeight={300} variant='p'>{el.service_description}</Typography></Grid>
                     </Grid>
-                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addAmenity(e.target.checked,el.service_icon , el.service_name ,el.service_description)}/></Grid>
+                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={amenitiesRedux.find((ele) => ele.service_name === el.service_name)} onChange={(e) => addAmenity(e.target.checked,el.service_icon , el.service_name ,el.service_description)}/></Grid>
                 </Grid>))}
             </Grid>
           </Box>
@@ -180,7 +182,7 @@ export default function Features() {
         <Grid item xs={6}><Typography fontWeight={700} variant='p'>Elevator</Typography></Grid>
         <Grid item xs={6}><Typography fontWeight={300} variant='p'>Elevator available in hotel</Typography></Grid>
         </Grid>
-        <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addFacility(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Elevator' ,'Elevator available in hotel')}/></Grid>
+        <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={facilitiesRedux.find((el) => el.service_name === 'Elevator')} onChange={(e) => addFacility(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Elevator' ,'Elevator available in hotel')}/></Grid>
     </Grid>
     <Grid container item xs={12} sm={6} alignItems='center'>
         <Grid item xs={2}><Wifi sx={{fontSize:'30px'}}/></Grid>
@@ -188,7 +190,7 @@ export default function Features() {
         <Grid item xs={6}><Typography fontWeight={700} variant='p'>Free Wifi</Typography></Grid>
         <Grid item xs={6}><Typography fontWeight={300} variant='p'>Free Wifi available in hotel</Typography></Grid>
         </Grid>
-        <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addFacility(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Free Wifi' ,'Free Wifi available in hotel')}/></Grid>
+        <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={facilitiesRedux.find((el) => el.service_name === 'Free Wifi')} onChange={(e) => addFacility(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Free Wifi' ,'Free Wifi available in hotel')}/></Grid>
     </Grid>
     <Grid container item xs={12} sm={6} alignItems='center'>
         <Grid item xs={2}><PoolOutlined sx={{fontSize:'30px'}}/></Grid>
@@ -196,7 +198,7 @@ export default function Features() {
         <Grid item xs={6}><Typography fontWeight={700} variant='p'>Swimming Pool</Typography></Grid>
         <Grid item xs={6}><Typography fontWeight={300} variant='p'>Well maintained swimming pool available in hotel</Typography></Grid>
         </Grid>
-        <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addFacility(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Swimming Pool' ,'Well maintained swimming pool available in hotel')}/></Grid>
+        <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={facilitiesRedux.find((el) => el.service_name === 'Swimming Pool')} onChange={(e) => addFacility(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Swimming Pool' ,'Well maintained swimming pool available in hotel')}/></Grid>
     </Grid>
     <Grid container item xs={12} sm={6} alignItems='center'>
         <Grid item xs={2}><Restaurant sx={{fontSize:'30px'}}/></Grid>
@@ -204,7 +206,7 @@ export default function Features() {
         <Grid item xs={6}><Typography fontWeight={700} variant='p'>Restaurant</Typography></Grid>
         <Grid item xs={6}><Typography fontWeight={300} variant='p'>Restaurant available with top notch food</Typography></Grid>
         </Grid>
-        <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addFacility(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Restaurant' ,'Restaurant available with top notch food')}/></Grid>
+        <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={facilitiesRedux.find((el) => el.service_name === 'Restaurant')} onChange={(e) => addFacility(e.target.checked,'https://cdn1.iconfinder.com/data/icons/interface-travel-and-environment/64/wifi-interface-wireless-16.png' , 'Restaurant' ,'Restaurant available with top notch food')}/></Grid>
     </Grid>
     {facilities.map((el) =>(
                 <Grid container item xs={12} sm={6} alignItems='center'>
@@ -213,7 +215,7 @@ export default function Features() {
                     <Grid item xs={6}><Typography fontWeight={700} variant='p'>{el.service_name}</Typography></Grid>
                     <Grid item xs={6}><Typography fontWeight={300} variant='p'>{el.service_description}</Typography></Grid>
                     </Grid>
-                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox onChange={(e) => addFacility(e.target.checked,el.service_icon , el.service_name ,el.service_description)}/></Grid>
+                    <Grid container item xs={2} justifyContent='flex-end'><Checkbox checked={facilitiesRedux.find((ele) => ele.service_name === el.service_name)} onChange={(e) => addFacility(e.target.checked,el.service_icon , el.service_name ,el.service_description)}/></Grid>
                 </Grid>))}
 </Grid>
 </Box>

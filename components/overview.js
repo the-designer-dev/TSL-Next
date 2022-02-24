@@ -97,7 +97,7 @@ function Overview(props) {
             adult : room.adultCapacity,
             child : room.childCapacity,
             bedcapacity : room.bedCapacity,
-            roomcategories : room.roomType[0],
+            roomcategories : room.roomType,
             roomslug : room.roomName ,
             roomqty : room.roomQuantity ,
             roomrefundprice : room.refundableRates ,
