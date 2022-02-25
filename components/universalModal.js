@@ -2,6 +2,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import LoginBox from './loginBox';
+import PropTypes from 'prop-types';
+
 
 const style = {
   position: 'absolute',
@@ -11,13 +13,12 @@ const style = {
   minWidth:'300px',
   backgroundColor:'background.secondary',
   boxShadow: 24,
-  borderRadius:'12px'
-  
+  borderRadius:'12px',
+  padding:'20px'
 };
 
-export default function LoginModal(props) {
-  const [open, setOpen] = React.useState(true);
-  const handleClose = () => setOpen(false);
+export default function UniversalModal({open, children}) {
+
 
   return (
     <div>
@@ -28,9 +29,14 @@ export default function LoginModal(props) {
       >
         <Box sx={style}>
             
-            <LoginBox/>
+            {children}
         </Box>
       </Modal>
     </div>
   );
 }
+
+UniversalModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  children: PropTypes.instanceOf(<></>)
+}   
