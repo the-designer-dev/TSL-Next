@@ -67,7 +67,7 @@ function checkOut(){
     var extras = []
     for (const [key, value] of Object.entries(extra_items)) {
         data !== undefined  && id !== undefined && room !== undefined?
-          extras= [...extras , {extra_field_name: key , extra_field_qty : value , extra_field_price : data.hotel_extra_fields.find((el) => el.extra_field_name === key).extra_field_price }] 
+        key !== 'extraBeds'?extras= [...extras , {extra_field_name: key , extra_field_qty : value , extra_field_price : data.hotel_extra_fields.find((el) => el.extra_field_name === key).extra_field_price }]:extras= [...extras , {extra_field_name: key , extra_field_qty : value , extra_field_price : data.rooms.find((el) => el.id === parseInt(room)).extraBeds[0].extra_bed_rates}]
           :console.log('not entered')} 
     var reqData = {
         "total_days":moment(checkout).diff(moment(checkin), 'days')+1,
@@ -82,12 +82,10 @@ function checkOut(){
     const headers={
          Authorization:`Bearer ${token}`
     }
-    console.log(headers)
     axios.post(`${API_URL}/orders`, reqData, {
         headers: headers
     })
       .then((response) => {
-        console.log(response)
         alert('Order created!')
         router.push('/')
       })

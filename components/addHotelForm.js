@@ -7,11 +7,12 @@ import dynamic from 'next/dynamic';
 import Dropfile from './dropzone';
 import Features from './features';
 import { nextStep, prevStep } from '../redux/formSlice';
-import { createFromText, ContentState, convertToRaw  , createFromBlockArray, convertFromRaw} from 'draft-js'
-import {setName ,setCity,setAddress,setDescription} from '../redux/addHotel'
+import { convertToRaw , convertFromHTML, ContentState } from 'draft-js';
+import { convertToHTML } from 'draft-convert';import {setName ,setCity,setAddress,setDescription} from '../redux/addHotel'
 import StyledButton from '../styledComponents/styledButton';
 const MUIRichTextEditor = dynamic(() => import('mui-rte'), {ssr: false });
 import {useDispatch,useSelector} from 'react-redux';
+
 function AddHotelForm(props) {
    const coordinates = useSelector(state => state.addHotel.coordinates)
    const addHotel = useSelector(state => state.addHotel)
@@ -24,6 +25,21 @@ function AddHotelForm(props) {
 }
     else{alert('fill all required fields')}
    }
+
+   
+const SSR = typeof window === 'undefined'
+var contentHTML;
+var state;
+var content;
+
+!SSR?contentHTML   = convertFromHTML(addHotel.description):''    
+!SSR?state   = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
+!SSR?content   = JSON.stringify(convertToRaw(state)):''
+
+const onEditorChange = event => {
+    const plainText = convertToHTML(event.getCurrentContent()) 
+    dispatch(setDescription(plainText))
+}
     return (
         <FormWrapper>
             <form onSubmit={submit}>
@@ -49,7 +65,7 @@ function AddHotelForm(props) {
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Hotel Description:</Typography></Grid>
-                    <Grid item xs={12} ><MUIRichTextEditor required  onChange={(e) => dispatch(setDescription(e.getCurrentContent().getPlainText()))} label="Start typing..." /></Grid>
+                    <Grid item xs={12} ><MUIRichTextEditor required  defaultValue={content} onChange={onEditorChange} label="Start typing..." /></Grid>
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Hotel Images:</Typography></Grid>
