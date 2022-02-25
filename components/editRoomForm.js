@@ -6,6 +6,8 @@ import dynamic from 'next/dynamic';
 import Dropfile from './dropzone';
 import { nextStep, nextStep2, prevStep } from '../redux/formSlice';
 import {InputAdornment} from '@mui/material'
+import { convertToRaw , convertFromHTML, ContentState } from 'draft-js';
+import { convertToHTML } from 'draft-convert';
 import {setRoomName, setRoomDescription, setRoomQuantity , setExtraBedCapacityQuantity , setExtraBedCapacityRates } from '../redux/addRoom';
 const MUIRichTextEditor = dynamic(() => import('mui-rte'), {ssr: false });
 import StyledButton from '../styledComponents/styledButton';
@@ -15,11 +17,23 @@ import {setRefundableRates , setNonRefundableRates} from '../redux/addRoom'
 import DateRange from './dateRange';
 import RoomType from './roomType';
 import RoomFeatures from './roomFeatures';
-import { convertToRaw , convertFromHTML, ContentState } from 'draft-js';
-import { convertToHTML } from 'draft-convert';
-function AddRoomForm(props) {
+function EditRoomForm(props) {
     const dispatch = useDispatch();
-   const room = useSelector(state => state.addRoom) 
+    const room = useSelector(state => state.addRoom) 
+    const SSR = typeof window === 'undefined'
+    var contentHTML;
+    var state;
+    var content;
+
+    !SSR?contentHTML   = convertFromHTML(room.roomDescription):''    
+    !SSR?state   = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
+    !SSR?content   = JSON.stringify(convertToRaw(state)):''
+
+    const onEditorChange = event => {
+        const plainText = convertToHTML(event.getCurrentContent()) 
+        dispatch(setRoomDescription(plainText))
+    }
+
    async function submit(e){
     e.preventDefault()
     const mod = await import('./dropzone')
@@ -30,21 +44,6 @@ function AddRoomForm(props) {
     dispatch(nextStep())
     }
  else{alert('fill all required fields')}
-}
-
-
-const SSR = typeof window === 'undefined'
-var contentHTML;
-var state;
-var content;
-
-!SSR?contentHTML   = convertFromHTML(room.roomDescription):''    
-!SSR?state   = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
-!SSR?content   = JSON.stringify(convertToRaw(state)):''
-
-const onEditorChange = event => {
-    const plainText = convertToHTML(event.getCurrentContent()) 
-    dispatch(setRoomDescription(plainText))
 }
 
     return (
@@ -129,4 +128,4 @@ const onEditorChange = event => {
         </FormWrapper>
     );
 }
-export default AddRoomForm;
+export default EditRoomForm;
