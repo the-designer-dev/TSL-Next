@@ -51,7 +51,7 @@ function Capacity(props) {
                     <Grid item xs={12} xs={8}>
                     <StyledTextField fullWidth onChange={(e)=> {e.target.value>=0? dispatch(setBedCapacity(e.target.value)):''}} value={room.bedCapacity} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px'  ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start"><Button onClick={()=> {room.bedCapacity>0? dispatch(setBedCapacity(room.bedCapacity - 1)) : ''}}>-</Button></InputAdornment> , endAdornment: <InputAdornment  position="end"><Button onClick={()=> {dispatch(setBedCapacity(Number(room.bedCapacity) +1)) }}>+</Button></InputAdornment> }} /></Grid>
                 </Grid>
-                {room.bedType.map((el ,index) =>{console.log(el); return(
+                {room.bedType.map((el ,index) =>{ return(
                 
                 <Grid container item xs={12} sm={6} spacing={1} >
                     <Grid item xs={12} sm={4}>

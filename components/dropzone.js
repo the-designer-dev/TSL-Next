@@ -13,8 +13,10 @@ const Dropfile = (props) => {
     useEffect(() => {
       var formData = new FormData();
       formData.append('images' ,images);
-      props.hotel ? hotelImgs = images.map(el => el.file):
-      roomImgs = images.map(el => el.file)
+      props.hotel ? hotelImgs = images.map(el => el):
+      roomImgs = images.map(el => el)
+
+      console.log(roomImgs)
     },[images])
 
     const handleChangeStatus = ({ meta }, status) => {

@@ -13,14 +13,12 @@ import { API_URL } from '../config';
 import { useRouter } from 'next/router';
 import axios from 'axios';
   
-function Overview(props) {
+function EditOverview(props) {
     const dispatch = useDispatch()
     const [value, setValue] = useState(0);
     const matches = useMediaQuery("(min-width:370px)");
-    const [formats, setFormats] = useState(() => [!props.hotel?'Hotel':'Room']);
-    const [hotelImgs , setHotelImgs] = useState(null)
+    const [formats, setFormats] = useState(() => ['Room']);
     const [roomImgs , setRoomImgs] = useState(null)
-    const hotel = useSelector(state => state.addHotel)
     const room = useSelector(state => state.addRoom)
     const user = useSelector(state => state.user.user)
     const token = useSelector(state => state.user.token)
@@ -32,7 +30,7 @@ function Overview(props) {
     };
     useEffect(async () => {
         const mod = await import('./dropzone')
-        setHotelImgs(mod.hotelImgs)
+        console.log(mod.roomImgs)
         setRoomImgs(mod.roomImgs)
     } , [])
     const submit = async () => {
@@ -43,55 +41,8 @@ function Overview(props) {
             Authorization:`Bearer ${token}`
           }
 
-        if(props.hotel){
-
-            const data = {
-                roomname : room.roomName,
-                roomdescription : room.roomDescription,
-                adult : room.adultCapacity,
-                child : room.childCapacity,
-                bedcapacity : room.bedCapacity,
-                roomcategories : room.roomType,
-                roomslug : room.roomName ,
-                roomqty : room.roomQuantity ,
-                roomrefundprice : room.refundableRates ,
-                roomnonrefundprice : room.nonRefundableRates ,
-                bed_type : room.bedType,
-                extra_beds: room.extraBedCapacity,
-                room_amenities : room.roomAmenities,
-                room_facilities : room.roomFacilities,
-                room_rules : room.roomRules,
-                room_included : room.roomIncludes,
-                hotel: props.hotel
-            }  
-            formData.append('data' , JSON.stringify(data))
-            mod.roomImgs.forEach(element => {
-                formData.append('files.roomimages' , element , element.name)
-            });
-            console.log(formData)
-            axios.post(`${API_URL}/rooms/createnew`, formData , {headers : headers})
-                .then((res) => {
-                console.log(res);
-                }).catch((err) => console.log(err))
-
-        }
-        else{
+     
         const data = {
-            hotelname : hotel.name,
-            hoteldescription : hotel.description,
-            hoteladdress : hotel.address,
-            hotelcity : hotel.city,
-            users_permissions_user : user.id,
-            daystorefund : hotel.daysToRefund,
-            checkintime : hotel.checkIn,
-            checkouttime : hotel.checkOut,
-            latitude : hotel.coordinates[0].longitude,
-            longitude : hotel.coordinates[0].latitude,
-            faqs : hotel.faqs,
-            amenities : hotel.amenities,
-            facilities : hotel.facilities,
-            Rules : hotel.rules,
-            hotel_extra_fields : hotel.services,
             roomname : room.roomName,
             roomdescription : room.roomDescription,
             adult : room.adultCapacity,
@@ -109,17 +60,15 @@ function Overview(props) {
             room_included : room.roomIncludes,
         }  
         formData.append('data' , JSON.stringify(data))
-        mod.hotelImgs.forEach(element => {
-            formData.append('files.hotelimages' , element , element.name)
-        });
+
         mod.roomImgs.forEach(element => {
             formData.append('files.roomimages' , element , element.name)
         });
         console.log(formData)
-        axios.post(`${API_URL}/hotel-rooms`, formData , {headers : headers})
+        await axios.put(`${API_URL}/rooms/updateroom/${props.room}`, formData , {headers : headers})
             .then((res) => {
             console.log(res);
-            }).catch((err) => console.log(err))}
+            }).catch((err) => console.log(err))
         
         router.push('/vendor/allrooms')
     }
@@ -142,9 +91,6 @@ function Overview(props) {
                         aria-label="text formatting"
                         >
                         
-                        <ToggleButton   sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}}  value="Hotel" aria-label="bold">
-                            <Typography variant='p'>Hotel Details</Typography>
-                        </ToggleButton>
                         <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="Room" aria-label="italic">
                         <Typography variant='p'>Room Details</Typography>
                         </ToggleButton>
@@ -181,8 +127,7 @@ function Overview(props) {
                         <Typography fontWeight={300} variant='h6'>Description:</Typography>
                     </Grid>
                     <Grid item xs={12} sm={9} >
-                        <div dangerouslySetInnerHTML={{__html: hotel.description}}/>
-
+                        <Typography fontWeight={400} variant='h6'>{hotel.description}</Typography>
                     </Grid>
                     </Grid>
                     <Grid item xs={12}>
@@ -323,10 +268,7 @@ function Overview(props) {
                     orientation={`${matches ? `horizontal` : `vertical`}`}
                     aria-label="text formatting"
                     >
-                        {!props.hotel?
-                    <ToggleButton   sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}}  value="Hotel" aria-label="bold">
-                        <Typography variant='p'>Hotel Details</Typography>
-                    </ToggleButton>:''}
+  
                     <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="Room" aria-label="italic">
                     <Typography variant='p'>Room Details</Typography>
                     </ToggleButton>
@@ -412,6 +354,7 @@ function Overview(props) {
                         <Typography fontWeight={300} variant='h6'>Room Images:</Typography>
                     </Grid>
                     {roomImgs?roomImgs.map(el =>  (<Grid item xs={3}><img style={{width:'100%' , height:'100%' , borderRadius:'8px'}} src={URL.createObjectURL(el)}/></Grid>)):''}
+                    {console.log(roomImgs)}
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} >
@@ -491,7 +434,7 @@ function Overview(props) {
 
                 
                 <Grid container item spacing={1} justifyContent='flex-end'>
-                <Grid item><StyledButton onClick={() => {!props.hotel?dispatch(prevStep()):dispatch(prevStep2())}}>Previous</StyledButton></Grid>
+                <Grid item><StyledButton onClick={() => {dispatch(prevStep2())}}>Previous</StyledButton></Grid>
                 <Grid item><StyledButton onClick={() => submit()} >Submit</StyledButton></Grid>       
                 </Grid>
             </Grid>
@@ -499,4 +442,4 @@ function Overview(props) {
         </FormWrapper>
     );
 }
-export default Overview;
+export default EditOverview;

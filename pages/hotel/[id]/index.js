@@ -386,6 +386,5 @@ Hotel.getLayout = function getLayout(Hotel) {
         method: "post",
         url: `${API_URL}/filter-hotels/${id}`,
         data:reqData} ).then(res => res.data)
-        console.log(resData)
         return { props: { resData , reqData ,id} }
   }

@@ -10,6 +10,7 @@ import {useRouter} from 'next/router'
 import axios from 'axios';
 import { API_URL } from '../../../config';
 import {setRoomName,setRoomDescription,setRoomImages,setAdultCapacity,setChildCapacity,setBedCapacity , setRoomType , setRoomQuantity,setRoomAmenities,setRoomFacilities,setRoomRules,setRoomIncludes,setRefundableRates,setNonRefundableRates , setBedType , setExtraBedCapacityRates , setExtraBedCapacityQuantity} from '../../../redux/addRoom'
+import EditOverview from '../../../components/editOverview';
 function EditRoom(props) {
   const router = useRouter()
     const { room } = router.query
@@ -57,7 +58,7 @@ function EditRoom(props) {
     </Grid>:''}
     {active == 1?
     <Grid item xs={12}>
-    <Overview hotel={hotel}/>
+    <EditOverview room={room}/>
     </Grid>:''}
     </Grid>
         </StyledContainer>

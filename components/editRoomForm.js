@@ -37,11 +37,8 @@ function EditRoomForm(props) {
    async function submit(e){
     e.preventDefault()
     const mod = await import('./dropzone')
-    if(mod.roomImgs.length > 0){
-        props.hotel?
-        dispatch(nextStep2())
-        :
-    dispatch(nextStep())
+    if(mod.roomImgs.length > 0 || room.roomImages.length > 0){
+    dispatch(nextStep2())
     }
  else{alert('fill all required fields')}
 }
