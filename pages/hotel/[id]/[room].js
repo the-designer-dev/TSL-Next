@@ -9,7 +9,7 @@ import { setDestination ,setCheckIn,setCheckOut,setAdult,setChild} from "../../.
 import { useDispatch , useSelector } from 'react-redux';
 import useSWR from 'swr';
 import StyledContainer from '../../../styledComponents/styledContainer';
-import CustomerLayout from '../../../components/customerLayout';
+import CustomerLayout from '../../../components/customerLayout'; 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CheckIcon from '@mui/icons-material/Check';

@@ -19,7 +19,8 @@ export const darkTheme = createTheme({
         main: '#999999',
       },
       button:{
-        main: '#2AB572'
+        main: '#2AB572',
+        danger: '#e7101a'
       },
       background: {
         main: '#1E3459',
