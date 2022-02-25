@@ -1,5 +1,6 @@
 import {React , useEffect , useState } from "react";
-import {  Grid , Typography , TextField , InputAdornment } from "@mui/material";
+import {  Grid , Typography , TextField , InputAdornment, IconButton , Menu,MenuItem } from "@mui/material";
+import MoreVert from "@mui/icons-material/MoreVert";
 import StyledContainer from "../../styledComponents/styledContainer";
 import { DataGrid } from '@mui/x-data-grid';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,6 +10,7 @@ import axios from "axios";
 import { API_URL } from "../../config";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 
 const fetch = (user,token) =>  axios({
   method: 'GET',
@@ -24,9 +26,18 @@ function AllRooms(props) {
     const token = useSelector(state => state.user.token)
     const user = useSelector(state => state.user.user)
     const { data, error } = useSWR([user , token] ,fetch)
+    const router = useRouter();
+    const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 useEffect(()=> {
   data !=undefined && data != null?
-    setTableData(data.map((el , index) => {return {id:index+1 ,roomname:el.roomname , capacityAdult: el.adult, capacityChild:el.child, price: `PKR ${el.roomrefundprice}/-` ,priceNonRef:`PKR ${el.roomnonrefundprice}/-`}})):''
+    setTableData(data.map((el , index) => {return {id:index+1 , roomId : el.id,roomname:el.roomname , capacityAdult: el.adult, capacityChild:el.child, price: `PKR ${el.roomrefundprice}/-` ,priceNonRef:`PKR ${el.roomnonrefundprice}/-`}})):''
   } , [data])
 const columns = [
   { field: 'roomname', headerName: 'Room Name' , flex:1 ,headerAlign: 'center'},
@@ -35,13 +46,31 @@ const columns = [
   { field: 'price', headerName: 'Price',flex:1 ,headerAlign: 'center'},
   { field: 'priceNonRef', headerName: 'Price (Non-Refundable)',flex:1 ,headerAlign: 'center'},
   { field: 'details', headerName: 'Details',flex:1 ,headerAlign: 'center',renderCell: (params) => (
-      <StyledButton
-        onClick={() => { 
-          console.log(params.row)
-        }}
-      >
-        View More
-      </StyledButton>
+    <>
+    <IconButton
+      onClick={handleClick}
+    >
+      <MoreVert/>
+    </IconButton>
+    <Menu
+    anchorEl={anchorEl}
+    open={open}
+    onClose={handleClose}
+  >
+      <MenuItem onClick={() => {router.push(`/vendor/editroom/${params.row.roomId}`); console.log(params.row)}}>
+        Edit 
+      </MenuItem>
+      <MenuItem  onClick={() => { console.log(params.row) }}>
+        Duplicate
+      </MenuItem>
+      <MenuItem  onClick={console.log(params)}>
+        Delete
+      </MenuItem> 
+      <MenuItem  onClick={console.log(params)}>
+        View Details
+      </MenuItem> 
+  </Menu>
+  </>
     )}]
     return (
         <StyledContainer  square={true}>
