@@ -112,7 +112,7 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
 
 .slick-prev,
 .slick-next {
-  top: 60% !important;
+  top: 48% !important;
   z-index: 2;
 }
 

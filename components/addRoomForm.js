@@ -17,6 +17,7 @@ import RoomType from './roomType';
 import RoomFeatures from './roomFeatures';
 import { convertToRaw , convertFromHTML, ContentState } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
+import { useEffect } from 'react';
 function AddRoomForm(props) {
     const dispatch = useDispatch();
    const room = useSelector(state => state.addRoom) 
@@ -37,10 +38,11 @@ const SSR = typeof window === 'undefined'
 var contentHTML;
 var state;
 var content;
-
-!SSR?contentHTML   = convertFromHTML(room.roomDescription):''    
-!SSR?state   = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
-!SSR?content   = JSON.stringify(convertToRaw(state)):''
+useEffect(() => {
+    !SSR?contentHTML = convertFromHTML(room.roomDescription):''    
+    !SSR?state = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
+    !SSR?content = JSON.stringify(convertToRaw(state)):''
+} , [])
 
 const onEditorChange = event => {
     const plainText = convertToHTML(event.getCurrentContent()) 
