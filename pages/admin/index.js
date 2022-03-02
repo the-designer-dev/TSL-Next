@@ -12,6 +12,8 @@ function Index(props) {
 
   const [tableData, setTableData] = useState([])
   const [orderTotal, setOrderTotal] = useState(null)
+  const [pendingWith, setPendingWith] = useState(null)
+  const [approved, setApproved] = useState(null)
   const columns = [
     
     { field: 'users_permissions_user', headerName: 'User Id', flex: 0.5, headerAlign: 'center' },
@@ -33,7 +35,11 @@ function Index(props) {
       console.log(res.data)
       setTableData(res.data.wallet)
     setOrderTotal(res.data.wallet_total)
+    setPendingWith(res.data.pending)
+    setApproved(res.data.approved)
     })
+
+
     
 } , [])
  
@@ -44,11 +50,14 @@ function Index(props) {
                 <Typography fontWeight={500} variant='h5'>Vendor Wallet</Typography>
                 </Grid>
                 <Grid container item spacing={2} alignItems="stretch">
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={4}>
                 <SmallDetailsCard heading='Wallet' number={`Rs ${orderTotal}/-`} img={CancelledOrders} /></Grid>
                 
-                <Grid item xs={12} sm={6}>
-                <SmallDetailsCard heading='Request For Withdrawals' number='Rs 0' img={CancelledOrders} />
+                <Grid item xs={12} sm={4}>
+                <SmallDetailsCard heading='Pending Withdrawals' number={`Rs ${pendingWith}/-`} img={CancelledOrders} />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                <SmallDetailsCard heading='Approved Withdrawals' number={`Rs ${approved}/-`} img={CancelledOrders} />
                 </Grid>
                 </Grid>
 
