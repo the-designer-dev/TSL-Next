@@ -69,7 +69,7 @@ function CustomerHeader(props) {
         }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={() => {handleClose(); router.push('/customer/orders')}}>My orders</MenuItem>
         <MenuItem onClick={()=>{handleClose ; sessionStorage.removeItem('token') ; dispatch(setToken('')) ;dispatch(setUser({})) ; router.push('/') }}>Logout</MenuItem>
       </Menu>
       </>
