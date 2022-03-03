@@ -62,6 +62,10 @@ function Overview(props) {
                 room_facilities : room.roomFacilities,
                 room_rules : room.roomRules,
                 room_included : room.roomIncludes,
+                free_cancellation_days: room.freeCancellationDays,
+                applied_for_days: room.appliedForDays,
+                cancelled_within_days: room.cancelledWithinDays,
+                no_show: room.noShow,
                 hotel: props.hotel
             }  
             formData.append('data' , JSON.stringify(data))
@@ -107,6 +111,10 @@ function Overview(props) {
             room_facilities : room.roomFacilities,
             room_rules : room.roomRules,
             room_included : room.roomIncludes,
+            free_cancellation_days: room.freeCancellationDays,
+            applied_for_days: room.appliedForDays,
+            cancelled_within_days: room.cancelledWithinDays,
+            no_show: room.noShow,
         }  
         formData.append('data' , JSON.stringify(data))
         mod.hotelImgs.forEach(element => {

@@ -19,6 +19,11 @@ export const addRoomSlice = createSlice({
     roomFacilities:[],
     roomRules:[],
     roomIncludes:[],
+    freeCancellationDays:null,
+    appliedForDays : null ,
+    cancelledWithinDays : null,
+    noShow : null,
+    refundablePolicy:false
   },
   reducers: {
     setRoomName: (state,action) => {
@@ -75,10 +80,25 @@ export const addRoomSlice = createSlice({
     setExtraBedCapacityQuantity: (state,action) => {
       state.extraBedCapacity.extra_bed_qty = action.payload
     },
+    setRefundablePolicy: (state,action) => {
+      state.refundablePolicy = action.payload
+    },
+    setFreeCancellationDays : (state,action) => {
+      state.freeCancellationDays = action.payload
+    },
+    setAppliedForDays: (state,action) => {
+      state.appliedForDays = action.payload
+    },
+    setCancelledWithinDays: (state,action) => {
+      state.cancelledWithinDays = action.payload
+    },
+    setNoShow: (state,action) => {
+      state.noShow = action.payload
+    },
    }
 })
 
 // Action creators
-export const { setRoomName,setRoomDescription,setRoomImages,setAdultCapacity,setChildCapacity,setBedCapacity,setDateRange , setRoomType , setRoomQuantity,setRoomAmenities,setRoomFacilities,setRoomRules,setRoomIncludes,setRefundableRates,setNonRefundableRates , setBedType , setExtraBedCapacityRates , setExtraBedCapacityQuantity} = addRoomSlice.actions;
+export const { setRoomName,setRoomDescription,setRoomImages,setAdultCapacity,setChildCapacity,setBedCapacity,setDateRange , setRoomType , setRoomQuantity,setRoomAmenities,setRoomFacilities,setRoomRules,setRoomIncludes,setRefundableRates,setNonRefundableRates , setBedType , setExtraBedCapacityRates , setExtraBedCapacityQuantity,setRefundablePolicy,setFreeCancellationDays,setAppliedForDays,setCancelledWithinDays,setNoShow} = addRoomSlice.actions;
 
 export default addRoomSlice.reducer;

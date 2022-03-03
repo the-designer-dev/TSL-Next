@@ -60,6 +60,8 @@ function Capacity(props) {
                     </Grid>
                     <Grid item xs={12} sm={8}>
                     <FormControl fullWidth>
+                        {console.log(el)}
+                        {console.log(JSON.stringify({bedName:'King',bedValue: 2}))} 
                         <Select
                         sx={{'&.MuiOutlinedInput-root':{backgroundColor:'#FFF' , color:'secondary.main'}}}
                             value={JSON.stringify(el)}
