@@ -1,6 +1,6 @@
 import { Button , Grid, Typography } from '@mui/material';
 import FormWrapper from '../styledComponents/formWrapper';
-import React from 'react';
+import React , {useEffect} from 'react';
 import StyledTextField from '../styledComponents/styledTextField';
 import dynamic from 'next/dynamic';
 import Dropfile from './dropzone';
@@ -86,11 +86,15 @@ function EditRoomForm(props) {
                     <Grid item xs={12} sm={6}><Typography variant='p'>Refundable Rates</Typography></Grid>
                     <Grid item xs={12} sm={6} ><StyledTextField required value={room.refundableRates} onChange={(e) => dispatch(setRefundableRates(e.target.value))} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start">PKR</InputAdornment> , endAdornment: <InputAdornment  position="end">Per Person</InputAdornment> }} fullWidth/></Grid>
                     
-                    <Grid item xs={12} sm={6}><PaymentPolicies/></Grid>
+                    <Grid item xs={12} ><PaymentPolicies/></Grid>
 
                 
+                    {room.refundablePolicy?
+                    <>
                     <Grid item xs={12} sm={6}><Typography variant='p'>Non-Refundable Rates</Typography></Grid>
                     <Grid item xs={12} sm={6} ><StyledTextField required value={room.nonRefundableRates} onChange={(e) => dispatch(setNonRefundableRates(e.target.value))} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start">PKR</InputAdornment> , endAdornment: <InputAdornment  position="end">Per Person</InputAdornment> }} fullWidth/></Grid>
+                    </>
+                    :''}
                     </Grid>
                     {/* <Grid container item>
                         <Grid item>
