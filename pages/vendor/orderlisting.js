@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import {} from 'next'
 import SmallDetailsCard from '../../components/smallDetailsCard';
 import StyledContainer from '../../styledComponents/styledContainer';
 import AllOrders from '../../assets/All Orders.png';
@@ -12,7 +13,11 @@ import StyledButton from '../../styledComponents/styledButton';
 import VendorLayout from '../../components/vendorLayout';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import {useRouter} from 'next/router'
+
 function OrderListing(props) {
+
+  const router = useRouter()
     const [tableData ,setTableData] = useState([])
     const columns = [
         { field: 'orderid', headerName: 'Order ID' , flex:1 ,headerAlign: 'center'},
@@ -25,7 +30,7 @@ function OrderListing(props) {
         { field: 'details', headerName: 'Details',flex:1 ,headerAlign: 'center',renderCell: (params) => (
             <StyledButton
               onClick={() => { 
-                console.log(params.row)
+                router.push(`/vendor/order/${params.row.orderid}`)
               }}>
               View More
             </StyledButton>

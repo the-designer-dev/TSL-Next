@@ -9,7 +9,7 @@ function CustomFooterComponent(props) {
   return (
     <Box sx={{ padding: '10px 10px 15px 10px', display: 'flex' , backgroundColor:'table.tableRow2'  , borderRadius:'0px 0px 5px 5px' }}>
       <Box sx={{flex:'2',display:'flex' , justifyContent:'flex-end'}}><Typography fontSize={16} fontWeight={600}  variant='p'>Grand Total</Typography></Box>
-      <Box sx={{flex:'1',display:'flex' , justifyContent:'flex-end'}}><Typography fontSize={16} fontWeight={600}  variant='p'>{props.total}/-</Typography></Box>
+      <Box sx={{flex:'1',display:'flex' , justifyContent:'flex-start',marginLeft:"10px"}}><Typography fontSize={16} fontWeight={600}  variant='p'>{props.total}/-</Typography></Box>
     </Box>
   );
 }
@@ -36,7 +36,7 @@ export default function TotalTable(props) {
           columns={props.columns} 
           rows={props.rows} 
           autoHeight
-          sx={{ '& .MuiDataGrid-columnSeparator':{display:'none'}, '& .MuiDataGrid-footerContainer':{backgroundColor:'table.tableRow2'}, '& .MuiDataGrid-columnHeaders':{backgroundColor:'table.tableRow1' , borderRadius:'5px 5px 0px 0px'} , border:'none', "& .MuiDataGrid-virtualScroller": { "& .MuiDataGrid-row": {'& .MuiDataGrid-cell':{border:'none' , fontWeight:'300'},  "&:nth-child(2n)": {   backgroundColor: "table.tableRow1" } , "&:nth-child(2n-1)": {  backgroundColor: "table.tableRow2" }}}}}
+          sx={{ '& .MuiDataGrid-columnSeparator':{display:'none'}, '& .MuiDataGrid-footerContainer':{backgroundColor:'table.tableRow2'}, '& .MuiDataGrid-columnHeaders':{backgroundColor:'table.tableRow1' , borderRadius:'5px 5px 0px 0px'} , border:'none', "& .MuiDataGrid-virtualScroller": { "& .MuiDataGrid-row": {'& .MuiDataGrid-cell':{border:'none' , fontWeight:'300', justifyContent:"center"},  "&:nth-child(2n)": {   backgroundColor: "table.tableRow1" } , "&:nth-child(2n-1)": {  backgroundColor: "table.tableRow2" }}}}}
         />
       </Box>
 

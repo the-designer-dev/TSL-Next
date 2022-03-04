@@ -26,8 +26,8 @@ function SliderGuests() {
                 <Swiper
                     modules={[Navigation, Pagination]}
                     spaceBetween={10}
-                    slidesPerView={matches2 ? 1 : matches1 ? 2 : matches3 ? 3 : 4}
-
+                    slidesPerView={1}
+                    // matches2 ? 1 : matches1 ? 2 : matches3 ? 3 : 4
                     pagination={{ clickable: true }}
                     navigation
                     onSwiper={(swiper) => console.log(swiper)}

@@ -136,7 +136,7 @@ export default function CustomerDashBoard() {
   };
 
 
-  useEffect(async ()=>{
+  useEffect(async () => {
     const orders = await axios({
         method: 'GET',
         url: `${API_URL}/orders_customer`,
