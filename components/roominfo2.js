@@ -1,7 +1,7 @@
 import { Grid ,  Box, Typography ,Button , Tab ,Tabs,Accordion ,AccordionDetails,AccordionSummary , MenuItem } from '@mui/material';
 import { useDispatch , useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import {setReduxPrice,setExtra_items , setCurrentHotel, setRoom_quantity, setCurrentRoom} from '../redux/bookingSlice'
+import {setReduxPrice,setExtra_items , setCurrentHotel, setRoom_quantity, setCurrentRoom , setBookingType} from '../redux/bookingSlice'
 import SmallCarouselWithThumbnail from './smallCarouselWithThumbnails';
 import FormControl from '@mui/material/FormControl';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -37,7 +37,11 @@ function RoomInfo2(props) {
     const matches = useMediaQuery("(min-width:370px)");
     const handleFormat = (event, newFormats) => {
         if(newFormats !== null){
-      setFormats(newFormats)}}
+            dispatch(setBookingType(newFormats))
+      setFormats(newFormats)}
+      setCurrRoomPrice(el.blackout_dates? newFormats === 'refundable'? el.blackout_dates.nonrefundable_rates : el.blackout_dates.refundable_rates : newFormats === 'refundable'?  el.roomrefundprice : el.roomnonrefundprice )
+      
+    }
 
     const dispatch = useDispatch()
     useEffect(()=>
@@ -76,8 +80,9 @@ function RoomInfo2(props) {
 
 
     useEffect(()=>
-    { calculatePrice()
-    } , [extraFields , rooms , currRoomPrice , extraBed])
+    {
+         calculatePrice()
+    } , [extraFields , rooms , currRoomPrice , extraBed , formats])
 
     const calculatePrice = () =>{ 
         var days= moment(sessionStorage.getItem('checkOut')).diff(moment(sessionStorage.getItem('checkIn')), 'days')+1
@@ -245,7 +250,7 @@ function RoomInfo2(props) {
                 <Typography fontWeight={600} fontSize={12}>No. of Rooms</Typography>
                     <form>
                     <FormControl>
-                    <Grid xs={18} alignItems='center' spacing={2} direction='row' justifyContent='left' container item><Grid justifyContent='flex-start' alignContent='center' container item xs={4}> <Button onClick={e => {if(rooms-1 >= 0){setRooms(rooms -1 ); setCurrRoomPrice(el.blackout_dates?el.blackout_dates.nonrefundable_rates : formats === 'refundable'? el.roomrefundprice : el.roomnonrefundprice)}}}  sx={{ padding:'0px',borderRadius:'100%' , backgroundColor:'transparent' , color:'button.main'  , border:'1px solid' , minWidth:'26px !important'}}>-</Button></Grid> <Grid container item justifyContent={'flex-start'} sx={{textAlign:'center' , paddingLeft:'10px !important'}} xs={8}> <StyledTextField size={'small'} value={rooms} onChange={e => {if(parseInt(el.blackout_dates? el.blackout_dates.quantity : el.roomqty) >= e.target.value && e.target.value >= 0) {setRooms(e.target.value); setCurrRoomPrice(el.blackout_dates?el.blackout_dates.nonrefundable_rates : formats === 'refundable'? el.roomrefundprice : el.roomnonrefundprice)} }} defaultValue="0" value={rooms} id="outlined-name"  size='small' sx={{height:'28px' , boxSizing:'border-box !important' , '& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{flexFlow:'wrap' , height:'11px'}} }} fullWidth type='number' /></Grid> <Grid sx={{paddingLeft:'10px !important'}} justifyContent='flex-start' alignContent='center' container item xs={4}> <Button onClick={e => {if(rooms+1 <= parseInt(el.blackout_dates? el.blackout_dates.quantity : el.roomqty)){setRooms(rooms +1 ); setCurrRoomPrice(el.blackout_dates?el.blackout_dates.nonrefundable_rates : formats === 'refundable'? el.roomrefundprice : el.roomnonrefundprice)}}} sx={{ borderRadius:'100%' , backgroundColor:'transparent' , color:'button.main'  , border:'1px solid' , padding:'0px' ,minWidth:'26px !important'}}>+</Button></Grid></Grid>
+                    <Grid xs={18} alignItems='center' spacing={2} direction='row' justifyContent='left' container item><Grid justifyContent='flex-start' alignContent='center' container item xs={4}> <Button onClick={e => {if(rooms-1 >= 0){setRooms(rooms -1 ); setCurrRoomPrice(el.blackout_dates? formats === 'refundable'? el.blackout_dates.nonrefundable_rates : el.blackout_dates.refundable_rates : formats === 'refundable'?  el.roomrefundprice : el.roomnonrefundprice )}}}  sx={{ padding:'0px',borderRadius:'100%' , backgroundColor:'transparent' , color:'button.main'  , border:'1px solid' , minWidth:'26px !important'}}>-</Button></Grid> <Grid container item justifyContent={'flex-start'} sx={{textAlign:'center' , paddingLeft:'10px !important'}} xs={8}> <StyledTextField size={'small'} value={rooms} onChange={e => {if(parseInt(el.blackout_dates? el.blackout_dates.quantity : el.roomqty) >= e.target.value && e.target.value >= 0) {setRooms(e.target.value); setCurrRoomPrice(el.blackout_dates?el.blackout_dates.nonrefundable_rates : formats === 'refundable'? el.roomrefundprice : el.roomnonrefundprice)} }} defaultValue="0" value={rooms} id="outlined-name"  size='small' sx={{height:'28px' , boxSizing:'border-box !important' , '& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{flexFlow:'wrap' , height:'11px'}} }} fullWidth type='number' /></Grid> <Grid sx={{paddingLeft:'10px !important'}} justifyContent='flex-start' alignContent='center' container item xs={4}> <Button onClick={e => {if(rooms+1 <= parseInt(el.blackout_dates? el.blackout_dates.quantity : el.roomqty)){setRooms(rooms +1 ); setCurrRoomPrice(el.blackout_dates?el.blackout_dates.nonrefundable_rates : formats === 'refundable'? el.roomrefundprice : el.roomnonrefundprice)}}} sx={{ borderRadius:'100%' , backgroundColor:'transparent' , color:'button.main'  , border:'1px solid' , padding:'0px' ,minWidth:'26px !important'}}>+</Button></Grid></Grid>
                     </FormControl>
                     </form>
                 </Grid>

@@ -8,6 +8,8 @@ import StyledTextField from '../styledComponents/styledTextField'
 function PaymentPolicies(props) {
     const dispatch =  useDispatch()
     const refundablePolicy =  useSelector(state =>  state.addRoom.refundablePolicy)
+    const freeCancellationDays =  useSelector(state =>  state.addRoom.freeCancellationDays)
+
     const [freeCancellation, setFreeCancellation] = useState(true);
     const [cancellationFee, setCancellationFee] = useState(false);
     const [noShow, setNoShowState] = useState(true);
@@ -20,37 +22,36 @@ function PaymentPolicies(props) {
         <Box>
             <Grid container spacing={1}>
             <Grid item xs={12} ><Typography variant='p'>What kind of cancellation policy do you have?</Typography></Grid>
-            <Grid item xs={6} >
+            {/* <Grid item xs={6} >
             <FormControlLabel  control={
                 <Checkbox
     checked={freeCancellation}
-    onChange={(e) => {if(e.target.checked === false && cancellationFee===false ){}else{setCancellationFee(false) ; setFreeCancellation(true)} }}
+    onChange={(e) => {setFreeCancellation(e.target.checked) }}
     inputProps={{ 'aria-label': 'controlled' }}/>}
     label='Free Cancellation'/>
-      </Grid>
-            <Grid item xs={6} >
+      </Grid> */}
+            {/* <Grid item xs={6} >
             <FormControlLabel  control={
                 <Checkbox
       checked={cancellationFee}
-      onChange={(e) => {if(e.target.checked === false && freeCancellation ){setFreeCancellation(true); setCancellationFee(false)}else{setFreeCancellation(false); setCancellationFee(true)} }}
+      onChange={(e) => {setCancellationFee(e.target.checked)}}
       inputProps={{ 'aria-label': 'controlled' }}/>}
       label='Cancellation Fee'/>
-      </Grid>
+      </Grid> */}
       {freeCancellation?
       <Grid item xs={12}>
           <Typography variant='p'>Offer free cancellation before </Typography>
-          <StyledTextField size='small' onChange={(e) => dispatch(setFreeCancellationDays(e.target.value))} />
+          <StyledTextField size='small' onChange={(e) => {dispatch(setFreeCancellationDays(e.target.value)) ; dispatch(setCancelledWithinDays(e.target.value))}} />
           <Typography variant='p'> days</Typography>
       </Grid> :''}
 
-      {cancellationFee?
           <Grid item xs={12}>
           <Typography variant='p'>Cancellation fee is applied for </Typography>
-          <StyledTextField type='number' sx={{'& .MuiOutlinedInput-root' :{maxWidth:'50px'}}} onChange={(e) => dispatch(setAppliedForDays(e.target.value))} size='small'/>
+          <StyledTextField type='number' sx={{'& .MuiOutlinedInput-root' :{maxWidth:'70px'}}} onChange={(e) => dispatch(setAppliedForDays(e.target.value))} size='small'/>
           <Typography variant='p'> days if cancelled within </Typography>
-          <StyledTextField type='number' sx={{'& .MuiOutlinedInput-root' :{maxWidth:'50px'}}} onChange={(e) => dispatch(setCancelledWithinDays(e.target.value))} size='small'/>
+          {!freeCancellation? <StyledTextField type='number' sx={{'& .MuiOutlinedInput-root' :{maxWidth:'70px'}}} onChange={(e) => {dispatch(setCancelledWithinDays(e.target.value))}} size='small'/> : <Typography variant='p'>{freeCancellationDays}</Typography>}
           <Typography variant='p'> days</Typography>
-      </Grid>: ''}
+      </Grid>
 
       <Grid item xs={12} ><Typography variant='p'>Do you have a No-Show policy?</Typography></Grid>
             <Grid item xs={6} >

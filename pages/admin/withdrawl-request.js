@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import StyledContainer from '../../styledComponents/styledContainer';
 import StyledButton from '../../styledComponents/StyledButton';
+import CustomizeTextArea from '../../styledComponents/styledTextarea';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Grid, IconButton, TextField, Typography, Tab ,Tabs, Box } from '@mui/material';
 import AdminLayout from '../../components/adminLayout';
@@ -11,8 +12,9 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../config';
 import AcceptRoomModal from '../../components/acceptRoomModal';
-
-
+import UniversalModal from '../../components/universalModal'
+import StyledTextField from '../../styledComponents/styledTextField';
+import StyledButtonDanger from '../../styledComponents/StyledButtonDanger';
 
 function withdrawlRequest(props) {
 
@@ -20,9 +22,12 @@ function withdrawlRequest(props) {
   const [value, setValue] = useState(0);
   const [params , setParams] = useState(null)
   const [withdrawls , setWithdrawls] = useState(null)
-  
-
-
+  const [image, setImage] = React.useState(null);
+  const [files, setFiles] = React.useState(null)
+  const [open, setOpen] = React.useState(false)
+  const [referenceNum, setReferenceNum] = React.useState(String)
+  const [description, setDescription] = React.useState(String)
+  const [objId, setObjId] = React.useState(String)
 
 
   const pendingColumns = [
@@ -41,7 +46,14 @@ function withdrawlRequest(props) {
       const handleClose = () => {
         setAnchorEl(null);
       };
-    
+
+      const handleOpenModal = (row) => {
+        setOpen(true)
+        console.log(row)
+        setObjId(row.id)
+      }
+ 
+
       return (
       <>
         <IconButton
@@ -54,7 +66,7 @@ function withdrawlRequest(props) {
         open={open}
         onClose={handleClose}
       >
-          <MenuItem >
+          <MenuItem onClick={() => {handleOpenModal(params.row)}}>
             Accept
           </MenuItem>
           <MenuItem  onClick={() => {withdraw_rejected(params.row)}}>
@@ -156,6 +168,70 @@ function TabPanel(props) {
   );
 }
 
+     
+const onImageChange = (event) => {
+  console.log(event.target.files)
+  Object.values(event.target.files).forEach((elem) => {
+    if(elem.size > 1000000){
+      
+    }
+  })
+  if (event.target.files && event.target.files) {
+    setImage(
+     event.target.files
+    );
+    setFiles(event.target.files)
+  }
+}
+
+const paymentProofAccept = async (e) => {
+  e.preventDefault()
+  setOpen(false)
+  
+  
+  console.log(referenceNum)
+  console.log(description)
+  console.log(files)
+
+  var config = {
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`
+    }
+  };
+
+  var bodyFormData = new FormData();
+  
+  const data = {
+    obj_id: objId,
+    description: description,
+    ref: referenceNum
+  }
+
+  files && 
+  Object.values(files).forEach((elem) => {
+    bodyFormData.append('files.images', elem, elem.name)
+  })  
+
+  
+  bodyFormData.append('data', JSON.stringify(data))
+  await axios.put(`${API_URL}/withdrawl_accept`, bodyFormData, config).then((res) => {
+    console.log(res.data)
+    const datamap1 = res.data.withdrawl_request.map((el) => {
+      return {
+        id: el.id,
+        username: el.users_permissions_user.username,
+        date: el.date,
+        amount: el.amount,
+        status: el.status
+      }
+    })
+    setTableData(datamap1)
+   
+  })
+
+
+}
+
     return (
         <StyledContainer>
           <Tabs allowScrollButtonsMobile centered scrollButtons sx={{'& .MuiTabs-indicator':{height:'5px',backgroundColor:'button.main'} , '& .MuiTabs-flexContainer':{justifyContent:'flex-start'}}}  value={value} onChange={handleChange} >
@@ -187,6 +263,47 @@ function TabPanel(props) {
            </Grid>
       
    </TabPanel>
+   <UniversalModal open={open} modalBackgroundColor="#1E3459" children={<>
+               
+    <Typography fontWeight={500} variant='h6' color={"#fff"} margin="0px 0px 20px 0px">Add Proof Of Payment</Typography>
+    <form onSubmit={paymentProofAccept}>
+    <p style={{color:"#fff"}}>Refference No.</p>
+    <StyledTextField type='text' onChange={(e) => {setReferenceNum(e.target.value)}}/>
+    <br/>
+    <p style={{paddingTop:"10px", color:"#fff"}}>Description</p>
+    <CustomizeTextArea minRows={5} placeholder="Desription" style={{marginBottom:"10px"}} onChange={(e) => {setDescription(e.target.value)}}/>
+
+    <input type="file" multiple onChange={onImageChange}  />
+    {image && 
+    <div style={{width:"100%",height:"450px",maxHeight:"450px",overflow:"auto"}}>
+  {
+    Object.values(image).map((img) => {
+      // console.log(img)
+      return (
+        
+        // <object data={URL.createObjectURL(img)} type={img.type} />
+        <>
+        {img.type === "image/jpeg" || img.type === "image/png" || img.type === "image/jpg" ? 
+        (<><img src={URL.createObjectURL(img)} style={{width:"100%",maxWidth:"450px",padding:"10px"}} /> <p>{img.size / 1024 /1024}</p></>)  
+      : (<><iframe src={URL.createObjectURL(img)} style={{width:"100%",maxWidth:"450px",padding:"10px"}}></iframe><p>{img.size  / 1024 /1024}</p></>)}
+         
+        </>
+         
+      
+      
+      )
+     
+    })}
+      </div>
+    }
+          <div style={{display:"flex", justifyContent:"flex-start",alignItems:"center",marginTop:"20px"}}>
+                <StyledButtonDanger style={{marginRight:"20px"}} onClick={() => {setOpen(false)}}>Cancel</StyledButtonDanger>
+                  <StyledButton type='submit'>Submit</StyledButton>
+                  
+                </div>
+    </form>
+                
+                </>}/>
         {/* {params?<AcceptRoomModal open={openModal} onClose={() => setOpenModal(false)} room={params} />:''}
         <Grid container spacing={2}>
             <Grid item xs={12}>

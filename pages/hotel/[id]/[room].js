@@ -38,6 +38,7 @@ function Book(props) {
     const extra_items =  useSelector(state => state.booking.extra_items)
     const currentHotel =  useSelector(state => state.booking.currentHotel)
     const roomQuantity =  useSelector(state => state.booking.room_quantity)
+    const booking_type =  useSelector(state => state.booking.booking_type)
     const checkout = useSelector(state => state.hotelquery.checkOut)
     const checkin = useSelector(state => state.hotelquery.checkIn)
     const destination = useSelector(state => state.hotelquery.destination)
@@ -77,7 +78,9 @@ function checkOut(){
         "room_id":room,
         "adult_booking":adultInfo,
         "child_booking":childInfo,
-        "extras":extras
+        "extras":extras,
+        "order_total" : price,
+        "booking_type" : booking_type
     }
     const headers={
          Authorization:`Bearer ${token}`

@@ -19,7 +19,9 @@ function VendorWallet() {
     const [tableData, setTableData] = useState([])
     const [orderTotal, setOrderTotal] = useState(null)
     const [withdrawAmount, setWithdrawAmount] = useState(Number)
+    const [withdrawlWallet, setWithdrawlWallet] = useState(Number)
     const [remainingAmount, setRemainingAmount] = useState(Number)
+    const [approved, setApproved] = useState(Number)
     const [open, setOpen] = useState(false)
 
     const token = useSelector(state => state.user.token)
@@ -44,9 +46,12 @@ function VendorWallet() {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
         })
-        setTableData(orders.data[0].wallet_logs)
-        setOrderTotal(orders.data[0].wallet_balance)
-        setRemainingAmount(orders.data[0].wallet_balance)
+        console.log(orders.data)
+        setTableData(orders.data.wallet[0].wallet_logs)
+        setOrderTotal(orders.data.wallet[0].wallet_balance)
+        setRemainingAmount(orders.data.wallet[0].wallet_balance)
+        setWithdrawlWallet(orders.data.wallet[0].withdrawl_wallet)
+        setApproved(orders.data.approved_Withdrawls)
     } , [])
 
 
@@ -78,6 +83,7 @@ function VendorWallet() {
           console.log(result.data)
           setOrderTotal(orderTotal - Number(withdrawAmount))
           setRemainingAmount(orderTotal - Number(withdrawAmount))
+          setWithdrawlWallet(withdrawlWallet + Number(withdrawAmount))
           setOpen(false)
         })
       }
@@ -97,11 +103,14 @@ function VendorWallet() {
                 <StyledButton onClick={() => {setOpen(true)}}>Withdraw</StyledButton>
                 </Grid>
                 <Grid container item spacing={2} alignItems="stretch">
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={4}>
                 <SmallDetailsCard heading='Wallet' number={`Rs ${orderTotal}/-`} img={CancelledOrders} /></Grid>
                 
-                <Grid item xs={12} sm={6}>
-                <SmallDetailsCard heading='Request For Withdrawals' number='Rs 0' img={CancelledOrders} />
+                <Grid item xs={12} sm={4}>
+                <SmallDetailsCard heading='Request For Withdrawals' number={`Rs ${withdrawlWallet}/-`} img={CancelledOrders} />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                <SmallDetailsCard heading='Approved Withdrawals' number={`Rs ${approved}/-`} img={CancelledOrders} />
                 </Grid>
                 </Grid>
 
