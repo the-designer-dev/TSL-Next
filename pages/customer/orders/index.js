@@ -2,7 +2,7 @@ import { useState , useEffect } from "react";
 import { Box, Button, Grid, OutlinedInput, TextField, Typography, IconButton,
     Menu,
     MenuItem } from "@mui/material";
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { FormControl } from "@mui/material";
 import { Select } from "@mui/material";
@@ -43,6 +43,8 @@ export default function CustomerDashBoard() {
   const router = useRouter();
   const theme = useTheme()
   const mobile = useMediaQuery('(min-width:870px)')
+  const token =  useSelector(state => state.user.token)
+
   const [options , setOptions] = useState([])
   const [tableData ,setTableData] = useState([])
 
@@ -95,6 +97,19 @@ export default function CustomerDashBoard() {
           setObjId(row.id)
         }
    
+
+        async function cancelOrder(id){
+
+          const headers={
+                  Authorization:`Bearer ${token}`
+             }
+          await axios({
+            method:'GET',
+            url:`${API_URL}/cancel_order/${id}`,
+            headers:headers
+          }).then((res) => console.log(res.data))
+        }
+
   
         return (
         <>
@@ -109,7 +124,7 @@ export default function CustomerDashBoard() {
           onClose={handleClose}
         >
             {params.row.order_status === "waiting" ? (
-                <MenuItem onClick={() => {console.log(params.row)}}>
+                <MenuItem onClick={() => {cancelOrder(params.row.orderid)}}>
                 Cancel Order
               </MenuItem>
             ) : ""}
