@@ -22,9 +22,9 @@ function RoomDetailCard({room_name, room_desc, people_capacity, bed_capacity, be
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography fontWeight={400} variant='p'><LocationOnOutlinedIcon />
-                    {room_desc}
-                    </Typography>
+                    <Typography fontWeight={400} variant='p' dangerouslySetInnerHTML={{__html: room_desc}} /><LocationOnOutlinedIcon />
+                   
+                    
                 </Grid>
                 <Grid item xs={12}>
                     <Typography fontWeight={400} variant='p'>Total Capacity: {people_capacity} people</Typography>

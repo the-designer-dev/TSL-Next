@@ -107,7 +107,11 @@ function OrderDetails(props) {
   const matches2 = useMediaQuery('(max-width:630px)');
 
 
- 
+ const cancelOrder = () => {
+   axios.get(`${API_URL}/cancel_order/${order}`, {headers:{Authorization : `Bearer ${sessionStorage.getItem('token')}`}}).then((res) => {
+     console.log(res.data)
+   })
+ }
 
   return (
     <StyledContainer>
@@ -144,6 +148,7 @@ function OrderDetails(props) {
           contact_person = {orderDetails.adult_booking.find((rl) => rl.isLeadGuest === true).name}
           contact_number = {orderDetails.adult_booking.find((rl) => rl.isLeadGuest === true).phonenumber}
           order_status={orderDetails.order_status}
+          CancelOrder={cancelOrder}
           />
         }
         </Grid>

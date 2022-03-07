@@ -146,6 +146,7 @@ function OrderDetails(props) {
           contact_person = {orderDetails.adult_booking.find((rl) => rl.isLeadGuest === true).name}
           contact_number = {orderDetails.adult_booking.find((rl) => rl.isLeadGuest === true).phonenumber}
           order_status={orderDetails.order_status}
+          
           />
         }
         </Grid>
