@@ -1,8 +1,12 @@
 import React from 'react';
 import { Box, Grid, Typography, Button } from '@mui/material'
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { API_URL } from '../config';
 
-function BookingSummaryCard({order_id, booking_start_date, booking_end_date, adult, child, contact_person, contact_number, order_status}) {
+function BookingSummaryCard({order_id, booking_start_date, booking_end_date, adult, child, contact_person, contact_number, order_status, CancelOrder}) {
+
+    
 
     return (
         <Box sx={{ backgroundColor: 'background.main', width: '100%', height: '100%', borderRadius: '10px', padding: '40px 30px', margin: '0px 0px 30px 0px' }}>
@@ -70,8 +74,8 @@ function BookingSummaryCard({order_id, booking_start_date, booking_end_date, adu
                     </Grid>
                 </Grid>
 
-                {order_status === "cancelled" ? <Grid container item>
-                    <Button sx={{ backgroundColor: 'button.danger' }}>
+                {order_status === "waiting" ? <Grid container item>
+                    <Button sx={{ backgroundColor: 'button.danger' }} onClick={CancelOrder}>
 
                         Cancel Order
                     </Button>
@@ -99,5 +103,6 @@ BookingSummaryCard.propTypes = {
     child: PropTypes.number.isRequired,
     contact_person: PropTypes.string.isRequired,
     contact_number: PropTypes.string.isRequired,
-    order_status: PropTypes.string
+    order_status: PropTypes.string,
+    CancelOrder: PropTypes.func
 }

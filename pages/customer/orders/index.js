@@ -128,7 +128,7 @@ export default function CustomerDashBoard() {
                 Cancel Order
               </MenuItem>
             ) : ""}
-            <MenuItem onClick={() => {console.log(params.row)}}>
+            <MenuItem onClick={() => {router.push(`/customer/orders/${params.row.orderid}`)}}>
               View details
             </MenuItem>
             
