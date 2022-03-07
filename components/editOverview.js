@@ -53,11 +53,16 @@ function EditOverview(props) {
             roomqty : room.roomQuantity ,
             roomrefundprice : room.refundableRates ,
             roomnonrefundprice : room.nonRefundableRates ,
+            free_cancellation_days: Number(room.freeCancellationDays),
+            applied_for_days: Number(room.appliedForDays),
+            cancelled_within_days: Number(room.cancelledWithinDays),
+            no_show: Number(room.noShow),
             bed_type : room.bedType,
             room_amenities : room.roomAmenities,
             room_facilities : room.roomFacilities,
             room_rules : room.roomRules,
-            room_included : room.roomIncludes,
+            room_included : room.roomIncludes
+
         }  
         formData.append('data' , JSON.stringify(data))
 

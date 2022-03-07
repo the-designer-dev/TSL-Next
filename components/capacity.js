@@ -23,7 +23,8 @@ function Capacity(props) {
 
     function changeBedType(value , index){
         var varTypes = room.bedType.map(el => (el))
-        varTypes[index] = value
+        
+        varTypes[index] = JSON.parse(value)
         dispatch(setBedType(varTypes))
     }
 
@@ -59,15 +60,17 @@ function Capacity(props) {
                     </Grid>
                     <Grid item xs={12} sm={8}>
                     <FormControl fullWidth>
+                        {console.log(el)}
+                        {console.log(JSON.stringify({bedName:'King',bedValue: 2}))} 
                         <Select
                         sx={{'&.MuiOutlinedInput-root':{backgroundColor:'#FFF' , color:'secondary.main'}}}
-                            value={el}
+                            value={JSON.stringify(el)}
                             onChange={(e) => changeBedType(e.target.value , index)}
                         >
-                            <MenuItem value={JSON.stringify({bedname:'King',bedvalue: 2})}>King</MenuItem>
-                            <MenuItem value={JSON.stringify({bedname:'Queen',bedvalue: 2})}>Queen</MenuItem>
-                            <MenuItem value={JSON.stringify({bedname:'Twin',bedvalue: 2})}>Twin</MenuItem>
-                            <MenuItem value={JSON.stringify({bedname:'Single',bedvalue: 1})}>Single</MenuItem>
+                            <MenuItem value={JSON.stringify({bedName:'King',bedValue: 2})}>King</MenuItem>
+                            <MenuItem value={JSON.stringify({bedName:'Queen',bedValue: 2})}>Queen</MenuItem>
+                            <MenuItem value={JSON.stringify({bedName:'Twin',bedValue: 2})}>Twin</MenuItem>
+                            <MenuItem value={JSON.stringify({bedName:'Single',bedValue: 1})}>Single</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
