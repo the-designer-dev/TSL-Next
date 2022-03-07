@@ -22,7 +22,7 @@ function CustomerLayout2({children}) {
 
     } , [])
     return (
-        <Box sx={{backgroundColor:'background.secondary', width:"100%",maxWidth:"1366px",margin:"0 auto"}}>
+        <Box sx={{backgroundColor:'background.secondary', width:"100%"}}>
         {/* <Box sx={{backgroundColor:'background.main' , height:'77px' , position:'fixed' , top:'0' , width:'100%'}}></Box> */}
     <Box sx={{display:'flex'}}>
         <CustomerSidebar/>
