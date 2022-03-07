@@ -60,7 +60,7 @@ function EditRoomForm(props) {
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography  variant='p'>Room Description:</Typography></Grid>
-                    <Grid item xs={12} ><MUIRichTextEditor required defaultValue={content} onChange={onEditorChange} label="Start typing..." /></Grid>
+                    <Grid item xs={12} ><MUIRichTextEditor required controls={['bold']} defaultValue={content} onChange={onEditorChange} label="Start typing..." /></Grid>
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Room Images:</Typography></Grid>

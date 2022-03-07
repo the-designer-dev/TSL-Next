@@ -9,6 +9,7 @@ import {useRouter} from 'next/router'
 import { API_URL } from '../config';
 import axios from 'axios';
 import { setToken, setUser } from '../redux/userSlice';
+import Link from 'next/link';
 function CustomerHeader(props) {
     const dispatch = useDispatch()
     const router = useRouter()
@@ -34,7 +35,7 @@ function CustomerHeader(props) {
             <Box sx={{left:'10px'}} className='mobileMenu'><Image  layout='fixed' src={smallIcon}/></Box> */}
             <Box className='customerMenu' sx={{color:'primary.main',display:'flex' , flex:'auto' ,paddingLeft:'120px' , justifyContent:'space-evenly' }}>
                 <Box sx={{display:'flex' , alignItems: 'flex-end'}} ><FlightTakeoffOutlinedIcon/><Typography  sx={{paddingLeft:'5px'}} variant='p'>Flights</Typography></Box>
-                <Box sx={{display:'flex' , alignItems: 'flex-end'}} ><LocalHotelOutlinedIcon/><Typography  sx={{paddingLeft:'5px'}} variant='p'>Hotels</Typography></Box>
+                <Link href='/'><Box sx={{display:'flex' , alignItems: 'flex-end'}} ><LocalHotelOutlinedIcon/><Typography  sx={{paddingLeft:'5px'}} variant='p'>Hotels</Typography></Box></Link>
                 <Box sx={{display:'flex' , alignItems: 'flex-end'}} ><DirectionsCarFilledOutlinedIcon/><Typography  sx={{paddingLeft:'5px'}} variant='p'>Car</Typography></Box>
                 <Box sx={{display:'flex' , alignItems: 'flex-end'}} ><MapOutlinedIcon/><Typography  sx={{paddingLeft:'5px'}} variant='p'>Tour</Typography></Box>
             </Box>

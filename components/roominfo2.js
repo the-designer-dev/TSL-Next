@@ -173,12 +173,12 @@ function RoomInfo2(props) {
                 {open2?<GuestsModal adultMin={1} adultMax={el.adult} childMin={0} childMax={el.child} />:''}
                 {open?<LoginModal/>:''}
                 <Grid container columns={18} spacing={4}>
-                    <Grid container item xs={18} sm={9} md={7}>
+                    <Grid container item xs={18} sm={18} md={7}>
                         <Box sx={{width:'100%'}}>
                 {el.images.length > 0 ? <SmallCarouselWithThumbnail images={el.images}/> :''}
                 </Box>
                 </Grid>
-                <Grid container item xs={18} sm={9} md={8}>
+                <Grid container item xs={18} sm={12} md={8}>
                 <Grid container item xs={18} spacing={1}>
                     <Grid item xs={18}>
                     <Typography variant='h6' fontWeight={600}>{el.roomname}</Typography>
@@ -237,7 +237,7 @@ function RoomInfo2(props) {
 
                     </Grid>
                 <Grid container item xs={7} spacing={2}>
-                <Grid container item xs={18} sx={{lineHeight:'14px'}}>
+                <Grid container item  sm={18}  sx={{lineHeight:'14px'}}>
                         <Grid item xs={18}>
                             <Typography fontWeight={600} fontSize={12}>Features Included</Typography>
                         </Grid>
@@ -246,7 +246,7 @@ function RoomInfo2(props) {
                 <Grid item ><CheckIcon  sx={{ fontSize:'16px' ,color:'button.main'}}/></Grid><Grid item ><Typography fontSize={12}  variant='p'>{ele.service_name}</Typography></Grid>
                 </Grid>))}
                 </Grid>
-                <Grid container item sx={{lineHeight:'14px'}} xs={18} >
+                <Grid container item sx={{lineHeight:'14px'}} sm={18} >
                 <Typography fontWeight={600} fontSize={12}>No. of Rooms</Typography>
                     <form>
                     <FormControl>
@@ -254,7 +254,7 @@ function RoomInfo2(props) {
                     </FormControl>
                     </form>
                 </Grid>
-                <Grid container item sx={{lineHeight:'14px'}} xs={18}>
+                <Grid container item sx={{lineHeight:'14px'}} sm={18}>
                 <Typography fontWeight={600} fontSize={12}>Extra Beds</Typography>
                 <Typography fontWeight={100} sx={{paddingLeft:'5px'}} fontSize={12} color={'#a5a5a5'}>(PKR {el.extraBeds[0].extra_bed_rates} per bed)</Typography>
                     <form>
@@ -268,16 +268,16 @@ function RoomInfo2(props) {
                 </Grid>
                 </Grid>
                 
-                <Grid container item xs={18} sm={9} md={3} sx={{paddingLeft:'16px !important' , lineHeight:'1'}} spacing={3}>
-                    <Grid container item xs={18}>
+                <Grid container item xs={18} sm={6} md={3} sx={{paddingLeft:'16px !important' , lineHeight:'1'}} spacing={3}>
+                    <Grid container item xs={9} sm={18} sx={{xs:{justifyContent:'center'}}}>
                 <Grid item xs={18}>
                 <Typography variant='h6'>Room price</Typography>
                 </Grid>
-                <Grid  item xs={18} ><Typography  fontWeight={600} fontSize={12} color='button.main' variant='p'>PKR </Typography><Typography fontWeight={600} fontSize={28} color='button.main' variant='p'>{el.blackout_dates?el.blackout_dates.nonrefundable_rates : formats === 'refundable'? el.roomrefundprice : el.roomnonrefundprice}</Typography></Grid>
+                <Grid  item xs={18} ><Typography  fontWeight={600} fontSize={12} color='button.main' variant='p'>PKR </Typography><Typography fontWeight={600} fontSize={28} color='button.main' variant='p'>{el.blackout_dates? formats === 'refundable'? el.blackout_dates.refundable_rates : el.blackout_dates.nonrefundable_rates : formats === 'refundable'?  el.roomrefundprice : el.roomnonrefundprice}</Typography></Grid>
                 <Grid  item xs={18} ><Typography fontWeight={500} fontSize={12}>Per Night</Typography></Grid>
                 <Grid  item xs={18} ><Typography fontWeight={100} fontSize={10} color={'#a5a5a5'}>(Inclusive of all taxes)</Typography></Grid>
                 </Grid>
-                    <Grid container item xs={18}>
+                    <Grid container item xs={9} sm={18} sx={{xs:{justifyContent:'center'}}}>
                 <Grid item xs={18}>
                 <Typography variant='h6'>Total price</Typography>
                 </Grid>
