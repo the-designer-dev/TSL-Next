@@ -10,7 +10,7 @@ const FormWrapper = styled(Box)(({ theme }) => ({
       width: '90%'
   },
   [theme.breakpoints.up('sm')]:{
-      width: '70%'
+      width: '100%'
   },
 }));
 export default FormWrapper;
