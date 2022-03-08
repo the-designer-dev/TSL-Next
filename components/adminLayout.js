@@ -29,7 +29,7 @@ function AdminLayout({children}) {
 
     return (
         <Box sx={{display:'flex'}}>
-            <AdminSidebar />
+            <AdminSidebar/>
             <Box sx={{width:'100%' , backgroundColor:'background.secondary'}}>
             <AdminHeader/>
             {children} 
