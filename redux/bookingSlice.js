@@ -7,6 +7,7 @@ export const bookingSlice = createSlice({
     room_quantity :0,
     currentHotel:0,
     currentRoom:0,
+    booking_type:'',
     oneLead : false,
     guestSet : false,
     adultInfo:[],
@@ -39,12 +40,15 @@ export const bookingSlice = createSlice({
     },
     setGuestSet:(state ,action)=>{
       state.guestSet = action.payload
+    },
+    setBookingType:(state ,action)=>{
+      state.booking_type = action.payload
     }
    }
   
 })
 
 // Action creators
-export const { setReduxPrice,setExtra_items , setRoom_quantity ,setCurrentHotel , setCurrentRoom ,setOneLead , setAdultInfo , setChildInfo, setGuestSet} = bookingSlice.actions;
+export const { setReduxPrice,setExtra_items , setRoom_quantity ,setCurrentHotel , setCurrentRoom ,setOneLead , setAdultInfo , setChildInfo, setGuestSet , setBookingType} = bookingSlice.actions;
 
 export default bookingSlice.reducer;

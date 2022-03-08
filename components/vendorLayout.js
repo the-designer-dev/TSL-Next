@@ -7,6 +7,7 @@ import { API_URL } from '../config';
 import {useRouter} from 'next/router'
 import { setToken, setUser } from '../redux/userSlice';
 import axios from 'axios';
+import useMediaQuery from '@mui/material/useMediaQuery';
 function VendorLayout({children}) {
 
     const dispatch = useDispatch()
@@ -29,14 +30,16 @@ function VendorLayout({children}) {
 
     } , [])
 
+    const device1360 = useMediaQuery('(max-width:1366px)');
+
     return (
-        <Box sx={{display:'flex'}}>
+        <div style={{display:'flex', flexDirection:"row", justifyContent:`center`, width:"100%"}}>
             <VendorSidebar />
             <Box sx={{width:'100%' , backgroundColor:'background.secondary'}}>
             <VendorHeader/>
             {children} 
             </Box>
-        </Box>
+        </div>
     );
 }
 

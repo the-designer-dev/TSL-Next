@@ -27,6 +27,7 @@ export default function LoginModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+            
             <LoginBox/>
         </Box>
       </Modal>

@@ -23,7 +23,8 @@ function Capacity(props) {
 
     function changeBedType(value , index){
         var varTypes = room.bedType.map(el => (el))
-        varTypes[index] = value
+        
+        varTypes[index] = JSON.parse(value)
         dispatch(setBedType(varTypes))
     }
 
@@ -51,7 +52,7 @@ function Capacity(props) {
                     <Grid item xs={12} xs={8}>
                     <StyledTextField fullWidth onChange={(e)=> {e.target.value>=0? dispatch(setBedCapacity(e.target.value)):''}} value={room.bedCapacity} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px'  ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start"><Button onClick={()=> {room.bedCapacity>0? dispatch(setBedCapacity(room.bedCapacity - 1)) : ''}}>-</Button></InputAdornment> , endAdornment: <InputAdornment  position="end"><Button onClick={()=> {dispatch(setBedCapacity(Number(room.bedCapacity) +1)) }}>+</Button></InputAdornment> }} /></Grid>
                 </Grid>
-                {room.bedType.map((el ,index) =>{console.log(el); return(
+                {room.bedType.map((el ,index) =>{ return(
                 
                 <Grid container item xs={12} sm={6} spacing={1} >
                     <Grid item xs={12} sm={4}>
@@ -59,15 +60,17 @@ function Capacity(props) {
                     </Grid>
                     <Grid item xs={12} sm={8}>
                     <FormControl fullWidth>
+                        {console.log(el)}
+                        {console.log(JSON.stringify({bedName:'King',bedValue: 2}))} 
                         <Select
                         sx={{'&.MuiOutlinedInput-root':{backgroundColor:'#FFF' , color:'secondary.main'}}}
-                            value={el}
+                            value={JSON.stringify(el)}
                             onChange={(e) => changeBedType(e.target.value , index)}
                         >
-                            <MenuItem value={JSON.stringify({bedname:'King',bedvalue: 2})}>King</MenuItem>
-                            <MenuItem value={JSON.stringify({bedname:'Queen',bedvalue: 2})}>Queen</MenuItem>
-                            <MenuItem value={JSON.stringify({bedname:'Twin',bedvalue: 2})}>Twin</MenuItem>
-                            <MenuItem value={JSON.stringify({bedname:'Single',bedvalue: 1})}>Single</MenuItem>
+                            <MenuItem value={JSON.stringify({bedName:'King',bedValue: 2})}>King</MenuItem>
+                            <MenuItem value={JSON.stringify({bedName:'Queen',bedValue: 2})}>Queen</MenuItem>
+                            <MenuItem value={JSON.stringify({bedName:'Twin',bedValue: 2})}>Twin</MenuItem>
+                            <MenuItem value={JSON.stringify({bedName:'Single',bedValue: 1})}>Single</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>

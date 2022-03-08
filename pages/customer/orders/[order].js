@@ -16,6 +16,7 @@ import HotelDetailCard from '../../../components/hotelDetailCard'
 import BookingSummaryCard from '../../../components/bookingSummaryCard';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import GuestCard from '../../../components/guestCard';
+import CustomerLayout2 from "../../../components/customerLayout2";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -106,12 +107,9 @@ function OrderDetails(props) {
   const matches1 = useMediaQuery('(max-width:900px)');
   const matches2 = useMediaQuery('(max-width:630px)');
 
-
- const cancelOrder = () => {
-   axios.get(`${API_URL}/cancel_order/${order}`, {headers:{Authorization : `Bearer ${sessionStorage.getItem('token')}`}}).then((res) => {
-     console.log(res.data)
-   })
- }
+  const navigationPrevRef = React.useRef(null)
+  const navigationNextRef = React.useRef(null)
+ 
 
   return (
     <StyledContainer>
@@ -148,7 +146,7 @@ function OrderDetails(props) {
           contact_person = {orderDetails.adult_booking.find((rl) => rl.isLeadGuest === true).name}
           contact_number = {orderDetails.adult_booking.find((rl) => rl.isLeadGuest === true).phonenumber}
           order_status={orderDetails.order_status}
-          CancelOrder={cancelOrder}
+          
           />
         }
         </Grid>
@@ -158,9 +156,9 @@ function OrderDetails(props) {
      
      <Grid container>
      <Grid item xs={12} >
-            <Box sx={{ backgroundColor: 'background.main', padding: '30px 10px', borderRadius: '20px', margin: '10px 0px' }}>
+            <Box sx={{ backgroundColor: 'background.main', padding: '30px 10px', borderRadius: '20px', margin: '10px 0px', position:"relative" }}>
                 
-                    <Typography fontWeight={600} variant='h6'>Guest List</Typography>
+                    <Typography fontWeight={600} variant='h6' style={{position:"absolute",top:"10px",paddingLeft:"10px"}}>Guest List</Typography>
                 
                 <Swiper
                     modules={[Navigation, Pagination]}
@@ -170,6 +168,8 @@ function OrderDetails(props) {
                     pagination={{ clickable: true }}
                     navigation
                     onSwiper={(swiper) => console.log(swiper)}
+                    style={{paddingTop:"50px"}}
+                    
                 >
                     {/* <SwiperSlide><GuestCard /></SwiperSlide>
                     <SwiperSlide><GuestCard /></SwiperSlide>
@@ -179,7 +179,7 @@ function OrderDetails(props) {
                     <SwiperSlide><GuestCard /></SwiperSlide>
                     <SwiperSlide><GuestCard /></SwiperSlide>
                     <SwiperSlide><GuestCard /></SwiperSlide> */}
-
+                      
                     {orderDetails && mergePerson.map((per, ind) => {
                       return (
                         <SwiperSlide key={ind}><GuestCard Person_count={`Person ${ind+1}`} child_dob={per.dob} lead_guest={per.isLeadGuest} 
@@ -187,6 +187,7 @@ function OrderDetails(props) {
                         /></SwiperSlide>
                       )
                     })}
+                    
 
                 </Swiper>
 
@@ -207,9 +208,9 @@ function OrderDetails(props) {
 }
 OrderDetails.getLayout = function getLayout(OrderDetails) {
   return (
-    <VendorLayout>
+    <CustomerLayout2>
       {OrderDetails}
-    </VendorLayout>
+    </CustomerLayout2>
   )
 }
 export default OrderDetails;

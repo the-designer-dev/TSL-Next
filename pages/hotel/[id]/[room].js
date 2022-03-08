@@ -9,7 +9,7 @@ import { setDestination ,setCheckIn,setCheckOut,setAdult,setChild} from "../../.
 import { useDispatch , useSelector } from 'react-redux';
 import useSWR from 'swr';
 import StyledContainer from '../../../styledComponents/styledContainer';
-import CustomerLayout from '../../../components/customerLayout';
+import CustomerLayout from '../../../components/customerLayout'; 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CheckIcon from '@mui/icons-material/Check';
@@ -33,11 +33,13 @@ const fetch = (id,destination,checkin,checkout,adult,child) => axios({
 
 
 function Book(props) {
+  var room1;
     const token =  useSelector(state => state.user.token)
     const price =  useSelector(state => state.booking.price)
     const extra_items =  useSelector(state => state.booking.extra_items)
     const currentHotel =  useSelector(state => state.booking.currentHotel)
     const roomQuantity =  useSelector(state => state.booking.room_quantity)
+    const booking_type =  useSelector(state => state.booking.booking_type)
     const checkout = useSelector(state => state.hotelquery.checkOut)
     const checkin = useSelector(state => state.hotelquery.checkIn)
     const destination = useSelector(state => state.hotelquery.destination)
@@ -77,7 +79,9 @@ function checkOut(){
         "room_id":room,
         "adult_booking":adultInfo,
         "child_booking":childInfo,
-        "extras":extras
+        "extras":extras,
+        "order_total" : price,
+        "booking_type" : booking_type
     }
     const headers={
          Authorization:`Bearer ${token}`
@@ -131,12 +135,14 @@ function checkOut(){
 
     useEffect(()=>{
         var index =1
-        data !== undefined  && id !== undefined && room !== undefined  ? setRows(rows => [...rows , {id: index , sign:'>' , particular: data.rooms.find((el) => el.id === parseInt(room)).roomname , quantity : 'x'+roomQuantity , 'unit price' : data.rooms.find((el) => el.id === parseInt(room)).roomnonrefundprice , price: data.rooms.find((el) => el.id === parseInt(room)).roomnonrefundprice*roomQuantity } ])
+        data !== undefined  && id !== undefined && room !== undefined  ? setRows(rows => [...rows , {id: index , sign:'>' , particular: data.rooms.find((el) => el.id === parseInt(room)).roomname , quantity : 'x'+roomQuantity , 'unit price' : room1.blackout_dates? booking_type === 'refundable'? room1.blackout_dates.nonrefundable_rates : room1.blackout_dates.refundable_rates : booking_type === 'refundable'?  room1.roomrefundprice : room1.roomnonrefundprice  , price: data.rooms.find((el) => el.id === parseInt(room)).roomnonrefundprice*roomQuantity } ])
       : setRows([])
       for (const [key, value] of Object.entries(extra_items)) {
         data !== undefined  && id !== undefined && room !== undefined?
           key !== 'extraBeds'?setRows(rows => [...rows , {id: ++index , sign:'>' , particular: key , quantity : 'x'+value , 'unit price' : data.hotel_extra_fields.find((el) => el.extra_field_name === key).extra_field_price , price: data.hotel_extra_fields.find((el) => el.extra_field_name === key).extra_field_price*value  } ]) : setRows(rows => [...rows , {id: ++index , sign:'>' , particular: 'Extra Beds' , quantity : 'x'+value , 'unit price' : data.rooms.find((el) => el.id === parseInt(room)).extraBeds[0].extra_bed_rates , price: data.rooms.find((el) => el.id === parseInt(room)).extraBeds[0].extra_bed_rates*value  } ])
           :setRows(rows => [...rows])} 
+          room1 =data.rooms.find((el) => el.id === parseInt(room))
+
         },[data])
 
     const settings = {

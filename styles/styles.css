@@ -2,6 +2,7 @@ body {
   margin: 0px;
   padding: 0px;
   font-family: "Roboto", sans-serif;
+  background-color: #232229!important;
 }
 
 @font-face {
@@ -112,7 +113,7 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
 
 .slick-prev,
 .slick-next {
-  top: 60% !important;
+  top: 48% !important;
   z-index: 2;
 }
 
@@ -457,16 +458,19 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
 }
 .swiper-button-next,
 .swiper-button-prev {
-  top: 50% !important;
+  top: 30px !important;
   color: white !important;
 }
 .swiper-button-next,
 .swiper-rtl .swiper-button-prev {
   right: 0px !important;
 }
-.swiper-button-prev,
-.swiper-rtl .swiper-button-next {
-  left: 0px !important;
+.swiper-button-prev{
+  right: 40px!important;
+  left: unset !important;
+}
+.swiper-button-next:after, .swiper-button-prev:after{
+  font-size: 20px!important;
 }
 .swiper-container {
   width: 480px;

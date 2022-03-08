@@ -4,7 +4,6 @@ import MoreVert from "@mui/icons-material/MoreVert";
 import StyledContainer from "../../styledComponents/styledContainer";
 import { DataGrid } from '@mui/x-data-grid';
 import SearchIcon from '@mui/icons-material/Search';
-import StyledButton from "../../styledComponents/styledButton";
 import VendorLayout from "../../components/vendorLayout";
 import axios from "axios";
 import { API_URL } from "../../config";
@@ -21,31 +20,55 @@ const fetch = (user,token) =>  axios({
   }
 }).then(res => res.data)
 
+async function publishRoom(id){
+  const room = await axios({
+    method:'POST',
+    url:`${API_URL}/rooms/publish/${id}`
+  }).then(res => res.data)
+}
+
+async function duplicate(id){
+  const room = await axios({
+    method:'POST',
+    url:`${API_URL}/rooms/publish/${id}`
+  }).then(res => res.data)
+}
+
+async function deleteRoom(id){
+  const room = await axios({
+    method:'DELETE',
+    url:`${API_URL}/rooms/${id}`
+  }).then(res => res.data)
+}
+
 function AllRooms(props) { 
     const [tableData, setTableData] = useState([])
     const token = useSelector(state => state.user.token)
     const user = useSelector(state => state.user.user)
     const { data, error } = useSWR([user , token] ,fetch)
     const router = useRouter();
-    const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+ 
 useEffect(()=> {
   data !=undefined && data != null?
-    setTableData(data.map((el , index) => {return {id:index+1 , roomId : el.id,roomname:el.roomname , capacityAdult: el.adult, capacityChild:el.child, price: `PKR ${el.roomrefundprice}/-` ,priceNonRef:`PKR ${el.roomnonrefundprice}/-`}})):''
+    setTableData(data.map((el , index) => {console.log(el) ;return {id:index+1 , roomId : el.id,roomname:el.roomname , capacityAdult: el.adult, capacityChild:el.child, price: `PKR ${el.roomrefundprice}/-` , status: el.approved,priceNonRef:`PKR ${el.roomnonrefundprice}/-`}})):''
   } , [data])
 const columns = [
   { field: 'roomname', headerName: 'Room Name' , flex:1 ,headerAlign: 'center'},
   { field: 'capacityAdult', headerName: 'Adult Capacity',flex:1 ,headerAlign: 'center'},
   { field: 'capacityChild', headerName: 'Child Capacity',flex:1 ,headerAlign: 'center'},
   { field: 'price', headerName: 'Price',flex:1 ,headerAlign: 'center'},
+  { field: 'status', headerName: 'Status',flex:1 ,headerAlign: 'center'},
   { field: 'priceNonRef', headerName: 'Price (Non-Refundable)',flex:1 ,headerAlign: 'center'},
-  { field: 'details', headerName: 'Details',flex:1 ,headerAlign: 'center',renderCell: (params) => (
+  { field: 'details', headerName: 'Details',flex:1 ,headerAlign: 'center',renderCell: (params) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    return (
     <>
     <IconButton
       onClick={handleClick}
@@ -57,21 +80,25 @@ const columns = [
     open={open}
     onClose={handleClose}
   >
-      <MenuItem onClick={() => {router.push(`/vendor/editroom/${params.row.roomId}`); console.log(params.row)}}>
+      {params.row.status === 'draft'?
+      <MenuItem onClick={() => {publishRoom(params.row.roomId)}}>
+        Publish
+      </MenuItem>:''}
+      <MenuItem onClick={() => {router.push(`/vendor/editroom/${params.row.roomId}`)}}>
         Edit 
       </MenuItem>
-      <MenuItem  onClick={() => { console.log(params.row) }}>
+      <MenuItem  onClick={() => { duplicate(params.row.roomId) }}>
         Duplicate
       </MenuItem>
-      <MenuItem  onClick={console.log(params)}>
+      <MenuItem  onClick={() =>{deleteRoom(params.row.roomId)}}>
         Delete
       </MenuItem> 
-      <MenuItem  onClick={console.log(params)}>
+      <MenuItem  onClick={() =>console.log(params)}>
         View Details
       </MenuItem> 
   </Menu>
   </>
-    )}]
+    )}}]
     return (
         <StyledContainer  square={true}>
             <Grid container spacing={2}>

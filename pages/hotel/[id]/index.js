@@ -21,6 +21,7 @@ import dynamic from 'next/dynamic';
 import { setGuestSet } from '../../../redux/bookingSlice';
 import { useRouter } from 'next/router';
 import RoomInfo from '../../../components/roomInfo';
+import RoomInfo2 from '../../../components/roominfo2';
 const Map = dynamic(() => import("../../../components/mapComponent"), {
     loading: () => "Loading...",
     ssr: false
@@ -148,7 +149,8 @@ export default function Hotel({resData , reqData,id}) {
                     <Grid container item spacing={2}>
                     {data.rooms.map((el) => 
                     <Grid item xs={12}>
-                      <RoomInfo el={el} data={data}/>
+                      {/* <RoomInfo el={el} data={data}/> */}
+                      <RoomInfo2 el={el} data={data}/>
                       </Grid>
                     )}
                     </Grid>
@@ -386,6 +388,5 @@ Hotel.getLayout = function getLayout(Hotel) {
         method: "post",
         url: `${API_URL}/filter-hotels/${id}`,
         data:reqData} ).then(res => res.data)
-        console.log(resData)
         return { props: { resData , reqData ,id} }
   }

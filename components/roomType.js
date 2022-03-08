@@ -14,6 +14,7 @@ function RoomType(props) {
     const [formats, setFormats] = useState(() => ['suite']);
     useEffect(() => {
         setFormats(rt?rt:'suite')
+        dispatch(setRoomType('suite'))
     },[])
     const handleFormat = (event, newFormats) => {
     if(newFormats !== null){

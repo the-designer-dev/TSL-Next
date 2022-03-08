@@ -17,6 +17,9 @@ import RoomType from './roomType';
 import RoomFeatures from './roomFeatures';
 import { convertToRaw , convertFromHTML, ContentState } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
+import { useEffect } from 'react';
+import ProvidedServices from './providedServices';
+import PaymentPolicies from './paymentPolicies';
 function AddRoomForm(props) {
     const dispatch = useDispatch();
    const room = useSelector(state => state.addRoom) 
@@ -37,10 +40,11 @@ const SSR = typeof window === 'undefined'
 var contentHTML;
 var state;
 var content;
-
-!SSR?contentHTML   = convertFromHTML(room.roomDescription):''    
-!SSR?state   = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
-!SSR?content   = JSON.stringify(convertToRaw(state)):''
+useEffect(() => {
+    !SSR?contentHTML = convertFromHTML(room.roomDescription):''    
+    !SSR?state = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
+    !SSR?content = JSON.stringify(convertToRaw(state)):''
+} , [])
 
 const onEditorChange = event => {
     const plainText = convertToHTML(event.getCurrentContent()) 
@@ -63,7 +67,7 @@ const onEditorChange = event => {
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography  variant='p'>Room Description:</Typography></Grid>
-                    <Grid item xs={12} ><MUIRichTextEditor required defaultValue={content} onChange={onEditorChange} label="Start typing..." /></Grid>
+                    <Grid item xs={12} ><MUIRichTextEditor required controls={['bold']} defaultValue={content} onChange={onEditorChange} label="Start typing..." /></Grid>
                     </Grid>
                     <Grid container item spacing={2}>
                     <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Room Images:</Typography></Grid>
@@ -76,10 +80,10 @@ const onEditorChange = event => {
                     </Grid>
 
                     <Grid container item spacing={2}>
-                    <Grid item xs={12} sm={4} ><Typography fontWeight={600} fontSize={18} variant='p'>Extra Bed Capacity:</Typography></Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} sm={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Extra Bed Capacity:</Typography></Grid>
+                    <Grid item xs={12} sm={6}>
                     <StyledTextField fullWidth value={room.extraBedCapacity.extra_bed_qty} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px'  ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start"><Button onClick={()=> {room.extraBedCapacity.extra_bed_qty>0? dispatch(setExtraBedCapacityQuantity(room.extraBedCapacity.extra_bed_qty - 1)) : ''}}>-</Button></InputAdornment> , endAdornment: <InputAdornment  position="end"><Button onClick={()=> {dispatch(setExtraBedCapacityQuantity(room.extraBedCapacity.extra_bed_qty +1)) }}>+</Button></InputAdornment> }} /></Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} sm={6}>
                     <StyledTextField required type={'number'} value={room.extraBedCapacity.extra_bed_rates} onChange={(e) => dispatch(setExtraBedCapacityRates(e.target.value))} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start">PKR</InputAdornment> , endAdornment: <InputAdornment  position="end">Per Bed</InputAdornment> }} fullWidth/>
                     </Grid>
                     </Grid>
@@ -88,17 +92,25 @@ const onEditorChange = event => {
                     <Grid item xs={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Rates For Room</Typography></Grid>
                     <Grid item xs={12} sm={6}><Typography variant='p'>Refundable Rates</Typography></Grid>
                     <Grid item xs={12} sm={6} ><StyledTextField required value={room.refundableRates} onChange={(e) => dispatch(setRefundableRates(e.target.value))} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start">PKR</InputAdornment> , endAdornment: <InputAdornment  position="end">Per Person</InputAdornment> }} fullWidth/></Grid>
+                    <Grid item xs={12} >                     
+                    <PaymentPolicies/>
+                    </Grid>
+                    {room.refundablePolicy?
+                    <>
                     <Grid item xs={12} sm={6}><Typography variant='p'>Non-Refundable Rates</Typography></Grid>
                     <Grid item xs={12} sm={6} ><StyledTextField required value={room.nonRefundableRates} onChange={(e) => dispatch(setNonRefundableRates(e.target.value))} sx={{'& .MuiInputBase-root':{padding:'0px' ,'& .MuiInputAdornment-positionStart':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'4px 0px 0px 4px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}},'& .MuiInputAdornment-positionEnd':{backgroundColor:'button.main' , height:'56px' ,maxHeight:'none' , borderRadius:'0px 4px 4px 0px' , padding:'0px 10px' ,'& .MuiTypography-root':{color:"#FFF"}}}}}  InputProps={{startAdornment: <InputAdornment position="start">PKR</InputAdornment> , endAdornment: <InputAdornment  position="end">Per Person</InputAdornment> }} fullWidth/></Grid>
-                    </Grid>
-                    <Grid container item>
+                    </>
+                    :''}
+                </Grid>
+
+                    {/* <Grid container item>
                         <Grid item>
                         <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Set Pricing For Specific Dates:</Typography></Grid>
                         </Grid>
                         <Grid item>
                         <DateRange/>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
 
                     <Grid container item spacing={1}>
                         <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Select Room Type:</Typography></Grid>

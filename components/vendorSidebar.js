@@ -9,7 +9,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState } from 'react';
 import Link from 'next/link';
 function VendorSidebar(props) {
-    const matches = useMediaQuery('(max-width:577px)');
+    const matches = useMediaQuery('(max-width:1024px)');
     const theme = useTheme()
     const [open,setOpen] = useState(false)
     const [mobileOpen,setMobileOpen] = useState(false)
@@ -23,7 +23,7 @@ function VendorSidebar(props) {
                 <Button disableRipple  sx={{display:matches?'none':'black',color:'primary.main' , left:'110px', ':hover':{background:'none'}, transform: open? '':'translate(110px , 0px)'  , transition:'transform 0.5s'}}  onClick={() => setOpen(!open)} ><MenuIcon/></Button>
                 <Button disableRipple  sx={{display:matches?'block':'none', color:'primary.main'  , left:'30px', ':hover':{background:'none'}, transform: mobileOpen? 'translate(180px , 0px)':'' , transition:'transform 0.5s' }}  onClick={() => setMobileOpen(!mobileOpen)} ><MenuIcon/></Button>
                 </Box>
-        <ProSidebar style={{height:'100% ',backgroundColor: theme.palette.background.main  , paddingTop:'77px' }} toggled={mobileOpen} collapsed={open} breakPoint='sm'>
+        <ProSidebar style={{height:'100% ',backgroundColor: theme.palette.background.main  , paddingTop:'77px' }} toggled={mobileOpen} collapsed={open} breakPoint='md'>
             
             <SidebarContent >
                 <div style={{display:'flex', justifyContent:'space-evenly',padding:'10px'}} >

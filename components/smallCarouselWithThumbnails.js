@@ -23,17 +23,6 @@ function SmallCarouselWithThumbnail(props) {
     });
 
     
-      const settingsThumbs = {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: false,
-        centerMode: false,
-        swipeToSlide: true,
-        focusOnSelect: true,
-        centerPadding: '10px'
-      };
-    
     const settings = {
         dots: false,
         infinite: true,
@@ -45,7 +34,16 @@ function SmallCarouselWithThumbnail(props) {
     arrows: true,
     fade: true,
     asNavFor: '.slider-nav',
-   
+    nextArrow: (
+      <div>
+        <div className="next-slick-arrow"> <ChevronRightIcon  sx={{ fontSize: '40px',color:'#FFF' ,backgroundColor:'button.main' , borderRadius:'50px'}}/> </div>
+      </div>
+    ),
+    prevArrow: (
+      <div>
+        <div className="prev-slick-arrow"> <ChevronLeftIcon  sx={{fontSize: '40px',color:'#FFF' ,backgroundColor:'button.main' , borderRadius:'50px'}}/> </div>
+      </div>
+    )
       };
     
       return (
@@ -68,22 +66,7 @@ function SmallCarouselWithThumbnail(props) {
     )}
 
   </Slider>
-  <div className="thumbnail-slider-wrap">
-    <Slider
-      {...settingsThumbs}
-      asNavFor={nav1}
-      ref={slider => (setSlider2(slider))}>
 
-      {props.images.map((slide) =>
-
-        <div className="slick-slide" key={slide.id}>
-          <img className="slick-slide-image" src={`${API_URL}${slide.url}`} />
-        </div>
-
-      )}
-
-    </Slider>
-  </div>
 </div>
 
         </Box>

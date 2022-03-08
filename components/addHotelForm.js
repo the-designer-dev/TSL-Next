@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
 import FormWrapper from '../styledComponents/formWrapper';
-import React from 'react';
+import React , {useEffect} from 'react';
 import StyledTextField from '../styledComponents/styledTextField';
 import LocationPicker from './locationPicker';
 import dynamic from 'next/dynamic';
@@ -31,11 +31,11 @@ const SSR = typeof window === 'undefined'
 var contentHTML;
 var state;
 var content;
-
-!SSR?contentHTML   = convertFromHTML(addHotel.description):''    
-!SSR?state   = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
-!SSR?content   = JSON.stringify(convertToRaw(state)):''
-
+useEffect(() => {
+    !SSR?contentHTML = convertFromHTML(addHotel.description):''    
+    !SSR?state = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
+    !SSR?content = JSON.stringify(convertToRaw(state)):''
+} , [])
 const onEditorChange = event => {
     const plainText = convertToHTML(event.getCurrentContent()) 
     dispatch(setDescription(plainText))
