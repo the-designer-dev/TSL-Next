@@ -33,7 +33,7 @@ function VendorLayout({children}) {
     const device1360 = useMediaQuery('(max-width:1366px)');
 
     return (
-        <div style={{display:'flex', flexDirection:"row", justifyContent:`${device1360 ? "unset" : "center"}`, width:"100%", maxWidth:`${device1360 ? "100%" : "1100px"}`,margin:"0 auto"}}>
+        <div style={{display:'flex', flexDirection:"row", justifyContent:`center`, width:"100%"}}>
             <VendorSidebar />
             <Box sx={{width:'100%' , backgroundColor:'background.secondary'}}>
             <VendorHeader/>
