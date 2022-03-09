@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { DatePicker , DateRangePicker } from "@mui/lab";
 import HotelCard from '../components/hotelCard';
 import { useDispatch,useSelector } from 'react-redux'
+import MobileMenu2 from '../components/mobileMenu2'
 import { setDestination ,setCheckIn,setCheckOut,setAdult,setChild} from "../redux/hotelQuery";
 import StyledTextField from '../styledComponents/styledTextField';
 import axios from 'axios'
@@ -17,6 +18,7 @@ import cookieCutter from 'cookie-cutter';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useTheme } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import { useRef } from 'react';
 
 const fetch = (destination,checkin,checkout,adult,child) => axios({
@@ -45,6 +47,8 @@ export default function HotelListing(props) {
     const text3Ref = useRef(null)
     const text4Ref = useRef(null)
     const buttonRef = useRef(null)
+    const [ showMobileMenu, setShowMobileMenu] = useState(false)
+    const mobile = useMediaQuery('(min-width:870px)')
 
   const handleClose = () => {
     setTimeout(() => {
@@ -118,6 +122,7 @@ export default function HotelListing(props) {
           <form style={{display:'inherit'}} onSubmit={(e) => handleSubmit(e)}>
           <Grid container spacing={3}>
           <Grid container item spacing={2} direction='row' alignItems="flex-end" justifyContent='space-evenly' sx={{textAlign:'left'}} >
+          {mobile?
       <Box sx={{display:'flex', backgroundColor:'#FEFEFE' , borderRadius:'50px' , marginTop:'30px' , overflow:'hidden'}}>
       <Button disableRipple onClick={() => {setFocused(1) ; text1Ref.current.focus() ; setValue([null,null]) }}  sx={focused1?{backgroundColor:'#EBEBEB' , boxShadow: '0px 0px 56px 18px rgba(0,0,0,0.25)'}:''} className='textField1'><Typography color='#000' fontSize={12} fontWeight={500} variant='p'>Destination</Typography>  <StyledTextField  value={DestinationState} onKeyPress={(ev) => {if (ev.key === 'Enter') { ev.preventDefault();setFocused(2) ;text2Ref.current.focus()  ; setValue([null,null])}}} inputRef={text1Ref} sx={{'& .MuiOutlinedInput-input':{padding:'0px'},'&.MuiTextField-root':{backgroundColor:'inherit'} ,'& .MuiOutlinedInput-notchedOutline': {borderWidth:'0px'} ,'& .MuiOutlinedInput-root': {'&.Mui-focused':{'& .MuiOutlinedInput-notchedOutline':{border:'none'}}}}} required onChange={(e) => setDestinationState(e.target.value)}  size="small" id="outlined-basic" variant="outlined" placeholder="Where are you going?" /></Button>
       <DateRangePicker
@@ -161,7 +166,12 @@ export default function HotelListing(props) {
         <Grid sx={{display:'flex' , alignItems:'center' , justifyContent:'center' }} item><Button ref={buttonRef} sx={{marginRight:'5px' ,height:'90%' , width:'90%',backgroundColor:'button.main',borderRadius:'50%','&:hover':{backgroundColor:'button.main',boxShadow: '0px 0px 56px 18px rgba(0,0,0,0.75)'}}} type='submit' ><SearchIcon style={{color:'#FFF', fontSize:'1.8rem'}}/></Button></Grid>
 
       </Box>
+      :
+      <Box sx={{padding:'16px 0px 0px 16px' , width:'100%'}}>
+                <Button onClick={() => setShowMobileMenu(true)}  sx={{width:'100%' , justifyContent:'space-evenly' ,backgroundColor:'button.main' , borderRadius:'50px' , padding:'5px 20px', '&.MuiButton-root':{'&:hover':{backgroundColor:'button.main'}}}}><Typography fontWeight={600} variant='p'>{DestinationState}</Typography>   <Typography fontWeight={300} variant='p'>  {CheckInState.format('DD-MM-YYYY')} --- {CheckOutState.format('DD-MM-YYYY')}</Typography> </Button>
+                </Box>     }
       </Grid>
+
           {/* <Grid container item spacing={2} direction='row' alignItems="flex-end" justifyContent='space-evenly' columns={15} sx={{textAlign:'left'}} >
      <Grid alignContent='space-around' container item xs={12} sm={4}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Destination</Typography></Grid>  <Grid> <StyledTextField value={DestinationState} onChange={(e) => setDestinationState(e.target.value)} size="small" id="outlined-basic" variant="outlined" placeholder="Where are you going?" /></Grid></Grid>
      <Grid alignContent='space-around' container item xs={12} sm={4}  lg={2} direction='column' ><Grid sx={{paddingBottom:'8px'}}><Typography fontSize='14px' color='#FFF' variant='p'>Check In</Typography></Grid>  <Grid> <DatePicker value={CheckInState} onChange={(newValue) => {setCheckInState(newValue)}} renderInput={(params) => <TextField sx={{'& .MuiOutlinedInput-root':{'& .MuiOutlinedInput-input':{color:'#000'},'& .MuiInputAdornment-root':{'& .MuiButtonBase-root':{'& .MuiSvgIcon-root':{color:'button.main'}}}} , backgroundColor:'#FFF' , borderRadius:'5px' }} size="small" variant="outlined" placeholder="MM/DD/YYYY" {...params} />}/></Grid></Grid>
@@ -187,6 +197,7 @@ export default function HotelListing(props) {
 
         </Grid>  
         </form>
+      <MobileMenu2 open={showMobileMenu} closeMenu={() => setShowMobileMenu(false)}/>
         </StyledContainer>
     );
 }

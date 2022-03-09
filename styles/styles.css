@@ -390,7 +390,6 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
   flex-direction: row;
   align-self: center;
   width: 90%;
-  top: 120px;
   left: 36px;
   height: 100%;
 }
@@ -441,11 +440,10 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
 }
 
 .mobileCalender {
-  left: 16px;
+  left: 14%;
   position: absolute;
-  top: calc(50% - 350px);
-  width: 100vw;
-  height: fit-content;
+  top: calc(50% - 291px);
+  width: 74%;
 }
 .swiper-horizontal > .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal,
@@ -489,5 +487,14 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
 @media screen and (min-width: 768px) {
   .swiper-container {
     width: 768px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .mobileCalender {
+    left: 8px;
+    position: absolute;
+    top: calc(50% - 273px);
+    width: 100%;
   }
 }
