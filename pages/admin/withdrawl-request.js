@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import StyledContainer from '../../styledComponents/styledContainer';
-import StyledButton from '../../styledComponents/StyledButton';
+import StyledButton from '../../styledComponents/styledButton';
 import CustomizeTextArea from '../../styledComponents/styledTextarea';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Grid, IconButton, TextField, Typography, Tab ,Tabs, Box } from '@mui/material';
@@ -14,7 +14,7 @@ import { API_URL } from '../../config';
 import AcceptRoomModal from '../../components/acceptRoomModal';
 import UniversalModal from '../../components/universalModal'
 import StyledTextField from '../../styledComponents/styledTextField';
-import StyledButtonDanger from '../../styledComponents/StyledButtonDanger';
+import StyledButtonDanger from '../../styledComponents/styledButtonDanger';
 
 function withdrawlRequest(props) {
 

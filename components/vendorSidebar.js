@@ -44,6 +44,8 @@ function VendorSidebar(props) {
                 <Link href={'/vendor/orderlisting'}><MenuItem>Overview</MenuItem></Link>
                 <Link href={'/vendor/vendorwallet'}><MenuItem>Wallet</MenuItem></Link>
                 <MenuItem>Refunds</MenuItem>
+                <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Tours</Typography>
+                <Link href={'/vendor/tour/packageinfo'}><MenuItem>Add New Tour</MenuItem></Link>
                 <Typography sx={{paddingLeft:'20px' , fontSize:'12px'}} color='#999999' variant='p'>Withdrawals</Typography>
 
             <MenuItem>Request Withdrawal</MenuItem>
