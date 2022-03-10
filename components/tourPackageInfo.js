@@ -246,10 +246,17 @@ function TourPackageInfo() {
                                 </Grid>
                             </Grid>
 
-                            <Grid container item xs={12} sm={10} justifyContent='left' alignItems='center'>
-                                <InfoIcon sx={{ marginRight: '10px', color: '#2AB572' }} />   <Typography fontWeight={400} variant='p' color={"primary.main"}>Note: Minors can only attend with their legal guardian.</Typography>
-                            </Grid>
 
+                            <Grid container item xs={12} sm={10} justifyContent='left' alignItems='start'>
+                                <Grid item xs={1}>
+                                    <InfoIcon sx={{ color: '#2AB572' }} />
+                                </Grid>
+                                <Grid item xs={11}>
+                                    <Typography fontWeight={400} variant='p' color={"primary.main"}>
+                                        Note: Minors can only attend with their legal guardian.
+                                    </Typography>
+                                </Grid>
+                            </Grid>
 
                             <Grid container item xs={12} sm={5} spacing={0} alignItems='center'>
                                 <Grid item xs={12} sm={4}>
@@ -305,8 +312,16 @@ function TourPackageInfo() {
                             </Grid>
                         </Grid>
 
-                        <Grid container item xs={12} sm={10} justifyContent='left' alignItems='center'>
-                            <InfoIcon sx={{ marginRight: '10px', color: '#2AB572' }} />   <Typography fontWeight={400} variant='p' color={"primary.main"}> Note: add time period when this tour is available</Typography>
+
+                        <Grid container item xs={12} sm={10} justifyContent='left' alignItems='start'>
+                            <Grid item xs={1}>
+                                <InfoIcon sx={{ color: '#2AB572' }} />
+                            </Grid>
+                            <Grid item xs={11}>
+                                <Typography fontWeight={400} variant='p' color={"primary.main"}>
+                                    Note: add time period when this tour is available
+                                </Typography>
+                            </Grid>
                         </Grid>
 
                         <Grid container item xs={12} sm={10} alignItems='center'>
