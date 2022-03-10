@@ -21,9 +21,26 @@ import { DatePicker } from '@mui/lab';
 import DaysToggle from './daysToggle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import RoomServiceIcon from '@mui/icons-material/RoomService';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
+import SelectVehicle from './selectVehicle';
+import Dropfile from './dropzone';
+import TourVehicle from './tourVehicle';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import TourTicket from './tourTicket';
+
 
 function TourPackageInfo() {
-    const [language, setLanguage] = useState(0)
+    const [value, setValue] = useState();
+    const [value1, setValue1] = useState();
+    const [value2, setValue2] = useState();
+    const [value3, setValue3] = useState();
+    const [language, setLanguage] = useState(0);
+    const [vehicle, setVehicle] = useState(0);
+    const [ticket, setTicket] = useState(0);
+    const [packtitle, setPacktitle] = useState();
     const [age, setAge] = useState(0)
     const handleChange = (event) => {
         setAge(event.target.value);
@@ -100,7 +117,7 @@ function TourPackageInfo() {
                         </Grid>
                     </Grid>
 
-
+                    {/* Language Starts */}
                     <Grid container item alignItems='center' justifyContent='center' spacing={2}>
                         <Grid container alignItems='center' item >
                             <Grid item xs={12}>
@@ -139,6 +156,9 @@ function TourPackageInfo() {
                         </Grid>
 
                     </Grid>
+
+                    {/* Language Ends */}
+
 
                     {/* Guests Start */}
 
@@ -439,12 +459,105 @@ function TourPackageInfo() {
                             </Grid>
                         </Grid>
 
+                        <Grid container item xs={12} sm={10} justifyContent='space-between' alignItems='start'>
+                            <Grid items xs={7}>
+                                <Typography fontWeight={400} variant='p' color={"primary.main"}>
+                                    Do you want to provide a separate mode of transport
+                                    to your customers for an additional fee?
+                                </Typography>
+                            </Grid>
+                            <Grid items xs={4}>
+                                <FormControl>
 
+                                    <RadioGroup
+                                        row
+
+                                        aria-labelledby="demo-controlled-radio-buttons-group"
+                                        name="controlled-radio-buttons-group"
+                                        value={value}
+                                        onChange={(e) => { setValue(e.target.value) }}
+                                    >
+                                        <FormControlLabel value="yes" control={<Radio />} label="Yes" sx={{ color: 'white' }} />
+                                        <FormControlLabel value="no" control={<Radio />} label="No" sx={{ color: 'white' }} />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+
+
+                        <Grid container item xs={12} sm={10} justifyContent='space-between' alignItems='start'>
+                            <Grid items xs={7}>
+                                <Typography fontWeight={400} variant='p' color={"primary.main"}>
+                                    Do you want to provide your customers with the option
+                                    to choose their tickets?
+                                </Typography>
+                            </Grid>
+                            <Grid items xs={4}>
+                                <FormControl>
+
+                                    <RadioGroup
+                                        row
+
+                                        aria-labelledby="demo-controlled-radio-buttons-group"
+                                        name="controlled-radio-buttons-group"
+                                        value={value1}
+                                        onChange={(e) => { setValue1(e.target.value) }}
+                                    >
+                                        <FormControlLabel value="yes" control={<Radio />} label="Yes" sx={{ color: 'white' }} />
+                                        <FormControlLabel value="no" control={<Radio />} label="No" sx={{ color: 'white' }} />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
 
                     </Grid>
 
 
                     {/* Optional Features Ends */}
+
+                    {/* Transport Starts */}
+
+                    <Grid container item alignItems='center' justifyContent='center' spacing={3}>
+                        <Grid container alignItems='center' item >
+                            <Grid item xs={12}>
+                                <Typography color={"primary.main"} variant='p' fontSize={18} fontWeight={500}>
+                                    <DirectionsBusFilledIcon sx={{ fontSize: '34px', marginRight: '10px', color: '#2AB572' }} /> Transport
+
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <TourVehicle />
+                        {[...Array(vehicle)].map((a, i) => <TourVehicle key={i} id={i + 2} />)}
+                        <Grid container item sm={10} justifyContent='left'>
+                            <Grid item xs={12}>
+                                <StyledAddResponseButton type='button' onClick={() => setVehicle(vehicle + 1)}>
+                                    + Add another response</StyledAddResponseButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    {/* Transport Ends */}
+
+                    {/* Tickets Starts */}
+                    <Grid container item alignItems='center' justifyContent='center' spacing={3}>
+                        <Grid container alignItems='center' item >
+                            <Grid item xs={12}>
+                                <Typography color={"primary.main"} variant='p' fontSize={18} fontWeight={500}>
+                                    <LocalActivityIcon sx={{ fontSize: '34px', marginRight: '10px', color: '#2AB572' }} /> Tickets
+
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <TourTicket />
+                        {[...Array(ticket)].map((a, i) => <TourTicket key={i} id={i + 2} />)}
+                        <Grid container item sm={10} justifyContent='left'>
+                            <Grid item xs={12}>
+                                <StyledAddResponseButton type='button' onClick={() => setTicket(ticket + 1)}>
+                                    + Add another response</StyledAddResponseButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    {/* Tickets Ends */}
                 </Grid>
 
             </form>
