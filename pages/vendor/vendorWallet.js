@@ -10,7 +10,7 @@ import VendorLayout from '../../components/vendorLayout';
 import axios from 'axios';
 import { API_URL } from '../../config';
 import StyledButton from '../../styledComponents/styledButton';
-import StyledButtonDanger from '../../styledComponents/StyledButtonDanger';
+import StyledButtonDanger from '../../styledComponents/styledButtonDanger';
 import StyledTextField from '../../styledComponents/styledTextField';
 import UniversalModal from '../../components/universalModal';
 import { useDispatch , useSelector } from 'react-redux';
