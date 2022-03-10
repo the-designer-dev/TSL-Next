@@ -25,15 +25,6 @@ function CustomerLayout2({ children }) {
 
     }, [])
     return (
-<<<<<<< HEAD
-        <Box sx={{backgroundColor:'background.secondary', width:"100%"}}>
-        {/* <Box sx={{backgroundColor:'background.main' , height:'77px' , position:'fixed' , top:'0' , width:'100%'}}></Box> */}
-    <Box sx={{display:'flex'}}>
-        <CustomerSidebar/>
-        <Box sx={{width:'100%' , height:'100%' , backgroundColor:'background.secondary'}}>
-        <CustomerHeader/>
-        {children} 
-=======
         <Box sx={{ backgroundColor: 'background.secondary', width: "100%" }}>
             {/* <Box sx={{backgroundColor:'background.main' , height:'77px' , position:'fixed' , top:'0' , width:'100%'}}></Box> */}
             <Box sx={{ display: 'flex' }}>
@@ -43,7 +34,6 @@ function CustomerLayout2({ children }) {
                     {children}
                 </Box>
             </Box>
->>>>>>> a47467f8dcef099963a07a95502ec269e3d43b53
         </Box>
     );
 }
