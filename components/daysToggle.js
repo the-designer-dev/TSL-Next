@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
@@ -9,13 +9,14 @@ export default function DaysToggle() {
     const handleFormat = (event, newFormats) => {
         setFormats(newFormats);
     };
-
+    const matches = useMediaQuery("(min-width:990px)");
     return (
         <ToggleButtonGroup
             value={formats}
             onChange={handleFormat}
+            orientation={`${matches ? `horizontal` : `vertical`}`}
             aria-label="text formatting"
-
+            fullWidth
         >
             <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="monday" aria-label="monday">
                 Monday
