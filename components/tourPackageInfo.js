@@ -267,12 +267,12 @@ function TourPackageInfo() {
                             </Grid>
 
 
-                            <Grid container item xs={12} sm={10} justifyContent='left' alignItems='start'>
+                            <Grid container item xs={12} sm={11} justifyContent='left' alignItems='start'>
                                 <Grid item xs={1}>
                                     <InfoIcon sx={{ color: '#2AB572' }} />
                                 </Grid>
                                 <Grid item xs={11}>
-                                    <Typography fontWeight={400} variant='p' color={"primary.main"}>
+                                    <Typography fontWeight={400} fontSize={14} variant='p' color={"primary.main"}>
                                         Note: Minors can only attend with their legal guardian.
                                     </Typography>
                                 </Grid>
@@ -333,12 +333,12 @@ function TourPackageInfo() {
                         </Grid>
 
 
-                        <Grid container item xs={12} sm={10} justifyContent='left' alignItems='start'>
+                        <Grid container item xs={12} sm={11} justifyContent='left' alignItems='start'>
                             <Grid item xs={1}>
                                 <InfoIcon sx={{ color: '#2AB572' }} />
                             </Grid>
                             <Grid item xs={11}>
-                                <Typography fontWeight={400} variant='p' color={"primary.main"}>
+                                <Typography fontWeight={400} variant='p' fontSize={14} color={"primary.main"}>
                                     Note: add time period when this tour is available
                                 </Typography>
                             </Grid>
@@ -388,12 +388,12 @@ function TourPackageInfo() {
                             </Grid>
                         </Grid>
 
-                        <Grid container item xs={12} sm={10} justifyContent='left' alignItems='start'>
+                        <Grid container item xs={12} sm={11} justifyContent='left' alignItems='start'>
                             <Grid item xs={1}>
                                 <InfoIcon sx={{ color: '#2AB572' }} />
                             </Grid>
                             <Grid item xs={11}>
-                                <Typography fontWeight={400} variant='p' color={"primary.main"}>
+                                <Typography fontWeight={400} variant='p' fontSize={14} color={"primary.main"}>
                                     Later on, you’ll be able to pick the exact calendar dates and you’ll
                                     also be able to adjust times for each individual date
                                 </Typography>
@@ -447,12 +447,12 @@ function TourPackageInfo() {
                             </Grid>
                         </Grid>
 
-                        <Grid container item xs={12} sm={10} justifyContent='left' alignItems='start'>
+                        <Grid container item xs={12} sm={11} justifyContent='left' alignItems='start'>
                             <Grid item xs={1}>
                                 <InfoIcon sx={{ color: '#2AB572' }} />
                             </Grid>
                             <Grid item xs={11}>
-                                <Typography fontWeight={400} variant='p' color={"primary.main"}>
+                                <Typography fontWeight={400} variant='p' fontSize={14} color={"primary.main"}>
                                     We are providing you the ability to offer customized packages to your customers so they can truly personalize their
                                     experience with you. This section is optional.
                                 </Typography>
