@@ -64,7 +64,7 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
     display: none;
   }
   .customerMenu {
-    display: none;
+    display: none !important;
   }
   .nice-dates-week-header {
     padding-left: 20px !important;

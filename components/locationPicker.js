@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 import {useDispatch} from 'react-redux'
+import { setTourCoordinates } from '../redux/addTour';
 import {setCoordinates} from '../redux/addHotel'
 function LocationPicker(props) {
     const [selectedLocation, setSelectedLocation] = useState(null)
@@ -36,7 +37,9 @@ function onSelect(value){
       });
       setLongitude(value.center[0])
       setLatitude(value.center[1])
-      dispatch(setCoordinates([{longitude:value.center[1] , latitude:value.center[0]}]))
+      props.tour?
+  dispatch(setTourCoordinates([{longitude:event.lngLat[1] , latitude:event.lngLat[0]}])):
+  dispatch(setCoordinates([{longitude:event.lngLat[1] , latitude:event.lngLat[0]}]))
 
 }
 async function updateLocation(e){
@@ -52,8 +55,11 @@ const onMarkerDragStart = (event) => {
 }
 const onMarkerDragEnd = (event) => {
   // Any functionality for when a drag ends
+
   setLongitude(event.lngLat[0]);
   setLatitude(event.lngLat[1]);
+  props.tour?
+  dispatch(setTourCoordinates([{longitude:event.lngLat[1] , latitude:event.lngLat[0]}])):
   dispatch(setCoordinates([{longitude:event.lngLat[1] , latitude:event.lngLat[0]}]))
 }
 const onMarkerDrag = (event) => {

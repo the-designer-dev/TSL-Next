@@ -6,6 +6,7 @@ import addHotel from './addHotel';
 import formSlice from './formSlice';
 import blackoutDates from './blackoutDates';
 import  addRoomSlice  from './addRoom';
+import addTourSlice from './addTour';
 export default configureStore({
   reducer:{
   user: userReducer,
@@ -14,6 +15,7 @@ export default configureStore({
   formData : formSlice,
   addHotel: addHotel,
   addRoom: addRoomSlice,
-  blackoutDates : blackoutDates
+  blackoutDates : blackoutDates,
+  addTour: addTourSlice
   } 
 })

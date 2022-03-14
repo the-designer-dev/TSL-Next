@@ -25,7 +25,9 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
+import {setHas_date_range,setTitle,setCity,setMeet_point,setCoordinates,setLanguages,setMin_group_size,setMax_group_size,setMin_age,setParents_bring_kids,setVehicles,setTickets,setExperiences,setAdult_rates,setChild_rates,setInfant_rates ,setMin_private_group ,setBooked_as_private, setAvailable_daterange_end, setAvailable_daterange_start, setTour_duration ,setSeperate_mode_transport,setChoose_their_tickets} from '../redux/addTour';
 import SelectVehicle from './selectVehicle';
+import { useDispatch , useSelector } from 'react-redux';
 import Dropfile from './dropzone';
 import TourVehicle from './tourVehicle';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
@@ -37,16 +39,22 @@ function TourPackageInfo() {
     const [value1, setValue1] = useState();
     const [value2, setValue2] = useState();
     const [value3, setValue3] = useState();
-    const [language, setLanguage] = useState(0);
+    const [language, setLanguage] = useState(1);
     const [vehicle, setVehicle] = useState(0);
     const [ticket, setTicket] = useState(0);
     const [packtitle, setPacktitle] = useState();
     const [age, setAge] = useState(0)
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+    // const handleChange = (event) => {
+    //     setAge(event.target.value);
+    // };
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
+    const dispatch = useDispatch()
+    const addTour = useSelector(state => state.addTour)
+    const handleChange = (event) => {
+    //   dispatch(setParents_bring_kids(event.target.checked)) 
+    };
+  
     return (
         <FormWrapper>
             <form>
@@ -54,15 +62,13 @@ function TourPackageInfo() {
                     <Grid container item spacing={1}>
                         <Grid item xs={12}><Typography color={"primary.main"} variant='h6'>Tell us more about your Tour Packages</Typography></Grid>
                     </Grid>
-
-
                     <Grid container item alignItems='center' spacing={1}>
                         <Grid item xs={12} sm={4}>
                             <Typography color={"primary.main"} variant='p' fontWeight={500}>Title for the package
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={8}>
-                            <StyledTextField required fullWidth placeholder='Enter Package Name' />
+                            <StyledTextField value={addTour.title} onChange={(e) => dispatch(setTitle(e.target.value)) } required fullWidth placeholder='Enter Package Name' />
                         </Grid>
                     </Grid>
 
@@ -73,7 +79,7 @@ function TourPackageInfo() {
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={8}>
-                            <StyledTextField required fullWidth placeholder='Enter City' />
+                            <StyledTextField value={addTour.city} onChange={(e) => dispatch(setCity(e.target.value))} required fullWidth placeholder='Enter City' />
                         </Grid>
                     </Grid>
 
@@ -84,22 +90,20 @@ function TourPackageInfo() {
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={8}>
-                            <CustomizeTextArea minRows={3} required fullWidth placeholder='Enter the address where everyone should arrive at' /></Grid>
+                            <CustomizeTextArea minRows={3} value={addTour.meet_point} onChange={(e) => dispatch(setMeet_point(e.target.value))} required fullWidth placeholder='Enter the address where everyone should arrive at' /></Grid>
                     </Grid>
 
 
                     <Grid container item spacing={2}>
                         <Grid item xs={12} ><Typography fontWeight={500} variant='p' color={"primary.main"}>Place a pin to locate your hotel</Typography></Grid>
-                        <Grid item xs={12} ><LocationPicker /></Grid>
+                        <Grid item xs={12} ><LocationPicker tour={true} /></Grid>
                     </Grid>
 
 
                     <Grid container item alignItems='start' spacing={1}>
                         <Grid item xs={12} sm={4}>
                             <Typography color={"primary.main"} variant='p' fontWeight={500}> How guests can find you once
-                                they arrive? (optional)
-
-                            </Typography>
+                                they arrive? (optional)</Typography>
                         </Grid>
                         <Grid item xs={12} sm={8}>
                             <CustomizeTextArea minRows={3} fullWidth placeholder='If location is hard to find, include detailed instructions' />
@@ -113,7 +117,7 @@ function TourPackageInfo() {
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={8}>
-                            <StyledTextField required fullWidth placeholder='Enter the location where tour takes place' />
+                            <StyledTextField required value={addTour.city} onChange={(e) => dispatch(setCity(e.target.value))} fullWidth placeholder='Enter the location where tour takes place' />
                         </Grid>
                     </Grid>
 
@@ -129,29 +133,11 @@ function TourPackageInfo() {
                         </Grid>
 
                         <Grid container item justifyContent='center' spacing={2} xs={12}>
-                            <Grid item xs={12} sm={6}>
-                                <Typography color={"primary.main"} variant='p' fontWeight={500}>
-                                    What's tour guide primary language?
-
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={8} sm={4}>
-                                <SelectLanguage />
-                            </Grid>
-
-                            <Grid item xs={12} sm={6}>
-                                <Typography color={"primary.main"} variant='p' fontWeight={500}>
-                                    What other languages they speak fluently?
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={8} sm={4}>
-                                <SelectLanguage />
-                            </Grid>
                             {[...Array(language)].map((a, i) => <TourLanguage key={i} id={i + 1} />)}
                         </Grid>
                         <Grid container item justifyContent='left'>
 
-                            <StyledAddResponseButton type='button' onClick={() => setLanguage(language + 1)}>
+                            <StyledAddResponseButton type='button' onClick={() => { setLanguage(language + 1) ;dispatch(setLanguages([...addTour.languages , {}])) } }>
                                 + Add another response</StyledAddResponseButton>
                         </Grid>
 
@@ -179,7 +165,7 @@ function TourPackageInfo() {
                                     <Typography fontWeight={400} variant='p' color={"primary.main"}>Min Group Size:</Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={8}>
-                                    <StyledTextField size='small' fullWidth sx={{
+                                    <StyledTextField value={addTour.min_group_size} onChange={(e) => dispatch(setMin_group_size(e.target.value))} size='small' fullWidth sx={{
                                         '& .MuiInputBase-root': {
                                             padding: '0px',
                                             '& .MuiInputAdornment-positionStart': {
@@ -206,7 +192,7 @@ function TourPackageInfo() {
                                     <Typography fontWeight={400} variant='p' color={"primary.main"}>Max Group Size:</Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={8}>
-                                    <StyledTextField fullWidth size='small' sx={{
+                                    <StyledTextField value={addTour.max_group_size} onChange={(e) => dispatch(setMax_group_size(e.target.value))} fullWidth size='small' sx={{
                                         '& .MuiInputBase-root': {
                                             padding: '0px',
                                             '& .MuiInputAdornment-positionStart': {
@@ -223,7 +209,7 @@ function TourPackageInfo() {
                                     }}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">
-                                                <Button>-</Button>
+                                                <Button onClick={() => dispatch(setMax_group_size(e.target.value))}>-</Button>
                                             </InputAdornment>, endAdornment: <InputAdornment position="end">
                                                 <Button  >+</Button></InputAdornment>
                                         }} />
@@ -242,9 +228,9 @@ function TourPackageInfo() {
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-
+                                                value={addTour.min_age}
                                                 label="Language"
-                                                onChange={handleChange}
+                                                onChange={(e) => dispatch(setMin_age(e.target.value))}
                                             >
                                                 <MenuItem value={1}>1</MenuItem>
                                                 <MenuItem value={2}>2</MenuItem>
@@ -259,7 +245,9 @@ function TourPackageInfo() {
 
                             <Grid container item xs={12} sm={5} alignItems='center'>
                                 <Grid item xs={2} sm={2}>
-                                    <Checkbox sx={{ padding: '0px' }} />
+                                    <Checkbox
+                                     checked={addTour.parents_bring_kids}
+                                     onChange={(e) => dispatch(setParents_bring_kids(e.target.checked)) } sx={{ padding: '0px' }} />
                                 </Grid>
                                 <Grid item xs={10} sm={10}>
                                     <Typography fontWeight={400} variant='p' color={"primary.main"}>Parents can bring kids under 2 years</Typography>
@@ -283,7 +271,7 @@ function TourPackageInfo() {
                                     <Typography fontWeight={400} variant='p' color={"primary.main"}>Min Private Group Size:</Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={8}>
-                                    <StyledTextField size='small' fullWidth sx={{
+                                    <StyledTextField value={addTour.min_private_group} onChange={(e) => {dispatch(setMin_private_group(e.target.value))}} size='small' fullWidth sx={{
                                         '& .MuiInputBase-root': {
                                             padding: '0px',
                                             '& .MuiInputAdornment-positionStart': {
@@ -300,16 +288,16 @@ function TourPackageInfo() {
                                     }}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">
-                                                <Button>-</Button>
+                                                <Button onClick={() => dispatch(setMin_private_group(addTour.min_private_group - 1 ))} >-</Button>
                                             </InputAdornment>, endAdornment: <InputAdornment position="end">
-                                                <Button  >+</Button></InputAdornment>
+                                                <Button onClick={() => dispatch(setMin_private_group(addTour.min_private_group + 1 ))} >+</Button></InputAdornment>
                                         }} />
                                 </Grid>
                             </Grid>
 
                             <Grid container item xs={12} sm={5} alignItems='center'>
                                 <Grid item xs={2} sm={2}>
-                                    <Checkbox sx={{ padding: '0px' }} />
+                                    <Checkbox onChange={(e) => dispatch(setBooked_as_private(e.target.checked))} sx={{ padding: '0px' }} />
                                 </Grid>
                                 <Grid item xs={10} sm={10}>
                                     <Typography fontWeight={400} variant='p' color={"primary.main"}>Can be booked as private</Typography>
@@ -346,7 +334,7 @@ function TourPackageInfo() {
 
                         <Grid container item xs={12} sm={10} alignItems='center'>
                             <Grid item xs={1} sm={1}>
-                                <Checkbox sx={{ padding: '0px' }} />
+                                <Checkbox onChange={(e) => dispatch(setHas_date_range(e.target.checked))} sx={{ padding: '0px' }} />
                             </Grid>
                             <Grid item xs={11} sm={11}>
                                 <Typography fontWeight={400} variant='p' color={"primary.main"}>This tour does not have date range</Typography>
@@ -358,10 +346,10 @@ function TourPackageInfo() {
                                 <Typography fontWeight={400} variant='p' color={"primary.main"}>Date range when its available: </Typography>
                             </Grid>
                             <Grid item xs={12} sm={4}>
-                                <DatePicker value={startDate} onChange={(newValue) => { setStartDate(newValue) }} renderInput={(params) => <TextField fullWidth sx={{ '& .MuiOutlinedInput-root': { '& .MuiOutlinedInput-input': { color: '#000' }, '& .MuiInputAdornment-root': { '& .MuiButtonBase-root': { '& .MuiSvgIcon-root': { color: 'button.main' } } } }, backgroundColor: '#FFF', borderRadius: '5px' }} variant="outlined" placeholder="MM/DD/YYYY" {...params} />} />
+                                <DatePicker value={startDate} onChange={(newValue) => { setAvailable_daterange_start(newValue) }} renderInput={(params) => <TextField fullWidth sx={{ '& .MuiOutlinedInput-root': { '& .MuiOutlinedInput-input': { color: '#000' }, '& .MuiInputAdornment-root': { '& .MuiButtonBase-root': { '& .MuiSvgIcon-root': { color: 'button.main' } } } }, backgroundColor: '#FFF', borderRadius: '5px' }} variant="outlined" placeholder="MM/DD/YYYY" {...params} />} />
                             </Grid>
                             <Grid item xs={12} sm={4}>
-                                <DatePicker value={endDate} onChange={(newValue) => { setEndDate(newValue) }} renderInput={(params) => <TextField fullWidth sx={{ '& .MuiOutlinedInput-root': { '& .MuiOutlinedInput-input': { color: '#000' }, '& .MuiInputAdornment-root': { '& .MuiButtonBase-root': { '& .MuiSvgIcon-root': { color: 'button.main' } } } }, backgroundColor: '#FFF', borderRadius: '5px' }} variant="outlined" placeholder="MM/DD/YYYY" {...params} />} />
+                                <DatePicker value={endDate} onChange={(newValue) => { setAvailable_daterange_end(newValue) }} renderInput={(params) => <TextField fullWidth sx={{ '& .MuiOutlinedInput-root': { '& .MuiOutlinedInput-input': { color: '#000' }, '& .MuiInputAdornment-root': { '& .MuiButtonBase-root': { '& .MuiSvgIcon-root': { color: 'button.main' } } } }, backgroundColor: '#FFF', borderRadius: '5px' }} variant="outlined" placeholder="MM/DD/YYYY" {...params} />} />
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography fontWeight={500} variant='p' color={"primary.main"}>Days (Available) </Typography>
@@ -417,7 +405,7 @@ function TourPackageInfo() {
                                             id="demo-simple-select"
 
                                             label="Days"
-                                            onChange={handleChange}
+                                            onChange={(e) => dispatch(setTour_duration(e.target.value)) }
                                         >
                                             <MenuItem value={1}>1</MenuItem>
                                             <MenuItem value={2}>2</MenuItem>
@@ -475,7 +463,7 @@ function TourPackageInfo() {
                                         aria-labelledby="demo-controlled-radio-buttons-group"
                                         name="controlled-radio-buttons-group"
                                         value={value}
-                                        onChange={(e) => { setValue(e.target.value) }}
+                                        onChange={(e) => { dispatch(setSeperate_mode_transport(e.target.value)) }}
                                     >
                                         <FormControlLabel value="yes" control={<Radio />} label="Yes" sx={{ color: 'white' }} />
                                         <FormControlLabel value="no" control={<Radio />} label="No" sx={{ color: 'white' }} />
@@ -501,7 +489,7 @@ function TourPackageInfo() {
                                         aria-labelledby="demo-controlled-radio-buttons-group"
                                         name="controlled-radio-buttons-group"
                                         value={value1}
-                                        onChange={(e) => { setValue1(e.target.value) }}
+                                        onChange={(e) => { dispatch(setChoose_their_tickets(e.target.value)) }}
                                     >
                                         <FormControlLabel value="yes" control={<Radio />} label="Yes" sx={{ color: 'white' }} />
                                         <FormControlLabel value="no" control={<Radio />} label="No" sx={{ color: 'white' }} />
