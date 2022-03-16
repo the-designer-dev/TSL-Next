@@ -4,14 +4,72 @@ import SelectLanguage from './selectLanguage';
 import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
 import SelectVehicle from './selectVehicle';
 import Dropfile from './dropzone';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { setVehicles } from '../redux/addTour';
 import StyledTextField from '../styledComponents/styledTextField';
+import {useDispatch , useSelector} from 'react-redux';
+import CarsDropfile from './carsDropzone';
 function TourVehicle(props) {
+    const dispatch = useDispatch()
     const [value2, setValue2] = useState();
     const [value3, setValue3] = useState();
+    const vehicle = useSelector(state => state.addTour.vehicles)
+    const changeType = (event) => {
+        var varVehicles = vehicle.map(el => el)
+        varVehicles[props.id -1] = {...varVehicles[props.id -1] , type : event.target.value}
+        dispatch(setVehicles(varVehicles))
+    };
+    
+    const changeAirconditioning = (event) => {
+        var varVehicles = vehicle.map(el => el)
+        varVehicles[props.id -1] = {...varVehicles[props.id -1] , airConditioning : event.target.value}
+        dispatch(setVehicles(varVehicles))
+    };
+    
+    const changeDriver = (event) => {
+        var varVehicles = vehicle.map(el => el)
+        varVehicles[props.id -1] = {...varVehicles[props.id -1] , driver : event.target.value}
+        dispatch(setVehicles(varVehicles))
+    };
+    
+    const changePrimaryLanguage = (event) => {
+        var varVehicles = vehicle.map(el => el)
+        varVehicles[props.id -1] = {...varVehicles[props.id -1] , primaryLanguage : event.target.value}
+        dispatch(setVehicles(varVehicles))
+    };
+    
+    const changeSecondaryLanguage = (event) => {
+        var varVehicles = vehicle.map(el => el)
+        varVehicles[props.id -1] = {...varVehicles[props.id -1] , secondaryLanguage : event.target.value}
+        dispatch(setVehicles(varVehicles))
+    };
+
+    const changeMake = (event) => {
+        var varVehicles = vehicle.map(el => el)
+        varVehicles[props.id -1] = {...varVehicles[props.id -1] , make : event.target.value}
+        dispatch(setVehicles(varVehicles))
+    };
+
+    const changeModel = (event) => {
+        var varVehicles = vehicle.map(el => el)
+        varVehicles[props.id -1] = {...varVehicles[props.id -1] , model : event.target.value}
+        dispatch(setVehicles(varVehicles))
+    };
+
+    const changeYear = (event) => {
+        var varVehicles = vehicle.map(el => el)
+        varVehicles[props.id -1] = {...varVehicles[props.id -1] , year : event.target.value}
+        dispatch(setVehicles(varVehicles))
+    };
+
+
     return (
         <Grid container justifyContent='center' spacing={3} item xs={12}>
 
@@ -35,8 +93,24 @@ function TourVehicle(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={8} sm={4}>
-                    <SelectVehicle />
-                </Grid>
+                <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Vehicle</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={vehicle}
+                        label="Vehicle"
+                        onChange={changeType}
+                    >
+                        <MenuItem value={'corolla'}>Corolla</MenuItem>
+                        <MenuItem value={'alto'}>Alto</MenuItem>
+                        <MenuItem value={'civic'}>Civic</MenuItem>
+                        <MenuItem value={'mira'}>Mira</MenuItem>
+                        <MenuItem value={'cultus'}>Cultus</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>                </Grid>
 
             </Grid>
 
@@ -55,10 +129,10 @@ function TourVehicle(props) {
                             aria-labelledby="demo-controlled-radio-buttons-group"
                             name="controlled-radio-buttons-group"
                             value={value2}
-                            onChange={(e) => { setValue2(e.target.value) }}
+                            onChange={(e) => { changeAirconditioning(e) }}
                         >
-                            <FormControlLabel value="yes" control={<Radio />} label="Yes" sx={{ color: 'white' }} />
-                            <FormControlLabel value="no" control={<Radio />} label="No" sx={{ color: 'white' }} />
+                            <FormControlLabel value={true} control={<Radio />} label="Yes" sx={{ color: 'white' }} />
+                            <FormControlLabel value={false} control={<Radio />} label="No" sx={{ color: 'white' }} />
                         </RadioGroup>
                     </FormControl>
                 </Grid>
@@ -78,10 +152,10 @@ function TourVehicle(props) {
                             aria-labelledby="demo-controlled-radio-buttons-group"
                             name="controlled-radio-buttons-group"
                             value={value3}
-                            onChange={(e) => { setValue3(e.target.value) }}
+                            onChange={(e) => { changeDriver(e) }}
                         >
-                            <FormControlLabel value="yes" control={<Radio />} label="Yes" sx={{ color: 'white' }} />
-                            <FormControlLabel value="no" control={<Radio />} label="No" sx={{ color: 'white' }} />
+                            <FormControlLabel value={true} control={<Radio />} label="Yes" sx={{ color: 'white' }} />
+                            <FormControlLabel value={false} control={<Radio />} label="No" sx={{ color: 'white' }} />
                         </RadioGroup>
                     </FormControl>
                 </Grid>
@@ -95,8 +169,25 @@ function TourVehicle(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={8} sm={4}>
-                    <SelectLanguage />
-                </Grid>
+                <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Language</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        // value={language}
+                        label="Language"
+                        onChange={changePrimaryLanguage}
+                    >
+                        <MenuItem value={'urdu'}>Urdu</MenuItem>
+                        <MenuItem value={'english'}>English</MenuItem>
+                        <MenuItem value={'sindhi'}>Sindhi</MenuItem>
+                        <MenuItem value={'pashto'}>Pashto</MenuItem>
+                        <MenuItem value={'balochi'}>Balochi</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box> 
+                           </Grid>
 
             </Grid>
             <Grid container item justifyContent='left' alignItems='center' spacing={2} xs={12} sm={10}>
@@ -107,8 +198,24 @@ function TourVehicle(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={8} sm={4}>
-                    <SelectLanguage />
-                </Grid>
+                <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Language</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        // value={language}
+                        label="Language"
+                        onChange={changeSecondaryLanguage}
+                    >
+                        <MenuItem value={'urdu'}>Urdu</MenuItem>
+                        <MenuItem value={'english'}>English</MenuItem>
+                        <MenuItem value={'sindhi'}>Sindhi</MenuItem>
+                        <MenuItem value={'pashto'}>Pashto</MenuItem>
+                        <MenuItem value={'balochi'}>Balochi</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>                </Grid>
 
             </Grid>
 
@@ -120,7 +227,7 @@ function TourVehicle(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={8} sm={8}>
-                    <StyledTextField required fullWidth placeholder='Like Toyota,BMW,etc' />
+                    <StyledTextField onChange={(e) => changeMake(e)} required fullWidth placeholder='Like Toyota,BMW,etc' />
                 </Grid>
 
             </Grid>
@@ -133,10 +240,10 @@ function TourVehicle(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={8} sm={4}>
-                    <StyledTextField required fullWidth placeholder='Like Corolla,Vitz,etc' />
+                    <StyledTextField onChange={(e) => changeModel(e)} required fullWidth placeholder='Like Corolla,Vitz,etc' />
                 </Grid>
                 <Grid item xs={8} sm={4}>
-                    <StyledTextField required fullWidth placeholder='Model Year' />
+                    <StyledTextField onChange={(e) => changeYear(e)} required fullWidth placeholder='Model Year' />
                 </Grid>
 
             </Grid>
@@ -150,7 +257,7 @@ function TourVehicle(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={8} sm={12}>
-                    <Dropfile />
+                    <CarsDropfile length={props.id} />
                 </Grid>
 
             </Grid>

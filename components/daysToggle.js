@@ -2,17 +2,20 @@ import * as React from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { useDispatch , useSelector } from 'react-redux';
+import addTour, { setDays_available } from '../redux/addTour';
 
 export default function DaysToggle() {
     const [formats, setFormats] = React.useState(() => ['']);
-
+    const dispatch = useDispatch()
     const handleFormat = (event, newFormats) => {
+        dispatch(setDays_available(newFormats))
         setFormats(newFormats);
     };
     const matches = useMediaQuery("(min-width:990px)");
     return (
         <ToggleButtonGroup
-            value={formats}
+            value={addTour.days_available}
             onChange={handleFormat}
             orientation={`${matches ? `horizontal` : `vertical`}`}
             aria-label="text formatting"
