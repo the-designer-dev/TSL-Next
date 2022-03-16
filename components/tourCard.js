@@ -2,9 +2,7 @@ import React from 'react'
 import { Grid, Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import tour1 from '../assets/tour1.png'
-import tour2 from '../assets/tour2.png'
-import tour3 from '../assets/tour3.png'
-import tour4 from '../assets/tour4.png'
+
 
 import StarIcon from '@mui/icons-material/Star';
 export default function TourCard() {
