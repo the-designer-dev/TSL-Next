@@ -40,8 +40,8 @@ function TourPackageInfo() {
     const [value2, setValue2] = useState();
     const [value3, setValue3] = useState();
     const [language, setLanguage] = useState(1);
-    const [vehicle, setVehicle] = useState(0);
-    const [ticket, setTicket] = useState(0);
+    const [vehicle, setVehicle] = useState(1);
+    const [ticket, setTicket] = useState(1);
     const [packtitle, setPacktitle] = useState();
     const [age, setAge] = useState(0)
     // const handleChange = (event) => {
@@ -209,9 +209,9 @@ function TourPackageInfo() {
                                     }}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">
-                                                <Button onClick={() => dispatch(setMax_group_size(e.target.value))}>-</Button>
+                                                <Button onClick={() => dispatch(setMax_group_size(addTour.max_group_size -1))}>-</Button>
                                             </InputAdornment>, endAdornment: <InputAdornment position="end">
-                                                <Button  >+</Button></InputAdornment>
+                                                <Button onClick={() => dispatch(setMax_group_size(addTour.max_group_size +1))} >+</Button></InputAdornment>
                                         }} />
                                 </Grid>
                             </Grid>
@@ -267,6 +267,8 @@ function TourPackageInfo() {
                             </Grid>
 
                             <Grid container item xs={12} sm={5} spacing={0} alignItems='center'>
+                                {addTour.booked_as_private?
+                                <>
                                 <Grid item xs={12} sm={4}>
                                     <Typography fontWeight={400} variant='p' color={"primary.main"}>Min Private Group Size:</Typography>
                                 </Grid>
@@ -292,12 +294,12 @@ function TourPackageInfo() {
                                             </InputAdornment>, endAdornment: <InputAdornment position="end">
                                                 <Button onClick={() => dispatch(setMin_private_group(addTour.min_private_group + 1 ))} >+</Button></InputAdornment>
                                         }} />
-                                </Grid>
+                                </Grid> </>: ''}
                             </Grid>
 
                             <Grid container item xs={12} sm={5} alignItems='center'>
                                 <Grid item xs={2} sm={2}>
-                                    <Checkbox onChange={(e) => dispatch(setBooked_as_private(e.target.checked))} sx={{ padding: '0px' }} />
+                                    <Checkbox checked={addTour.booked_as_private} onChange={(e) => dispatch(setBooked_as_private(e.target.checked))} sx={{ padding: '0px' }} />
                                 </Grid>
                                 <Grid item xs={10} sm={10}>
                                     <Typography fontWeight={400} variant='p' color={"primary.main"}>Can be booked as private</Typography>
@@ -334,7 +336,7 @@ function TourPackageInfo() {
 
                         <Grid container item xs={12} sm={10} alignItems='center'>
                             <Grid item xs={1} sm={1}>
-                                <Checkbox onChange={(e) => dispatch(setHas_date_range(e.target.checked))} sx={{ padding: '0px' }} />
+                                <Checkbox checked={addTour.has_date_range} onChange={(e) => dispatch(setHas_date_range(e.target.checked))} sx={{ padding: '0px' }} />
                             </Grid>
                             <Grid item xs={11} sm={11}>
                                 <Typography fontWeight={400} variant='p' color={"primary.main"}>This tour does not have date range</Typography>
@@ -342,15 +344,19 @@ function TourPackageInfo() {
                         </Grid>
 
                         <Grid container item xs={12} sm={10} alignItems='center' justifyContent='left' spacing={1}>
+                            {!addTour.has_date_range?
+                            <>
                             <Grid item xs={12} sm={4}>
                                 <Typography fontWeight={400} variant='p' color={"primary.main"}>Date range when its available: </Typography>
                             </Grid>
                             <Grid item xs={12} sm={4}>
-                                <DatePicker value={startDate} onChange={(newValue) => { setAvailable_daterange_start(newValue) }} renderInput={(params) => <TextField fullWidth sx={{ '& .MuiOutlinedInput-root': { '& .MuiOutlinedInput-input': { color: '#000' }, '& .MuiInputAdornment-root': { '& .MuiButtonBase-root': { '& .MuiSvgIcon-root': { color: 'button.main' } } } }, backgroundColor: '#FFF', borderRadius: '5px' }} variant="outlined" placeholder="MM/DD/YYYY" {...params} />} />
+                                <DatePicker value={addTour.available_daterange_start} onChange={(newValue) => { dispatch(setAvailable_daterange_start(newValue)) }} renderInput={(params) => <TextField fullWidth sx={{ '& .MuiOutlinedInput-root': { '& .MuiOutlinedInput-input': { color: '#000' }, '& .MuiInputAdornment-root': { '& .MuiButtonBase-root': { '& .MuiSvgIcon-root': { color: 'button.main' } } } }, backgroundColor: '#FFF', borderRadius: '5px' }} variant="outlined" placeholder="MM/DD/YYYY" {...params} />} />
                             </Grid>
                             <Grid item xs={12} sm={4}>
-                                <DatePicker value={endDate} onChange={(newValue) => { setAvailable_daterange_end(newValue) }} renderInput={(params) => <TextField fullWidth sx={{ '& .MuiOutlinedInput-root': { '& .MuiOutlinedInput-input': { color: '#000' }, '& .MuiInputAdornment-root': { '& .MuiButtonBase-root': { '& .MuiSvgIcon-root': { color: 'button.main' } } } }, backgroundColor: '#FFF', borderRadius: '5px' }} variant="outlined" placeholder="MM/DD/YYYY" {...params} />} />
-                            </Grid>
+                                <DatePicker value={addTour.available_daterange_end} onChange={(newValue) => { dispatch(setAvailable_daterange_end(newValue)) }} renderInput={(params) => <TextField fullWidth sx={{ '& .MuiOutlinedInput-root': { '& .MuiOutlinedInput-input': { color: '#000' }, '& .MuiInputAdornment-root': { '& .MuiButtonBase-root': { '& .MuiSvgIcon-root': { color: 'button.main' } } } }, backgroundColor: '#FFF', borderRadius: '5px' }} variant="outlined" placeholder="MM/DD/YYYY" {...params} />} />
+                            </Grid> </>
+                            :''
+                            }
                             <Grid item xs={12}>
                                 <Typography fontWeight={500} variant='p' color={"primary.main"}>Days (Available) </Typography>
 
@@ -403,7 +409,7 @@ function TourPackageInfo() {
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-
+                                            value= {addTour.tour_duration}
                                             label="Days"
                                             onChange={(e) => dispatch(setTour_duration(e.target.value)) }
                                         >
@@ -462,7 +468,7 @@ function TourPackageInfo() {
 
                                         aria-labelledby="demo-controlled-radio-buttons-group"
                                         name="controlled-radio-buttons-group"
-                                        value={value}
+                                        value={addTour.seperate_mode_transport}
                                         onChange={(e) => { dispatch(setSeperate_mode_transport(e.target.value)) }}
                                     >
                                         <FormControlLabel value="yes" control={<Radio />} label="Yes" sx={{ color: 'white' }} />
@@ -488,7 +494,7 @@ function TourPackageInfo() {
 
                                         aria-labelledby="demo-controlled-radio-buttons-group"
                                         name="controlled-radio-buttons-group"
-                                        value={value1}
+                                        value={addTour.choose_their_tickets}
                                         onChange={(e) => { dispatch(setChoose_their_tickets(e.target.value)) }}
                                     >
                                         <FormControlLabel value="yes" control={<Radio />} label="Yes" sx={{ color: 'white' }} />
@@ -514,11 +520,10 @@ function TourPackageInfo() {
                                 </Typography>
                             </Grid>
                         </Grid>
-                        <TourVehicle />
-                        {[...Array(vehicle)].map((a, i) => <TourVehicle key={i} id={i + 2} />)}
+                        {[...Array(vehicle)].map((a, i) => <TourVehicle key={i} id={i + 1} />)}
                         <Grid container item sm={10} justifyContent='left'>
                             <Grid item xs={12}>
-                                <StyledAddResponseButton type='button' onClick={() => setVehicle(vehicle + 1)}>
+                                <StyledAddResponseButton type='button' onClick={() => {setVehicle(vehicle + 1) ; dispatch(setVehicles([...addTour.vehicles , {}]))}}>
                                     + Add another response</StyledAddResponseButton>
                             </Grid>
                         </Grid>
@@ -536,11 +541,10 @@ function TourPackageInfo() {
                                 </Typography>
                             </Grid>
                         </Grid>
-                        <TourTicket />
                         {[...Array(ticket)].map((a, i) => <TourTicket key={i} id={i + 2} />)}
                         <Grid container item sm={10} justifyContent='left'>
                             <Grid item xs={12}>
-                                <StyledAddResponseButton type='button' onClick={() => setTicket(ticket + 1)}>
+                                <StyledAddResponseButton type='button' onClick={() => {setTicket(ticket + 1) ; dispatch(setTickets([...addTour.tickets , {}]))}}>
                                     + Add another response</StyledAddResponseButton>
                             </Grid>
                         </Grid>
