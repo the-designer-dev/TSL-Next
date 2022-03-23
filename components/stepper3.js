@@ -4,8 +4,8 @@ import Stack from "@mui/material/Stack";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import RoomServiceIcon from "@mui/icons-material/RoomService";
-import HotelIcon from "@mui/icons-material/Hotel";
+import CommuteIcon from "@mui/icons-material/Commute";
+import TourIcon from "@mui/icons-material/Tour";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import StepConnector, {
@@ -60,8 +60,8 @@ function ColorlibStepIcon(props) {
 	const { active, completed, className } = props;
 
 	const icons = {
-		1: <MeetingRoomIcon />,
-		2: <MeetingRoomIcon />,
+		1: <TourIcon />,
+		2: <CommuteIcon />,
 		3: <SummarizeIcon />,
 	};
 

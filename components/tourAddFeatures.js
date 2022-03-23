@@ -776,14 +776,30 @@ function TourAddFeatures() {
 								/>
 							</Grid>
 						</Grid>
+						<Grid
+							container
+							item
+							xs={12}
+							sm={10}
+							spacing={1}
+							justifyContent={"flex-end"}
+						>
+							<Grid item>
+								<StyledButton
+									onClick={() => dispatch(prevStep3())}
+									type="button"
+								>
+									Back
+								</StyledButton>
+							</Grid>
+							<Grid item>
+								<StyledButton type="submit">Next</StyledButton>
+							</Grid>
+						</Grid>
 					</Grid>
 
 					{/* Information Ends */}
 				</Grid>
-				<StyledButton onClick={() => dispatch(prevStep3())} type="button">
-					Back
-				</StyledButton>
-				<StyledButton type="submit">Next</StyledButton>
 			</form>
 		</FormWrapper>
 	);

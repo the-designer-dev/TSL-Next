@@ -3,9 +3,8 @@ import { Grid, Box } from "@mui/material";
 import VendorLayout from "../../../components/vendorLayout";
 import StyledContainer from "../../../styledComponents/styledContainer";
 import StepperForm3 from "../../../components/stepper3";
-
 import { useDispatch, useSelector } from "react-redux";
-import AddRoomForm from "../../../components/addRoomForm";
+import TourOverviewForm from "../../../components/tourOverviewform";
 import Overview from "../../../components/overview";
 import TourPackageInfo from "../../../components/tourPackageInfo";
 import TourAddFeatures from "../../../components/tourAddFeatures";
@@ -35,7 +34,7 @@ export default function AddTour() {
 				)}
 				{active == 2 ? (
 					<Grid item xs={12}>
-						<AddRoomForm />
+						<TourOverviewForm />
 					</Grid>
 				) : (
 					""
