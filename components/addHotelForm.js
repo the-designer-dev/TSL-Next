@@ -1,87 +1,478 @@
-import { Box, Grid, Typography } from '@mui/material';
-import FormWrapper from '../styledComponents/formWrapper';
-import React , {useEffect} from 'react';
-import StyledTextField from '../styledComponents/styledTextField';
-import LocationPicker from './locationPicker';
-import dynamic from 'next/dynamic';
-import Dropfile from './dropzone';
-import Features from './features';
-import { nextStep, prevStep } from '../redux/formSlice';
-import { convertToRaw , convertFromHTML, ContentState } from 'draft-js';
-import { convertToHTML } from 'draft-convert';import {setName ,setCity,setAddress,setDescription} from '../redux/addHotel'
-import StyledButton from '../styledComponents/styledButton';
-const MUIRichTextEditor = dynamic(() => import('mui-rte'), {ssr: false });
-import {useDispatch,useSelector} from 'react-redux';
+import { Box, FormControl, Grid, MenuItem, Typography } from "@mui/material";
+import FormWrapper from "../styledComponents/formWrapper";
+import React, { useEffect } from "react";
+import StyledTextField from "../styledComponents/styledTextField";
+import LocationPicker from "./locationPicker";
+import dynamic from "next/dynamic";
+import Dropfile from "./dropzone";
+import Features from "./features";
+import { nextStep, prevStep } from "../redux/formSlice";
+import { convertToRaw, convertFromHTML, ContentState } from "draft-js";
+import { convertToHTML } from "draft-convert";
+import {
+  setName,
+  setCity,
+  setAddress,
+  setDescription,
+} from "../redux/addHotel";
+import StyledButton from "../styledComponents/styledButton";
+const MUIRichTextEditor = dynamic(() => import("mui-rte"), { ssr: false });
+import { useDispatch, useSelector } from "react-redux";
 
 function AddHotelForm(props) {
-   const coordinates = useSelector(state => state.addHotel.coordinates)
-   const addHotel = useSelector(state => state.addHotel)
-   const dispatch = useDispatch();
-    async function submit(e){
-       e.preventDefault()
-       const mod = await import('./dropzone')
-       if(mod.hotelImgs.length > 0 && Object.keys(coordinates[0]).length >0 ){
-    dispatch(nextStep())
-}
-    else{alert('fill all required fields')}
-   }
+  var citiesArr = [
+    "Abbottabad",
+    "Adezai",
+    "Ali Bandar",
+    "Amir Chah",
+    "Attock",
+    "Ayubia",
+    "Bahawalpur",
+    "Baden",
+    "Bagh",
+    "Bahawalnagar",
+    "Burewala",
+    "Banda Daud Shah",
+    "Bannu district|Bannu",
+    "Batagram",
+    "Bazdar",
+    "Bela",
+    "Bellpat",
+    "Bhag",
+    "Bhakkar",
+    "Bhalwal",
+    "Bhimber",
+    "Birote",
+    "Buner",
+    "Burj",
+    "Chiniot",
+    "Chachro",
+    "Chagai",
+    "Chah Sandan",
+    "Chailianwala",
+    "Chakdara",
+    "Chakku",
+    "Chakwal",
+    "Chaman",
+    "Charsadda",
+    "Chhatr",
+    "Chichawatni",
+    "Chitral",
+    "Dadu",
+    "Dera Ghazi Khan",
+    "Dera Ismail Khan",
+    "Dalbandin",
+    "Dargai",
+    "Darya Khan",
+    "Daska",
+    "Dera Bugti",
+    "Dhana Sar",
+    "Digri",
+    "Dina City|Dina",
+    "Dinga",
+    ", Pakistan|Diplo",
+    "Diwana",
+    "Dokri",
+    "Drosh",
+    "Duki",
+    "Dushi",
+    "Duzab",
+    "Faisalabad",
+    "Fateh Jang",
+    "Ghotki",
+    "Gwadar",
+    "Gujranwala",
+    "Gujrat",
+    "Gadra",
+    "Gajar",
+    "Gandava",
+    "Garhi Khairo",
+    "Garruck",
+    "Ghakhar Mandi",
+    "Ghanian",
+    "Ghauspur",
+    "Ghazluna",
+    "Girdan",
+    "Gulistan",
+    "Gwash",
+    "Hyderabad",
+    "Hala",
+    "Haripur",
+    "Hab Chauki",
+    "Hafizabad",
+    "Hameedabad",
+    "Hangu",
+    "Harnai",
+    "Hasilpur",
+    "Haveli Lakha",
+    "Hinglaj",
+    "Hoshab",
+    "Islamabad",
+    "Islamkot",
+    "Ispikan",
+    "Jacobabad",
+    "Jamshoro",
+    "Jhang",
+    "Jhelum",
+    "Jamesabad",
+    "Jampur",
+    "Janghar",
+    "Jati(Mughalbhin)",
+    "Jauharabad",
+    "Jhal",
+    "Jhal Jhao",
+    "Jhatpat",
+    "Jhudo",
+    "Jiwani",
+    "Jungshahi",
+    "Karachi",
+    "Kotri",
+    "Kalam",
+    "Kalandi",
+    "Kalat",
+    "Kamalia",
+    "Kamararod",
+    "Kamber",
+    "Kamokey",
+    "Kanak",
+    "Kandi",
+    "Kandiaro",
+    "Kanpur",
+    "Kapip",
+    "Kappar",
+    "Karak City",
+    "Karodi",
+    "Kashmor",
+    "Kasur",
+    "Katuri",
+    "Keti Bandar",
+    "Khairpur",
+    "Khanaspur",
+    "Khanewal",
+    "Kharan",
+    "kharian",
+    "Khokhropur",
+    "Khora",
+    "Khushab",
+    "Khuzdar",
+    "Kikki",
+    "Klupro",
+    "Kohan",
+    "Kohat",
+    "Kohistan",
+    "Kohlu",
+    "Korak",
+    "Korangi",
+    "Kot Sarae",
+    "Kotli",
+    "Lahore",
+    "Larkana",
+    "Lahri",
+    "Lakki Marwat",
+    "Lasbela",
+    "Latamber",
+    "Layyah",
+    "Leiah",
+    "Liari",
+    "Lodhran",
+    "Loralai",
+    "Lower Dir",
+    "Shadan Lund",
+    "Multan",
+    "Mandi Bahauddin",
+    "Mansehra",
+    "Mian Chanu",
+    "Mirpur",
+    ", Pakistan|Moro",
+    "Mardan",
+    "Mach",
+    "Madyan",
+    "Malakand",
+    "Mand",
+    "Manguchar",
+    "Mashki Chah",
+    "Maslti",
+    "Mastuj",
+    "Mastung",
+    "Mathi",
+    "Matiari",
+    "Mehar",
+    "Mekhtar",
+    "Merui",
+    "Mianwali",
+    "Mianez",
+    "Mirpur Batoro",
+    "Mirpur Khas",
+    "Mirpur Sakro",
+    "Mithi",
+    "Mongora",
+    "Murgha Kibzai",
+    "Muridke",
+    "Musa Khel Bazar",
+    "Muzaffar Garh",
+    "Muzaffarabad",
+    "Nawabshah",
+    "Nazimabad",
+    "Nowshera",
+    "Nagar Parkar",
+    "Nagha Kalat",
+    "Nal",
+    "Naokot",
+    "Nasirabad",
+    "Nauroz Kalat",
+    "Naushara",
+    "Nur Gamma",
+    "Nushki",
+    "Nuttal",
+    "Okara",
+    "Ormara",
+    "Peshawar",
+    "Panjgur",
+    "Pasni City",
+    "Paharpur",
+    "Palantuk",
+    "Pendoo",
+    "Piharak",
+    "Pirmahal",
+    "Pishin",
+    "Plandri",
+    "Pokran",
+    "Pounch",
+    "Quetta",
+    "Qambar",
+    "Qamruddin Karez",
+    "Qazi Ahmad",
+    "Qila Abdullah",
+    "Qila Ladgasht",
+    "Qila Safed",
+    "Qila Saifullah",
+    "Rawalpindi",
+    "Rabwah",
+    "Rahim Yar Khan",
+    "Rajan Pur",
+    "Rakhni",
+    "Ranipur",
+    "Ratodero",
+    "Rawalakot",
+    "Renala Khurd",
+    "Robat Thana",
+    "Rodkhan",
+    "Rohri",
+    "Sialkot",
+    "Sadiqabad",
+    "Safdar Abad- (Dhaban Singh)",
+    "Sahiwal",
+    "Saidu Sharif",
+    "Saindak",
+    "Sakrand",
+    "Sanjawi",
+    "Sargodha",
+    "Saruna",
+    "Shabaz Kalat",
+    "Shadadkhot",
+    "Shahbandar",
+    "Shahpur",
+    "Shahpur Chakar",
+    "Shakargarh",
+    "Shangla",
+    "Sharam Jogizai",
+    "Sheikhupura",
+    "Shikarpur",
+    "Shingar",
+    "Shorap",
+    "Sibi",
+    "Sohawa",
+    "Sonmiani",
+    "Sooianwala",
+    "Spezand",
+    "Spintangi",
+    "Sui",
+    "Sujawal",
+    "Sukkur",
+    "Suntsar",
+    "Surab",
+    "Swabi",
+    "Swat",
+    "Tando Adam",
+    "Tando Bago",
+    "Tangi",
+    "Tank City",
+    "Tar Ahamd Rind",
+    "Thalo",
+    "Thatta",
+    "Toba Tek Singh",
+    "Tordher",
+    "Tujal",
+    "Tump",
+    "Turbat",
+    "Umarao",
+    "Umarkot",
+    "Upper Dir",
+    "Uthal",
+    "Vehari",
+    "Veirwaro",
+    "Vitakri",
+    "Wadh",
+    "Wah Cantt",
+    "Warah",
+    "Washap",
+    "Wasjuk",
+    "Wazirabad",
+    "Yakmach",
+    "Zhob",
+    "Other",
+  ];
 
-   
-const SSR = typeof window === 'undefined'
-var contentHTML;
-var state;
-var content;
-useEffect(() => {
-    !SSR?contentHTML = convertFromHTML(addHotel.description):''    
-    !SSR?state = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap):''
-    !SSR?content = JSON.stringify(convertToRaw(state)):''
-} , [])
-const onEditorChange = event => {
-    const plainText = convertToHTML(event.getCurrentContent()) 
-    dispatch(setDescription(plainText))
-}
-    return (
-        <FormWrapper>
-            <form onSubmit={submit}>
-                <Grid container spacing={3}>
-                    <Grid container item  spacing={1}>
-                    <Grid item xs={12}><Typography variant='h6'>Tell us more about your hotel</Typography></Grid>
-                    </Grid>
-                    <Grid container item spacing={1}>
-                    <Grid item xs={12} sm={4}><Typography variant='p'>Name of your hotel</Typography></Grid>
-                    <Grid item xs={12} sm={8}><StyledTextField required value={addHotel.name} fullWidth onChange={(e) => dispatch(setName(e.currentTarget.value))} placeholder='Enter Name' /></Grid>
-                    </Grid>
-                    <Grid container item spacing={1}>
-                    <Grid item xs={12} sm={4}><Typography variant='p'>Which city is your hotel located in?</Typography></Grid>
-                    <Grid item xs={12} sm={8}><StyledTextField required value={addHotel.city} fullWidth onChange={(e) => dispatch(setCity(e.currentTarget.value))} placeholder='Enter City' /></Grid>
-                    </Grid>
-                    <Grid container item spacing={1}>
-                    <Grid item xs={12} sm={4}><Typography variant='p'>Address</Typography></Grid>
-                    <Grid item xs={12} sm={8}><StyledTextField required value={addHotel.address} fullWidth onChange={(e) => dispatch(setAddress(e.currentTarget.value))} placeholder='Enter Address' /></Grid>
-                    </Grid>
-                    <Grid container item spacing={2}>
-                    <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Place a pin to locate your hotel</Typography></Grid>
-                    <Grid item xs={12} ><LocationPicker/></Grid>
-                    </Grid>
-                    <Grid container item spacing={2}>
-                    <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Hotel Description:</Typography></Grid>
-                    <Grid item xs={12} ><MUIRichTextEditor required  defaultValue={content} onChange={onEditorChange} label="Start typing..." /></Grid>
-                    </Grid>
-                    <Grid container item spacing={2}>
-                    <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Hotel Images:</Typography></Grid>
-                    <Grid item xs={12} ><Dropfile hotel={true}/></Grid>
-                    </Grid>
-                    <Grid container item spacing={2}>
-                    <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Tell us more about the features of your hotel:</Typography></Grid>
-                    <Grid item xs={12} ><Features/></Grid>
-                    </Grid>
-                    <Grid container item xs={12} spacing={2} justifyContent='flex-end'>
-                        <Grid item><StyledButton type='button' onClick={() => dispatch(prevStep())}>Previous</StyledButton></Grid>
-                        <Grid item><StyledButton type='submit' >Next</StyledButton></Grid>
-                    </Grid>
-                </Grid>
-            </form>
-        </FormWrapper>
-    );
+  const coordinates = useSelector((state) => state.addHotel.coordinates);
+  const addHotel = useSelector((state) => state.addHotel);
+  const dispatch = useDispatch();
+  async function submit(e) {
+    e.preventDefault();
+    const mod = await import("./dropzone");
+    console.log(mod.hotelImgs);
+    if (mod.hotelImgs.length > 0 && Object.keys(coordinates[0]).length > 0) {
+      dispatch(nextStep());
+    } else {
+      alert("fill all required fields");
+    }
+  }
+
+  const SSR = typeof window === "undefined";
+  var contentHTML;
+  var state;
+  var content;
+  useEffect(() => {
+    !SSR ? (contentHTML = convertFromHTML(addHotel.description)) : "";
+    !SSR
+      ? (state = ContentState.createFromBlockArray(
+          contentHTML.contentBlocks,
+          contentHTML.entityMap
+        ))
+      : "";
+    !SSR ? (content = convertFromHTML(addHotel.description)) : "";
+  }, []);
+  const onEditorChange = (event) => {
+    const plainText = convertToHTML(event.getCurrentContent());
+    dispatch(setDescription(plainText));
+  };
+  return (
+    <FormWrapper>
+      <form onSubmit={submit}>
+        <Grid container spacing={3}>
+          <Grid container item spacing={1}>
+            <Grid item xs={12}>
+              <Typography variant="h6">
+                Tell us more about your hotel
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container item spacing={1}>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="p">Name of your hotel</Typography>
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <StyledTextField
+                required
+                value={addHotel.name}
+                fullWidth
+                onChange={(e) => dispatch(setName(e.currentTarget.value))}
+                placeholder="Enter Name"
+              />
+            </Grid>
+          </Grid>
+          <Grid container item spacing={1}>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="p">
+                Which city is your hotel located in?
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <StyledTextField
+                select
+                required
+                value={addHotel.city}
+                fullWidth
+                onChange={(e) => dispatch(setCity(e.target.value))}
+                placeholder="Enter City"
+              >
+                {citiesArr.map((el) => (
+                  <MenuItem value={el}>{el}</MenuItem>
+                ))}
+              </StyledTextField>
+            </Grid>
+          </Grid>
+          <Grid container item spacing={1}>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="p">Address</Typography>
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <StyledTextField
+                required
+                value={addHotel.address}
+                fullWidth
+                onChange={(e) => dispatch(setAddress(e.currentTarget.value))}
+                placeholder="Enter Address"
+              />
+            </Grid>
+          </Grid>
+          <Grid container item spacing={2}>
+            <Grid item xs={12}>
+              <Typography fontSize={18} fontWeight={600} variant="p">
+                Place a pin to locate your hotel
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <LocationPicker />
+            </Grid>
+          </Grid>
+          <Grid container item spacing={2}>
+            <Grid item xs={12}>
+              <Typography fontSize={18} fontWeight={600} variant="p">
+                Hotel Description:
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <MUIRichTextEditor
+                required
+                defaultValue={content}
+                onChange={onEditorChange}
+                label="Start typing..."
+              />
+            </Grid>
+          </Grid>
+          <Grid container item spacing={2}>
+            <Grid item xs={12}>
+              <Typography fontSize={18} fontWeight={600} variant="p">
+                Hotel Images:
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Dropfile hotel={true} />
+            </Grid>
+          </Grid>
+          <Grid container item spacing={2}>
+            <Grid item xs={12}>
+              <Typography fontSize={18} fontWeight={600} variant="p">
+                Tell us more about the features of your hotel:
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Features />
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} spacing={2} justifyContent="flex-end">
+            <Grid item>
+              <StyledButton type="button" onClick={() => dispatch(prevStep())}>
+                Previous
+              </StyledButton>
+            </Grid>
+            <Grid item>
+              <StyledButton type="submit">Next</StyledButton>
+            </Grid>
+          </Grid>
+        </Grid>
+      </form>
+    </FormWrapper>
+  );
 }
 export default AddHotelForm;
