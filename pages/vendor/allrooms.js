@@ -56,11 +56,13 @@ function AllRooms(props) {
   const user = useSelector((state) => state.user.user);
   const { data, error } = useSWR([user, token], fetch);
   const router = useRouter();
+  var filteredRooms;
 
   useEffect(() => {
-    data != undefined && data != null
+    filteredRooms = data;
+    filteredRooms != undefined && filteredRooms != null
       ? setTableData(
-          data.map((el, index) => {
+          filteredRooms.map((el, index) => {
             console.log(el);
             return {
               id: index + 1,
