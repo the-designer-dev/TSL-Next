@@ -573,6 +573,7 @@ export default function Home() {
                       startText=""
                       className="dateRange"
                       endText=""
+                      disablePast
                       onChange={(newValue) => {
                         setFocused(3);
                         text3Ref.current.focus();

@@ -352,6 +352,7 @@ function AddHotelForm(props) {
     !SSR ? (content = convertFromHTML(addHotel.description)) : "";
   }, []);
   const onEditorChange = (event) => {
+    console.log(event.getCurrentContent());
     const plainText = convertToHTML(event.getCurrentContent());
     dispatch(setDescription(plainText));
   };

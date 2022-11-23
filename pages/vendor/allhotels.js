@@ -88,7 +88,7 @@ function Allhotels(props) {
                   startingPrice={element.starting_price}
                   images={element.images}
                   clickFunction={() =>
-                    router.push({ pathname: `/hotel/${element.id}` })
+                    router.push({ pathname: `./hotel/${element.id}` })
                   }
                 />{" "}
               </Grid>

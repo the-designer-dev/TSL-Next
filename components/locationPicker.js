@@ -49,7 +49,7 @@ function LocationPicker(props) {
         )
       : dispatch(
           setCoordinates([
-            { longitude: value.center[0], latitude: value.center[1] },
+            { longitude: value.center[1], latitude: value.center[0] },
           ])
         );
   }
@@ -73,8 +73,8 @@ function LocationPicker(props) {
   const onMarkerDragEnd = (event) => {
     // Any functionality for when a drag ends
 
-    setLongitude(event.lngLat[0]);
-    setLatitude(event.lngLat[1]);
+    setLongitude(event.lngLat[1]);
+    setLatitude(event.lngLat[0]);
     props.tour
       ? dispatch(
           setTourCoordinates([

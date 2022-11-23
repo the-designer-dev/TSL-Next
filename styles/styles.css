@@ -82,12 +82,31 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
 
 .slider-wrapper2 {
 	width: 100%;
+	height:100% ;
 	margin: auto;
 }
+
+.slider-wrapper2 .slick-slider{
+
+	height:100% ;
+}
+
+.slider-wrapper2 .slick-list{
+
+	height:100% ;
+}
+
+.slider-wrapper2 .slick-track{
+
+	height:100% ;
+}
+
+
 
 .slick-slide {
 	text-align: center;
 	position: relative;
+	height: 100%;
 }
 
 .thumbnail-slider-wrap .slick-track .slick-slide img {
