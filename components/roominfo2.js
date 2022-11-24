@@ -571,10 +571,12 @@ function RoomInfo2(props) {
                         {" "}
                         <Button
                           onClick={() =>
-                            setExtraBed({
-                              ...extraBed,
-                              extra_bed_qty: extraBed.extra_bed_qty - 1,
-                            })
+                            extraBed.extra_bed_qty - 1 >= 0
+                              ? setExtraBed({
+                                  ...extraBed,
+                                  extra_bed_qty: extraBed.extra_bed_qty - 1,
+                                })
+                              : null
                           }
                           sx={{
                             padding: "0px",
@@ -598,9 +600,10 @@ function RoomInfo2(props) {
                         }}
                         xs={8}
                       >
-                        {" "}
                         <StyledTextField
                           defaultValue="0"
+                          min={0}
+                          max={el.extraBeds[0].extra_bed_qty}
                           onChange={(e) =>
                             setExtraBed({
                               ...extraBed,
@@ -633,13 +636,15 @@ function RoomInfo2(props) {
                         item
                         xs={4}
                       >
-                        {" "}
                         <Button
                           onClick={() =>
-                            setExtraBed({
-                              ...extraBed,
-                              extra_bed_qty: extraBed.extra_bed_qty + 1,
-                            })
+                            extraBed.extra_bed_qty + 1 <=
+                            el.extraBeds[0].extra_bed_qty + 1
+                              ? setExtraBed({
+                                  ...extraBed,
+                                  extra_bed_qty: extraBed.extra_bed_qty + 1,
+                                })
+                              : null
                           }
                           sx={{
                             borderRadius: "100%",
