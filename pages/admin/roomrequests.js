@@ -10,11 +10,13 @@ import { useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../config";
 import AcceptRoomModal from "../../components/acceptRoomModal";
+import { useRouter } from "next/router";
 
 function RoomRequests(props) {
   const [openModal, setOpenModal] = useState(false);
   const [rows, setRows] = useState([]);
   const [params, setParams] = useState(null);
+  const router = useRouter();
 
   useEffect(async () => {
     const data = await axios({
@@ -139,7 +141,13 @@ function RoomRequests(props) {
               >
                 Reject
               </MenuItem>
-              <MenuItem onClick={handleClose}>More info</MenuItem>
+              <MenuItem
+                onClick={() =>
+                  router.push({ pathname: `./${rowParams.row.id}` })
+                }
+              >
+                More info
+              </MenuItem>
             </Menu>
           </>
         );
