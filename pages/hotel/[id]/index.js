@@ -453,8 +453,8 @@ export default function Hotel({ resData, reqData, id }) {
                                       container
                                       spacing={1}
                                     >
-                                      {el.properties.category
-                                        .split(",")
+                                      {el?.properties?.category
+                                        ?.split(",")
                                         .map((el, index) =>
                                           index < 4 ? (
                                             <Grid item>
@@ -690,7 +690,7 @@ export default function Hotel({ resData, reqData, id }) {
                                       spacing={2}
                                     >
                                       {el.properties.category
-                                        .split(",")
+                                        ?.split(",")
                                         .map((el, index) =>
                                           index < 4 ? (
                                             <Grid item spacing>

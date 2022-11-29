@@ -38,6 +38,7 @@ import Upaisa from "../../../assets/UPaisa-logo@300x.png";
 import Image from "next/image";
 import StyledButton from "../../../styledComponents/styledButton";
 import CustomerLayout2 from "../../../components/customerLayout2";
+import LoginModal from "../../../components/loginModal";
 const fetch = (id, destination, checkin, checkout, adult, child) =>
   axios({
     method: "post",
@@ -68,6 +69,8 @@ function Book(props) {
   const child = useSelector((state) => state.hotelquery.child);
   const adultInfo = useSelector((state) => state.booking.adultInfo);
   const childInfo = useSelector((state) => state.booking.childInfo);
+  const user = useSelector((state) => state.user.user);
+
   const router = useRouter();
   const { id, room } = router.query;
   var reqData = [
@@ -83,6 +86,7 @@ function Book(props) {
   const { data, error } = useSWR(reqData, fetch);
   var [adultCards, setAdultCards] = useState([]);
   var [childCards, setChildCards] = useState([]);
+  var [open, setOpen] = useState(false);
 
   const [columns, setColumns] = useState([
     { field: "sign", headerName: "", flex: 1, align: "center" },
@@ -94,59 +98,64 @@ function Book(props) {
   const [rows, setRows] = useState([]);
 
   function checkOut() {
-    var extras = [];
-    for (const [key, value] of Object.entries(extra_items)) {
-      data !== undefined && id !== undefined && room !== undefined
-        ? key !== "extraBeds"
-          ? (extras = [
-              ...extras,
-              {
-                extra_field_name: key,
-                extra_field_qty: value,
-                extra_field_price: data.hotel_extra_fields.find(
-                  (el) => el.extra_field_name === key
-                ).extra_field_price,
-              },
-            ])
-          : (extras = [
-              ...extras,
-              {
-                extra_field_name: key,
-                extra_field_qty: value,
-                extra_field_price: data.rooms.find(
-                  (el) => el.id === parseInt(room)
-                ).extraBeds[0].extra_bed_rates,
-              },
-            ])
-        : console.log("not entered");
+    if (Object.keys(user).length !== 0) {
+      var extras = [];
+      for (const [key, value] of Object.entries(extra_items)) {
+        data !== undefined && id !== undefined && room !== undefined
+          ? key !== "extraBeds"
+            ? (extras = [
+                ...extras,
+                {
+                  extra_field_name: key,
+                  extra_field_qty: value,
+                  extra_field_price: data.hotel_extra_fields.find(
+                    (el) => el.extra_field_name === key
+                  ).extra_field_price,
+                },
+              ])
+            : (extras = [
+                ...extras,
+                {
+                  extra_field_name: key,
+                  extra_field_qty: value,
+                  extra_field_price: data.rooms.find(
+                    (el) => el.id === parseInt(room)
+                  ).extraBeds[0].extra_bed_rates,
+                },
+              ])
+          : console.log("not entered");
+      }
+      var reqData = {
+        total_days: moment(checkout).diff(moment(checkin), "days") + 1,
+        booking_start_date: checkin,
+        booking_end_date: checkout,
+        room_qty: roomQuantity,
+        room_id: room,
+        adult_booking: adultInfo,
+        child_booking: childInfo,
+        extras: extras,
+        order_total: price,
+        booking_type: booking_type,
+      };
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      axios
+        .post(`${API_URL}/orders`, reqData, {
+          headers: headers,
+        })
+        .then((response) => {
+          alert("Order created!");
+          router.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("Order could not be created , try again");
+        });
+    } else {
+      console.log("login user");
+      setOpen(true);
     }
-    var reqData = {
-      total_days: moment(checkout).diff(moment(checkin), "days") + 1,
-      booking_start_date: checkin,
-      booking_end_date: checkout,
-      room_qty: roomQuantity,
-      room_id: room,
-      adult_booking: adultInfo,
-      child_booking: childInfo,
-      extras: extras,
-      order_total: price,
-      booking_type: booking_type,
-    };
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    axios
-      .post(`${API_URL}/orders`, reqData, {
-        headers: headers,
-      })
-      .then((response) => {
-        alert("Order created!");
-        router.push("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("Order could not be created , try again");
-      });
   }
 
   useEffect(() => {
@@ -311,6 +320,8 @@ function Book(props) {
             borderRadius: "5px",
           }}
         >
+          <LoginModal setOpen={setOpen} open={open} />
+
           <Grid container spacing={2}>
             <Grid container item xs={3}>
               <Grid container item spacing={2}>
@@ -563,5 +574,5 @@ function Book(props) {
 export default Book;
 
 Book.getLayout = function getLayout(Book) {
-  return <CustomerLayout2>{Book}</CustomerLayout2>;
+  return <CustomerLayout>{Book}</CustomerLayout>;
 };

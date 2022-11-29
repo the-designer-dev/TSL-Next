@@ -160,29 +160,29 @@ function RoomInfo2(props) {
   }, [guestsSet]);
 
   const submitData = (id, room) => {
-    if (Object.keys(user).length !== 0) {
-      if (guestsSet === true) {
-        const price2 = price.toString();
-        var fields = extraFields;
-        fields.extraBeds = extraBed.extra_bed_qty;
-        dispatch(setReduxPrice(price2));
-        dispatch(setExtra_items(fields));
-        dispatch(setCurrentHotel(id));
-        dispatch(setCurrentRoom(room));
-        dispatch(setRoom_quantity(rooms));
-        sessionStorage.setItem("ReduxPrice", price2);
-        sessionStorage.setItem("Extra_items", JSON.stringify(fields));
-        sessionStorage.setItem("CurrentHotel", id);
-        sessionStorage.setItem("CurrentRoom", room);
-        sessionStorage.setItem("Room_quantity", rooms);
-        router.push({ pathname: `/hotel/${id}/${room}` });
-      } else {
-        setOpen2(true);
-      }
+    // if (Object.keys(user).length !== 0) {
+    if (guestsSet === true) {
+      const price2 = price.toString();
+      var fields = extraFields;
+      fields.extraBeds = extraBed.extra_bed_qty;
+      dispatch(setReduxPrice(price2));
+      dispatch(setExtra_items(fields));
+      dispatch(setCurrentHotel(id));
+      dispatch(setCurrentRoom(room));
+      dispatch(setRoom_quantity(rooms));
+      sessionStorage.setItem("ReduxPrice", price2);
+      sessionStorage.setItem("Extra_items", JSON.stringify(fields));
+      sessionStorage.setItem("CurrentHotel", id);
+      sessionStorage.setItem("CurrentRoom", room);
+      sessionStorage.setItem("Room_quantity", rooms);
+      router.push({ pathname: `/hotel/${id}/${room}` });
     } else {
-      console.log("login user");
-      setOpen(true);
+      setOpen2(true);
     }
+    // } else {
+    //   console.log("login user");
+    //   setOpen(true);
+    // }
   };
 
   const extraFieldChange = async (name, val) => {
