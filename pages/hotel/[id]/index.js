@@ -220,7 +220,12 @@ export default function Hotel({ resData, reqData, id }) {
                     fontSize={14}
                     variant="p"
                   >
-                    {data.hoteldescription}
+                    <div
+                      className="content"
+                      dangerouslySetInnerHTML={{
+                        __html: data.hoteldescription,
+                      }}
+                    ></div>
                   </Typography>
                 </Grid>
                 <Grid container item spacing={2}>

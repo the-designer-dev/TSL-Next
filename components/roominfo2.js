@@ -240,12 +240,21 @@ function RoomInfo2(props) {
           </Box>
         </Grid>
         <Grid container item xs={18} sm={12} md={8}>
-          <Grid container item xs={18} spacing={1}>
+          <Grid container item xs={18}>
             <Grid item xs={18}>
               <Typography variant="h6" fontWeight={600}>
                 {el.roomname}
               </Typography>
             </Grid>
+            <Grid item xs={18}>
+              <Typography variant="p">
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{ __html: el.roomdescription }}
+                ></div>
+              </Typography>
+            </Grid>
+
             <Grid container item xs={11} spacing={1}>
               <Grid item xs={18}>
                 <Box>

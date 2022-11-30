@@ -132,7 +132,7 @@ function SingleHotel(props) {
                   </Typography>
                 </Grid>
               </Grid>
-              {data?.amenities.map((el) => (
+              {data?.amenities?.map((el) => (
                 <Grid
                   container
                   item
@@ -225,15 +225,15 @@ function SingleHotel(props) {
               </Grid>
               <Grid container item xs={12} spacing={1}>
                 {data?.hotel_extra_fields.map((el) => (
-                  <Grid container item xs={4}>
-                    <Grid item xs={6}>
+                  <Grid container item xs={6} lg={3} spacing={1}>
+                    <Grid item>
                       <Typography sx={{ fontSize: "14px", fontWeight: "700" }}>
-                        Check In : {data?.checkintime}
+                        {el.extra_field_name} :
                       </Typography>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item>
                       <Typography sx={{ fontSize: "14px", fontWeight: "700" }}>
-                        Check In : {data?.checkintime}
+                        {el.extra_field_price}
                       </Typography>
                     </Grid>
                   </Grid>

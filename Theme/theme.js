@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 export const darkTheme = createTheme({
   breakpoints: {
     values: {
@@ -11,126 +11,183 @@ export const darkTheme = createTheme({
     },
   },
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
-      main: '#DDDDDD',
+      main: "#DDDDDD",
     },
     secondary: {
-      main: '#999999',
+      main: "#999999",
     },
     button: {
-      main: '#2AB572',
-      danger: '#db242a'
+      main: "#2AB572",
+      danger: "#db242a",
     },
     background: {
-      main: '#1E3459',
-      secondary: '#232229'
+      main: "#1E3459",
+      secondary: "#232229",
     },
     text: {
-      primary: '#DDDDDD',
-      secondary: '#6B718A',
-      brevity: '#22806E',
-      message: '#FFF',
+      primary: "#DDDDDD",
+      secondary: "#6B718A",
+      brevity: "#22806E",
+      message: "#FFF",
     },
     tableBorder: {
-      primary: '#9999'
+      primary: "#9999",
     },
     table: {
-      tableRow1: '#203B59',
-      tableRow2: '#1E3459'
-    }
+      tableRow1: "#203B59",
+      tableRow2: "#1E3459",
+    },
   },
   overrides: {
     MUIRichTextEditor: {
       toolbar: {
-        backgroundColor: '#2AB572',
-        padding: '5px 10px'
+        backgroundColor: "#2AB572",
+        padding: "5px 10px",
       },
       root: {
         marginTop: 0,
-        width: "inherit"
+        width: "inherit",
       },
       container: {
-        border: "1px solid #203B59"
+        border: "1px solid #203B59",
       },
       editorContainer: {
-        width: 'inherit',
-        backgroundColor: '#FFF',
-        color: '#000',
-        minHeight: '200px'
+        width: "inherit",
+        backgroundColor: "#FFF",
+        color: "#000",
+        minHeight: "200px",
       },
       placeHolder: {
-        width: 'inherit'
-      }
-    }
-  }
-  ,
+        width: "inherit",
+      },
+    },
+  },
   components: {
     MuiTextField: {
       defaultProps: {
         InputLabelProps: { shrink: false },
-        label: ''
-      }
+        label: "",
+      },
     },
     MuiList: {
       styleOverrides: {
         root: {
-          backgroundColor: '#1E3459'
-        }
-      }
+          backgroundColor: "#1E3459",
+        },
+      },
     },
     MuiPickersDay: {
       styleOverrides: {
         root: {
-          backgroundColor: '#203B59'
+          backgroundColor: "#203B59",
         },
-      }
+      },
     },
     MuiDialog: {
       styleOverrides: {
         paper: {
-          backgroundColor: '#203B59',
-          backgroundImage: 'none',
+          backgroundColor: "#203B59",
+          backgroundImage: "none",
         },
-      }
+      },
     },
-
-  }
+  },
 });
 export const lightTheme = createTheme({
   breakpoints: {
     values: {
-      xs: 320,
+      xs: 0,
       sm: 600,
       md: 900,
       lg: 1200,
       xl: 1536,
+      xxl: 1920,
     },
   },
-  typography: {
-    fontFamily: 'Roboto'
-  }
-  ,
   palette: {
-    mode: 'light',
+    mode: "dark",
     primary: {
-      main: '#646777',
+      main: "#232229",
     },
     secondary: {
-      main: '#999999',
+      main: "#999999",
+    },
+    button: {
+      main: "#2AB572",
+      danger: "#db242a",
     },
     background: {
-      main: '#fff',
-      secondary: '#17161E',
+      main: "#f1f1f1",
+      secondary: "#FFF",
     },
     text: {
-      primary: '#646777',
-      secondary: '#999999',
-      brevity: '#22806E',
-      message: '#000'
+      primary: "#232229",
+      secondary: "#6B718A",
+      brevity: "#22806E",
+      message: "#FFF",
     },
     tableBorder: {
-      primary: '#E0E0E0'
-    }
+      primary: "#9999",
+    },
+    table: {
+      tableRow1: "#203B59",
+      tableRow2: "#1E3459",
+    },
+  },
+  overrides: {
+    MUIRichTextEditor: {
+      toolbar: {
+        backgroundColor: "#2AB572",
+        padding: "5px 10px",
+      },
+      root: {
+        marginTop: 0,
+        width: "inherit",
+      },
+      container: {
+        border: "1px solid #203B59",
+      },
+      editorContainer: {
+        width: "inherit",
+        backgroundColor: "#FFF",
+        color: "#000",
+        minHeight: "200px",
+      },
+      placeHolder: {
+        width: "inherit",
+      },
+    },
+  },
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        InputLabelProps: { shrink: false },
+        label: "",
+      },
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#1E3459",
+        },
+      },
+    },
+    MuiPickersDay: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#203B59",
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: "#203B59",
+          backgroundImage: "none",
+        },
+      },
+    },
   },
 });
