@@ -43,7 +43,7 @@ function CustomerHeader(props) {
         zIndex: "5",
         alignItems: "center",
         height: "77px",
-        backgroundColor: "background.main",
+        backgroundColor: "background.secondary",
         padding: "0px 20px",
         justifyContent: "right",
       }}
