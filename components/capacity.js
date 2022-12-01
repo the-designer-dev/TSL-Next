@@ -20,7 +20,7 @@ function Capacity(props) {
   useEffect(() => {
     var arr = [];
     for (let index = 0; index < room.bedCapacity; index++) {
-      arr.push({ bednName: "", bedValue: "" });
+      arr.push({ bedName: room.bedType[index] ? room.bedType[index].bedName : "", bedValue: room.bedType[index] ? room.bedType[index].bedValue : "" });
     }
     dispatch(setBedType(arr));
   }, [room.bedCapacity]);
@@ -254,7 +254,7 @@ function Capacity(props) {
                     }}
                     value={JSON.stringify({
                       bedName: el.bedName,
-                      bedValue: parseInt(el.bedValue),
+                      bedValue: el.bedValue,
                     })}
                     onChange={(e) => changeBedType(e.target.value, index)}
                   >
@@ -285,7 +285,7 @@ function Capacity(props) {
           );
         })}
       </Grid>
-    </Box>
+    </Box >
   );
 }
 export default Capacity;

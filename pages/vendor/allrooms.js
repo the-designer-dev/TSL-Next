@@ -18,6 +18,7 @@ import { API_URL } from "../../config";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+import AddButton from "../../components/addButton";
 
 const fetch = (user, token) =>
   axios({
@@ -62,20 +63,20 @@ function AllRooms(props) {
     filteredRooms = data;
     filteredRooms != undefined && filteredRooms != null
       ? setTableData(
-          filteredRooms.map((el, index) => {
-            console.log(el);
-            return {
-              id: index + 1,
-              roomId: el.id,
-              roomname: el.roomname,
-              capacityAdult: el.adult,
-              capacityChild: el.child,
-              price: `PKR ${el.roomrefundprice}/-`,
-              status: el.approved,
-              priceNonRef: `PKR ${el.roomnonrefundprice}/-`,
-            };
-          })
-        )
+        filteredRooms.map((el, index) => {
+          console.log(el);
+          return {
+            id: index + 1,
+            roomId: el.id,
+            roomname: el.roomname,
+            capacityAdult: el.adult,
+            capacityChild: el.child,
+            price: `PKR ${el.roomrefundprice}/-`,
+            status: el.approved,
+            priceNonRef: `PKR ${el.roomnonrefundprice}/-`,
+          };
+        })
+      )
       : "";
   }, [data]);
   const columns = [
@@ -230,6 +231,7 @@ function AllRooms(props) {
           />
         </Grid>
       </Grid>
+      <AddButton path={`./addroom`} />
     </StyledContainer>
   );
 }

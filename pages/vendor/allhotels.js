@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Typography, TextField, InputAdornment } from "@mui/material";
 import HotelCard from "../../components/hotelCard";
+import AddButton from "../../components/addButton";
 import SearchIcon from "@mui/icons-material/Search";
 import StyledContainer from "../../styledComponents/styledContainer";
 import VendorLayout from "../../components/vendorLayout";
@@ -80,21 +81,22 @@ function Allhotels(props) {
         </Grid>
         {filteredData && filteredData[0].hotelname
           ? filteredData.map((element) => (
-              <Grid item xs={12} sm={6} md={4} sx={{ textAlign: "center" }}>
-                <HotelCard
-                  buttonText={"View Details"}
-                  name={element.hotelname}
-                  icons={[...element.amenities, ...element.facilities]}
-                  startingPrice={element.starting_price}
-                  images={element.images}
-                  clickFunction={() =>
-                    router.push({ pathname: `./hotel/${element.id}` })
-                  }
-                />{" "}
-              </Grid>
-            ))
+            <Grid item xs={12} sm={6} md={4} sx={{ textAlign: "center" }}>
+              <HotelCard
+                buttonText={"View Details"}
+                name={element.hotelname}
+                icons={[...element.amenities, ...element.facilities]}
+                startingPrice={element.starting_price}
+                images={element.images}
+                clickFunction={() =>
+                  router.push({ pathname: `./hotel/${element.id}` })
+                }
+              />{" "}
+            </Grid>
+          ))
           : ""}
       </Grid>
+      <AddButton path={`./addhotel`} />
     </StyledContainer>
   );
 }
