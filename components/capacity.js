@@ -40,6 +40,9 @@ function Capacity(props) {
             <Typography fontWeight={400} variant="p">
               Child Capacity:
             </Typography>
+            <Typography fontWeight={200} fontSize={10} lineHeight={0} variant="span">
+              <><br></br>(below 12 years)  </>
+            </Typography>
           </Grid>
           <Grid item xs={8}>
             <StyledTextField
