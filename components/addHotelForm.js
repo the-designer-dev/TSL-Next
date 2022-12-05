@@ -361,21 +361,22 @@ function AddHotelForm(props) {
       <form onSubmit={submit}>
         <Grid container spacing={3}>
           <Grid container item xs={12} lg={6} spacing={2}>
+            <Grid container item spacing={2}>
+              <Grid item xs={12}>
+                <Typography variant="h6">
+                  Tell us more about your hotel
+                </Typography>
+              </Grid>
+            </Grid>
             <Box
               sx={{
                 backgroundColor: "background.secondary",
                 p: 2,
                 borderRadius: 3,
+                m: 2,
               }}
             >
               <Grid container item spacing={5}>
-                <Grid container item spacing={1}>
-                  <Grid item xs={12}>
-                    <Typography variant="h6">
-                      Tell us more about your hotel
-                    </Typography>
-                  </Grid>
-                </Grid>
                 <Grid container item spacing={1}>
                   {/* <Grid item xs={12} sm={4}>
                 <Typography variant="p">Name of your hotel</Typography>
@@ -447,21 +448,22 @@ function AddHotelForm(props) {
               </Grid>
             </Box>
           </Grid>
-          <Grid container item spacing={2} xs={12} lg={6}>
+          <Grid container item spacing={2} xs={12} lg={6} direction="column">
+            <Grid item>
+              <Typography variant="h6">
+                Place a pin to locate your hotel
+              </Typography>
+            </Grid>
             <Box
               sx={{
                 width: "100%",
                 backgroundColor: "background.secondary",
                 p: 2,
                 borderRadius: 3,
+                m: 2,
               }}
             >
               <Grid container item spacing={5}>
-                <Grid item xs={12}>
-                  <Typography variant="h6">
-                    Place a pin to locate your hotel
-                  </Typography>
-                </Grid>
                 <Grid item xs={12}>
                   <LocationPicker />
                 </Grid>
@@ -470,39 +472,40 @@ function AddHotelForm(props) {
           </Grid>
 
           <Grid container item spacing={2}>
+            <Grid item xs={12}>
+              <Typography fontSize={18} fontWeight={600} variant="p">
+                Hotel Images:
+              </Typography>
+            </Grid>
             <Box
               sx={{
                 width: "100%",
                 backgroundColor: "background.secondary",
                 p: 2,
                 borderRadius: 3,
+                m: 2,
               }}
             >
-              <Grid item xs={12}>
-                <Typography fontSize={18} fontWeight={600} variant="p">
-                  Hotel Images:
-                </Typography>
-              </Grid>
               <Grid item xs={12}>
                 <Dropfile hotel={true} />
               </Grid>
             </Box>
           </Grid>
           <Grid container item spacing={2}>
+            <Grid item xs={12}>
+              <Typography fontSize={18} fontWeight={600} variant="p">
+                Tell us more about the features of your hotel:
+              </Typography>
+            </Grid>
             <Box
               sx={{
                 width: "100%",
                 backgroundColor: "background.secondary",
-                p: 2,
                 borderRadius: 3,
+                m: 2,
               }}
             >
               <Grid container item spacing={5}>
-                <Grid item xs={12}>
-                  <Typography fontSize={18} fontWeight={600} variant="p">
-                    Tell us more about the features of your hotel:
-                  </Typography>
-                </Grid>
                 <Grid item xs={12}>
                   <Features />
                 </Grid>

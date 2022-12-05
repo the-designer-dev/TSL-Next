@@ -59,20 +59,21 @@ function AddServicesForm(props) {
     <FormWrapper>
       <form onSubmit={submit}>
         <Grid container spacing={3}>
-          <Grid container item xs={12} lg={6}>
+          <Grid container item xs={12} lg={6} direction="column">
+            <Grid container item spacing={1}>
+              <Grid item xs={12}>
+                <Typography variant="h6">Timings</Typography>
+              </Grid>
+            </Grid>
             <Box
               sx={{
                 backgroundColor: "background.secondary",
                 p: 2,
                 borderRadius: 3,
+                m: 2,
               }}
             >
               <Grid container item spacing={5}>
-                <Grid container item spacing={1}>
-                  <Grid item xs={12}>
-                    <Typography variant="h6">Timings</Typography>
-                  </Grid>
-                </Grid>
                 <Grid container item xs={12} spacing={1}>
                   {/* <Grid item xs={12} sm={3}>
               <Typography variant="p">Check-In time:</Typography>
@@ -155,21 +156,22 @@ function AddServicesForm(props) {
             </Box>
           </Grid>
 
-          <Grid container item spacing={1} xs={12} lg={6}>
+          <Grid container item spacing={1} xs={12} lg={6} direction={"column"}>
+            <Grid item>
+              <Typography fontWeight={600} fontSize={18} variant="p">
+                What services do you provide?
+              </Typography>
+            </Grid>
             <Box
               sx={{
                 backgroundColor: "background.secondary",
                 p: 2,
                 borderRadius: 3,
                 width: "100%",
+                m: 2,
               }}
             >
               <Grid container item spacing={5}>
-                <Grid item xs={12}>
-                  <Typography fontWeight={600} fontSize={18} variant="p">
-                    What services do you provide?
-                  </Typography>
-                </Grid>
                 <Grid item xs={6}>
                   <ProvidedServices />
                 </Grid>
@@ -455,7 +457,17 @@ function AddServicesForm(props) {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <FAQs />
+              <Box
+                sx={{
+                  backgroundColor: "background.secondary",
+                  p: 2,
+                  borderRadius: 3,
+                  width: "100%",
+                  m: 2,
+                }}
+              >
+                <FAQs />
+              </Box>
             </Grid>
           </Grid>
           <Grid container item xs={12} spacing={2} justifyContent="flex-end">
