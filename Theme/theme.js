@@ -132,8 +132,8 @@ export const lightTheme = createTheme({
       primary: "#9999",
     },
     table: {
-      tableRow1: "#203B59",
-      tableRow2: "#1E3459",
+      tableRow1: "#fff",
+      tableRow2: "#fff",
     },
   },
   overrides: {

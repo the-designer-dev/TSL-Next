@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, Button } from "@mui/material";
 import { React, useEffect, useState } from "react";
 import Slider from "react-slick";
 import moment from "moment";
@@ -37,8 +37,13 @@ import Jazzcash from "../../../assets/JazzCash-logo@300x.png";
 import Upaisa from "../../../assets/UPaisa-logo@300x.png";
 import Image from "next/image";
 import StyledButton from "../../../styledComponents/styledButton";
+import hotelImagesIcon from "../../../assets/hotelImages.png";
+import hotelDetailsIcon from "../../../assets/hotelDetailsIcon.png";
+import addOnMeals from "../../../assets/addOnMeals.png";
+
 import CustomerLayout2 from "../../../components/customerLayout2";
 import LoginModal from "../../../components/loginModal";
+import StyledTextField from "../../../styledComponents/styledTextField";
 const fetch = (id, destination, checkin, checkout, adult, child) =>
   axios({
     method: "post",
@@ -86,6 +91,9 @@ function Book(props) {
   const { data, error } = useSWR(reqData, fetch);
   var [adultCards, setAdultCards] = useState([]);
   var [childCards, setChildCards] = useState([]);
+  // var [pricestate, setPricestate] = useState(null);
+  const [extraFields, setExtraFields] = useState({});
+
   var [open, setOpen] = useState(false);
 
   const [columns, setColumns] = useState([
@@ -96,6 +104,26 @@ function Book(props) {
     { field: "price", headerName: "Price (PKR)", flex: 2 },
   ]);
   const [rows, setRows] = useState([]);
+  const extraFieldChange = async (name, val) => {
+    var value;
+    if (!val && val !== 0) {
+      value = 1;
+    } else {
+      value = val;
+    }
+
+    if (val < 0) {
+      value = 0;
+    }
+    setExtraFields((extraFields) => ({
+      ...extraFields,
+      [name]: value,
+    }));
+  };
+  useEffect(() => {
+    dispatch(setExtra_items(extraFields));
+    sessionStorage.setItem("Extra_items", JSON.stringify(extraFields));
+  }, [extraFields]);
 
   function checkOut() {
     if (Object.keys(user).length !== 0) {
@@ -197,7 +225,7 @@ function Book(props) {
 
   useEffect(() => {
     var index = 1;
-    console.log(data);
+    setRows([]);
     data !== undefined && id !== undefined && room !== undefined
       ? setRows((rows) => [
           ...rows,
@@ -255,10 +283,32 @@ function Book(props) {
             ])
         : setRows((rows) => [...rows]);
     }
+    calculatePrice();
     data !== undefined
-      ? (room1 = data.rooms.find((el) => el.id === parseInt(room)))
+      ? (room1 = data?.rooms?.find((el) => el.id === parseInt(room)))
       : "";
-  }, [data]);
+  }, [data, extra_items]);
+
+  const calculatePrice = () => {
+    var days =
+      moment(sessionStorage.getItem("checkOut")).diff(
+        moment(sessionStorage.getItem("checkIn")),
+        "days"
+      ) + 1;
+    var temp_price = 0;
+    if (data?.hotel_extra_fields !== undefined) {
+      Object.values(data.hotel_extra_fields).forEach((key) => {
+        extraFields[key.extra_field_name]
+          ? (temp_price =
+              temp_price +
+              key.extra_field_price * extraFields[key.extra_field_name])
+          : "";
+      });
+      dispatch(setReduxPrice(parseInt(price) + temp_price));
+      sessionStorage.setItem("ReduxPrice", parseInt(price) + temp_price);
+      // setPricestate(parseInt(price) + temp_price);
+    }
+  };
 
   const settings = {
     dots: true,
@@ -292,165 +342,46 @@ function Book(props) {
     room !== undefined &&
     checkout ? (
     <Box>
-      <Slider
-        className="hero_slider"
-        style={{ backgroundColor: "transparent" }}
-        {...settings}
-      >
-        {data.rooms
-          .find((el) => el.id === parseInt(room))
-          .images.map((slide) => (
-            <div style={{ width: "100%", height: "100%" }}>
-              <img
-                style={{ width: "100%", height: "100%", maxHeight: "70vh" }}
-                src={`${API_URL}${slide.url}`}
-              />
-            </div>
-          ))}
-      </Slider>
-      <StyledContainer
-        sx={{ maxWidth: "1200px", margin: "auto" }}
-        square={true}
-      >
-        <Box
-          sx={{
-            backgroundColor: "background.main",
-            padding: "16px",
-            margin: "16px 0px",
-            borderRadius: "5px",
-          }}
-        >
-          <LoginModal setOpen={setOpen} open={open} />
-
-          <Grid container spacing={2}>
-            <Grid container item xs={3}>
-              <Grid container item spacing={2}>
-                <Grid item xs={12}>
-                  <Typography fontWeight={300} variant="p">
-                    Capacity
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography sx={{ wordBreak: "keep-all" }} variant="p">
-                    {data.rooms.find((el) => el.id === parseInt(room)).adult}{" "}
-                    adult
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography sx={{ wordBreak: "keep-all" }} variant="p">
-                    {data.rooms.find((el) => el.id === parseInt(room)).child}{" "}
-                    child
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-
-            <Grid container item xs={4}>
-              <Grid container item spacing={1}>
-                <Grid item xs={12}>
-                  <Typography fontWeight={300} variant="p">
-                    Benefits
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography fontSize={14} variant="p">
-                    This option includes:
-                  </Typography>
-                </Grid>
-
-                {data.rooms
-                  .find((el) => el.id === parseInt(room))
-                  .room_includes.map((el) => (
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sm={6}
-                      md={3}
-                      alignItems="center"
-                      spacing={2}
-                    >
-                      <Grid item xs={2}>
-                        <CheckIcon
-                          sx={{ fontSize: "18px", color: "button.main" }}
-                        />
-                      </Grid>
-                      <Grid item xs={10}>
-                        <Typography fontSize={12} variant="p">
-                          {el.service_name}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  ))}
-              </Grid>
-            </Grid>
-            <Grid container item xs={5}>
-              <Grid container item spacing={2}>
-                <Grid item xs={12}>
-                  <Typography fontWeight={300} variant="p">
-                    Amenities
-                  </Typography>
-                </Grid>
-                {data.rooms
-                  .find((el) => el.id === parseInt(room))
-                  .amenities.map((el, index) =>
-                    index < 4 ? (
-                      <Grid
-                        container
-                        item
-                        xs={12}
-                        sm={6}
-                        md={3}
-                        alignItems="center"
-                      >
-                        <Grid item xs={3}>
-                          <img
-                            style={{ height: "16px" }}
-                            src={el.service_icon}
-                          />
-                        </Grid>
-                        <Grid item xs={9}>
-                          <Typography fontSize={12} variant="p">
-                            {el.service_name}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    ) : (
-                      <></>
-                    )
-                  )}
-                {data.rooms
-                  .find((el) => el.id === parseInt(room))
-                  .amenities.map((el, index) =>
-                    index > 3 && index < 7 ? (
-                      <Grid
-                        container
-                        item
-                        xs={12}
-                        sm={6}
-                        md={3}
-                        alignItems="center"
-                      >
-                        <Grid item xs={3}>
-                          <img
-                            style={{ height: "16px" }}
-                            src={el.service_icon}
-                          />
-                        </Grid>
-                        <Grid item xs={9}>
-                          <Typography fontSize={12} variant="p">
-                            {el.service_name}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    ) : (
-                      <></>
-                    )
-                  )}
-              </Grid>
-            </Grid>
+      <StyledContainer>
+        <Grid container item xs={12} spacing={2} sx={{ paddingTop: "50px" }}>
+          <Grid item>
+            <img src={hotelImagesIcon.src} />
           </Grid>
-        </Box>
+          <Grid item>
+            <Typography sx={{ paddingBottom: "24px" }} variant="h6">
+              Hotel Images
+            </Typography>
+          </Grid>
+        </Grid>
+        <Slider
+          className="hero_slider"
+          style={{ backgroundColor: "transparent" }}
+          {...settings}
+        >
+          {data.rooms
+            .find((el) => el.id === parseInt(room))
+            .images.map((slide) => (
+              <div style={{ width: "100%", height: "100%" }}>
+                <img
+                  style={{ width: "100%", height: "100%", maxHeight: "70vh" }}
+                  src={`${API_URL}${slide.url}`}
+                />
+              </div>
+            ))}
+        </Slider>
+
+        <LoginModal setOpen={setOpen} open={open} />
+
+        <Grid container item xs={12} spacing={2} sx={{ paddingTop: "30px" }}>
+          <Grid item>
+            <img src={hotelDetailsIcon.src} />
+          </Grid>
+          <Grid item>
+            <Typography sx={{ paddingBottom: "24px" }} variant="h6">
+              Customer Details
+            </Typography>
+          </Grid>
+        </Grid>
         <Grid container spacing={2} sx={{ padding: "16px 0px" }}>
           {adultCards.map((el, index) => (
             <Grid item xs={12} sm={4} md={3}>
@@ -463,105 +394,157 @@ function Book(props) {
             </Grid>
           ))}
         </Grid>
-        <Grid container spacing={2} alignItems="stretch">
-          <Grid item xs={12} sm={8}>
-            <TotalTable columns={columns} rows={rows} total={price} />
-          </Grid>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="space-between"
+          alignItems="stretch"
+        >
           <Grid item xs={12} sm={4}>
-            <Box
-              sx={{
-                backgroundColor: "background.main",
-                padding: "16px",
-                borderRadius: "5px",
-              }}
-            >
-              <Grid container item spacing={1}>
-                <Grid item>
-                  <Typography fontWeight={500} variant="h5">
-                    Payment Gateway
+            {" "}
+            <Grid container item xs={12} spacing={2}>
+              <Grid item>
+                <img src={addOnMeals.src} />
+              </Grid>
+              <Grid item>
+                <Typography sx={{ paddingBottom: "24px" }} variant="h6">
+                  Would You Like To Add-On Meals?
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container item sx={{ paddingBottom: "30px" }}>
+              <Grid xs={6} sm={3} item>
+                <Typography fontSize={14} fontWeight={500} variant="p">
+                  Meal
+                </Typography>
+              </Grid>
+              <Grid xs={6} sm={3} item>
+                <Typography fontSize={14} fontWeight={500} variant="p">
+                  Unit Price
+                </Typography>
+              </Grid>
+              <Grid
+                xs={12}
+                sm={6}
+                alignItems="center"
+                direction="row"
+                justifyContent="center"
+                container
+                item
+              >
+                <Typography fontSize={14} fontWeight={500} variant="p">
+                  Quantity
+                </Typography>
+              </Grid>
+            </Grid>
+            {data.hotel_extra_fields.map((ele) => (
+              <Grid
+                container
+                item
+                sx={{ borderBottom: "1px solid #ddd", padding: "5px 0px" }}
+              >
+                <Grid xs={6} sm={3} item>
+                  <Typography fontSize={14} fontWeight={300} variant="p">
+                    {ele.extra_field_name}
                   </Typography>
                 </Grid>
-                <Grid item>
-                  <Typography fontSize={12} fontWeight={300} variant="p">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum.
+                <Grid xs={6} sm={3} item>
+                  <Typography fontSize={14} fontWeight={300} variant="p">
+                    PKR {ele.extra_field_price}
                   </Typography>
                 </Grid>
-                <Grid container item xs={12} alignItems="center" spacing={1}>
-                  <Grid item xs={4}>
-                    <Box
-                      className="image-container"
-                      sx={{
-                        border: "1px solid",
-                        borderColor: "button.main",
-                        borderRadius: "5px",
-                        padding: "5px 10px",
-                      }}
-                    >
-                      <Image
-                        layout="responsive"
-                        width={60}
-                        height={15}
-                        src={Easypaisa}
+                <Grid
+                  xs={12}
+                  sm={6}
+                  alignItems="center"
+                  spacing={2}
+                  direction="row"
+                  justifyContent="center"
+                  container
+                  item
+                >
+                  <Grid
+                    container
+                    item
+                    sx={{ textAlign: "center" }}
+                    justifyContent="center"
+                    xs={12}
+                  >
+                    <Box sx={{ display: "flex" }}>
+                      <Button
+                        onClick={() =>
+                          extraFieldChange(
+                            ele.extra_field_name,
+                            extraFields[ele.extra_field_name] - 1
+                          )
+                        }
+                        sx={{
+                          backgroundColor: "transparent",
+                          color: "button.main",
+                        }}
+                      >
+                        -
+                      </Button>
+                      <input
+                        defaultValue="0"
+                        onChange={(e) =>
+                          extraFieldChange(
+                            ele.extra_field_name,
+                            parseInt(e.target.value)
+                          )
+                        }
+                        id="outlined-name"
+                        name={ele.extra_field_name}
+                        value={
+                          extraFields[ele.extra_field_name]
+                            ? extraFields[ele.extra_field_name]
+                            : 0
+                        }
+                        size="small"
+                        style={{
+                          width: "40px",
+                          backgroundColor: "transparent",
+                          borderColor: "transparent",
+                        }}
+                        type="number"
                       />
-                    </Box>
-                  </Grid>{" "}
-                  <Grid item xs={4}>
-                    <Box
-                      className="image-container"
-                      sx={{
-                        backgroundColor: "#FFF",
-                        border: "1px solid",
-                        borderColor: "button.main",
-                        borderRadius: "5px",
-                        padding: "5px 10px",
-                      }}
-                    >
-                      <Image
-                        layout="responsive"
-                        width={60}
-                        height={15}
-                        src={Jazzcash}
-                      />
-                    </Box>
-                  </Grid>{" "}
-                  <Grid item xs={4}>
-                    <Box
-                      className="image-container"
-                      sx={{
-                        border: "1px solid",
-                        borderColor: "button.main",
-                        borderRadius: "5px",
-                        padding: "5px 10px",
-                      }}
-                    >
-                      <Image
-                        layout="responsive"
-                        width={60}
-                        height={15}
-                        src={Upaisa}
-                      />
+                      <Button
+                        onClick={() =>
+                          extraFieldChange(
+                            ele.extra_field_name,
+                            extraFields[ele.extra_field_name] + 1
+                          )
+                        }
+                        sx={{
+                          backgroundColor: "transparent",
+                          color: "button.main",
+                        }}
+                      >
+                        +
+                      </Button>
                     </Box>
                   </Grid>
                 </Grid>
-                <Grid item>
-                  <StyledButton
-                    onClick={() => checkOut()}
-                    sx={{ marginTop: "20px" }}
-                  >
-                    Check Out
-                  </StyledButton>
-                </Grid>
               </Grid>
-            </Box>
+            ))}
+          </Grid>
+          <Grid item xs={12} sm={7}>
+            <Grid container item xs={12} spacing={2}>
+              <Grid item>
+                <img src={hotelDetailsIcon.src} />
+              </Grid>
+              <Grid item>
+                <Typography sx={{ paddingBottom: "24px" }} variant="h6">
+                  Booking Details
+                </Typography>
+              </Grid>
+            </Grid>
+            {console.log(rows)}
+            <TotalTable
+              columns={columns}
+              rows={rows.filter((el) => el.quantity !== "x0")}
+              total={price}
+            />
           </Grid>
         </Grid>
       </StyledContainer>
