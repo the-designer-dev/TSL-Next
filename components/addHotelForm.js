@@ -360,106 +360,154 @@ function AddHotelForm(props) {
     <FormWrapper>
       <form onSubmit={submit}>
         <Grid container spacing={3}>
-          <Grid container item spacing={1}>
-            <Grid item xs={12}>
-              <Typography variant="h6">
-                Tell us more about your hotel
-              </Typography>
-            </Grid>
+          <Grid container item xs={12} lg={6} spacing={2}>
+            <Box
+              sx={{
+                backgroundColor: "background.secondary",
+                p: 2,
+                borderRadius: 3,
+              }}
+            >
+              <Grid container item spacing={5}>
+                <Grid container item spacing={1}>
+                  <Grid item xs={12}>
+                    <Typography variant="h6">
+                      Tell us more about your hotel
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container item spacing={1}>
+                  {/* <Grid item xs={12} sm={4}>
+                <Typography variant="p">Name of your hotel</Typography>
+              </Grid> */}
+                  <Grid item xs={12} sm={12}>
+                    <StyledTextField
+                      required
+                      label="Name of your hotel"
+                      value={addHotel.name}
+                      fullWidth
+                      onChange={(e) => dispatch(setName(e.currentTarget.value))}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container item spacing={1}>
+                  {/* <Grid item xs={12} sm={4}>
+                <Typography variant="p">
+                  Which city is your hotel located in?
+                </Typography>
+              </Grid> */}
+                  <Grid item xs={12} sm={12}>
+                    <StyledTextField
+                      select
+                      label={"Which City Is Your Hotel Located In?"}
+                      required
+                      value={addHotel.city}
+                      fullWidth
+                      onChange={(e) => dispatch(setCity(e.target.value))}
+                      placeholder="Enter City"
+                    >
+                      {citiesArr.map((el) => (
+                        <MenuItem value={el}>{el}</MenuItem>
+                      ))}
+                    </StyledTextField>
+                  </Grid>
+                </Grid>
+                <Grid container item spacing={1}>
+                  {/* <Grid item xs={12} sm={4}>
+                <Typography variant="p">Address</Typography>
+              </Grid> */}
+                  <Grid item xs={12} sm={12}>
+                    <StyledTextField
+                      required
+                      label={"Hotel Address"}
+                      value={addHotel.address}
+                      fullWidth
+                      onChange={(e) =>
+                        dispatch(setAddress(e.currentTarget.value))
+                      }
+                      placeholder="Enter Address"
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container item spacing={2}>
+                  {/* <Grid item xs={12}>
+                <Typography fontSize={18} fontWeight={600} variant="p">
+                  Hotel Description:
+                </Typography>
+              </Grid> */}
+                  <Grid item xs={12}>
+                    <MUIRichTextEditor
+                      required
+                      defaultValue={content}
+                      onChange={onEditorChange}
+                      label="Hotel Description"
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Box>
           </Grid>
-          <Grid container item spacing={1}>
-            <Grid item xs={12} sm={4}>
-              <Typography variant="p">Name of your hotel</Typography>
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <StyledTextField
-                required
-                value={addHotel.name}
-                fullWidth
-                onChange={(e) => dispatch(setName(e.currentTarget.value))}
-                placeholder="Enter Name"
-              />
-            </Grid>
+          <Grid container item spacing={2} xs={12} lg={6}>
+            <Box
+              sx={{
+                width: "100%",
+                backgroundColor: "background.secondary",
+                p: 2,
+                borderRadius: 3,
+              }}
+            >
+              <Grid container item spacing={5}>
+                <Grid item xs={12}>
+                  <Typography variant="h6">
+                    Place a pin to locate your hotel
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <LocationPicker />
+                </Grid>
+              </Grid>
+            </Box>
           </Grid>
-          <Grid container item spacing={1}>
-            <Grid item xs={12} sm={4}>
-              <Typography variant="p">
-                Which city is your hotel located in?
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <StyledTextField
-                select
-                required
-                value={addHotel.city}
-                fullWidth
-                onChange={(e) => dispatch(setCity(e.target.value))}
-                placeholder="Enter City"
-              >
-                {citiesArr.map((el) => (
-                  <MenuItem value={el}>{el}</MenuItem>
-                ))}
-              </StyledTextField>
-            </Grid>
-          </Grid>
-          <Grid container item spacing={1}>
-            <Grid item xs={12} sm={4}>
-              <Typography variant="p">Address</Typography>
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <StyledTextField
-                required
-                value={addHotel.address}
-                fullWidth
-                onChange={(e) => dispatch(setAddress(e.currentTarget.value))}
-                placeholder="Enter Address"
-              />
-            </Grid>
+
+          <Grid container item spacing={2}>
+            <Box
+              sx={{
+                width: "100%",
+                backgroundColor: "background.secondary",
+                p: 2,
+                borderRadius: 3,
+              }}
+            >
+              <Grid item xs={12}>
+                <Typography fontSize={18} fontWeight={600} variant="p">
+                  Hotel Images:
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Dropfile hotel={true} />
+              </Grid>
+            </Box>
           </Grid>
           <Grid container item spacing={2}>
-            <Grid item xs={12}>
-              <Typography fontSize={18} fontWeight={600} variant="p">
-                Place a pin to locate your hotel
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <LocationPicker />
-            </Grid>
-          </Grid>
-          <Grid container item spacing={2}>
-            <Grid item xs={12}>
-              <Typography fontSize={18} fontWeight={600} variant="p">
-                Hotel Description:
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <MUIRichTextEditor
-                required
-                defaultValue={content}
-                onChange={onEditorChange}
-                label="Start typing..."
-              />
-            </Grid>
-          </Grid>
-          <Grid container item spacing={2}>
-            <Grid item xs={12}>
-              <Typography fontSize={18} fontWeight={600} variant="p">
-                Hotel Images:
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Dropfile hotel={true} />
-            </Grid>
-          </Grid>
-          <Grid container item spacing={2}>
-            <Grid item xs={12}>
-              <Typography fontSize={18} fontWeight={600} variant="p">
-                Tell us more about the features of your hotel:
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Features />
-            </Grid>
+            <Box
+              sx={{
+                width: "100%",
+                backgroundColor: "background.secondary",
+                p: 2,
+                borderRadius: 3,
+              }}
+            >
+              <Grid container item spacing={5}>
+                <Grid item xs={12}>
+                  <Typography fontSize={18} fontWeight={600} variant="p">
+                    Tell us more about the features of your hotel:
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Features />
+                </Grid>
+              </Grid>
+            </Box>
           </Grid>
           <Grid container item xs={12} spacing={2} justifyContent="flex-end">
             <Grid item>

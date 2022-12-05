@@ -73,8 +73,8 @@ function LocationPicker(props) {
   const onMarkerDragEnd = (event) => {
     // Any functionality for when a drag ends
 
-    setLongitude(event.lngLat[1]);
-    setLatitude(event.lngLat[0]);
+    setLongitude(event.lngLat[0]);
+    setLatitude(event.lngLat[1]);
     props.tour
       ? dispatch(
           setTourCoordinates([
@@ -118,7 +118,7 @@ function LocationPicker(props) {
                 borderRadius: "5px 5px 0px 0px",
               }}
               {...params}
-              placeholder="Search"
+              label="Search location"
               fullWidth
               onChange={(e) => updateLocation(e)}
             />

@@ -107,7 +107,7 @@ export const lightTheme = createTheme({
     },
   },
   palette: {
-    mode: "dark",
+    mode: "light",
     primary: {
       main: "#232229",
     },
@@ -123,7 +123,7 @@ export const lightTheme = createTheme({
       secondary: "#FFF",
     },
     text: {
-      primary: "#232229",
+      primary: "#1E3458",
       secondary: "#6B718A",
       brevity: "#22806E",
       message: "#FFF",
@@ -141,19 +141,23 @@ export const lightTheme = createTheme({
       toolbar: {
         backgroundColor: "#2AB572",
         padding: "5px 10px",
+        color: "#fff",
       },
       root: {
         marginTop: 0,
         width: "inherit",
       },
       container: {
-        border: "1px solid #203B59",
+        border: "1px solid #2ab572",
+        borderRadius: "10px",
+        overflow: "hidden",
       },
       editorContainer: {
         width: "inherit",
         backgroundColor: "#FFF",
         color: "#000",
         minHeight: "200px",
+        padding: "10px 10px",
       },
       placeHolder: {
         width: "inherit",
@@ -163,14 +167,14 @@ export const lightTheme = createTheme({
   components: {
     MuiTextField: {
       defaultProps: {
-        InputLabelProps: { shrink: false },
-        label: "",
+        // InputLabelProps: { shrink: false },
+        // label: "",
       },
     },
     MuiList: {
       styleOverrides: {
         root: {
-          backgroundColor: "#1E3459",
+          backgroundColor: "#fff",
         },
       },
     },
