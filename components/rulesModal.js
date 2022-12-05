@@ -57,26 +57,28 @@ export default function RulesModal(props) {
         <Box sx={style}>
           <Grid container spacing={2} fullWidth>
             <Grid container item spacing={2}>
-              <Grid item xs={3}>
+              {/* <Grid item xs={3}>
                 <Typography sx={{ color: "primary.main" }} variant="p">
                   Rule Name
                 </Typography>
-              </Grid>
-              <Grid item xs={8}>
+              </Grid> */}
+              <Grid item xs={12}>
                 <StyledTextField
+                  label={"Rule Name"}
                   onChange={(e) => setName(e.target.value)}
                   fullWidth
                 />
               </Grid>
             </Grid>
             <Grid container item spacing={2}>
-              <Grid item xs={3}>
+              {/* <Grid item xs={3}>
                 <Typography sx={{ color: "primary.main" }} variant="p">
                   Rule Description
                 </Typography>
-              </Grid>
-              <Grid item xs={8}>
+              </Grid> */}
+              <Grid item xs={12}>
                 <StyledTextField
+                  label={"Rule Description"}
                   onChange={(e) => setDescription(e.target.value)}
                   fullWidth
                 />

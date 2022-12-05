@@ -11,7 +11,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     },
     "& .MuiOutlinedInput-notchedOutline": {
       borderColor: "#2ab572",
-      "&.Mui-focused": { borderColor: "#2ab572" },
+      "&.Mui-focused": { borderColor: "#2ab572 !important" },
     },
   },
   backgroundColor: "#FFF",

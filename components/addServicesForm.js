@@ -59,146 +59,390 @@ function AddServicesForm(props) {
     <FormWrapper>
       <form onSubmit={submit}>
         <Grid container spacing={3}>
-          <Grid container item spacing={1}>
-            <Grid item xs={12}>
-              <Typography variant="h6">Add some amazing services</Typography>
-            </Grid>
-          </Grid>
-          <Grid container item xs={12} sm={6} spacing={1}>
-            <Grid item xs={12} sm={3}>
-              <Typography variant="p">Check-In time:</Typography>
-            </Grid>
-            <Grid item xs={12} sm={9}>
-              <TimePicker
-                value={moment(addHotel.checkIn, "hh:mm a")}
-                onChange={(newValue) => {
-                  newValue
-                    ? dispatch(setCheckIn(newValue.format("hh:mm a")))
-                    : "";
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    required
-                    placeholder="HH:MM am/pm"
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "& .MuiOutlinedInput-input": { color: "#000" },
-                        "& .MuiInputAdornment-root": {
-                          "& .MuiButtonBase-root": {
-                            "& .MuiSvgIcon-root": { color: "button.main" },
-                          },
-                        },
-                      },
-                      backgroundColor: "#FFF",
-                      borderRadius: "5px",
-                    }}
-                    fullWidth
-                    {...params}
-                  />
-                )}
-              />
-            </Grid>
-          </Grid>
-          <Grid container item xs={12} sm={6} spacing={1}>
-            <Grid item xs={12} sm={3}>
-              <Typography variant="p">Check-Out time:</Typography>
-            </Grid>
-            <Grid item xs={12} sm={9}>
-              <TimePicker
-                value={moment(addHotel.checkOut, "hh:mm a")}
-                onChange={(newValue) => {
-                  newValue
-                    ? dispatch(setCheckOut(newValue.format("hh:mm a")))
-                    : "";
-                }}
-                renderInput={(params) => (
-                  <StyledTextField
-                    requiredplaceholder="HH:MM am/pm"
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "& .MuiOutlinedInput-input": { color: "#000" },
-                        "& .MuiInputAdornment-root": {
-                          "& .MuiButtonBase-root": {
-                            "& .MuiSvgIcon-root": { color: "button.main" },
-                          },
-                        },
-                      },
-                      backgroundColor: "#FFF",
-                      borderRadius: "5px",
-                    }}
-                    fullWidth
-                    {...params}
-                  />
-                )}
-              />
-            </Grid>
-          </Grid>
-          <Grid container item spacing={1}>
-            <Grid item xs={12}>
-              <Typography fontWeight={600} fontSize={18} variant="p">
-                What services do you provide?
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <ProvidedServices />
-            </Grid>
-            <Grid item container spacing={2} xs={12}>
-              {" "}
-              {extra_services.map((el) => (
-                <Grid container item xs={12} sm={6}>
-                  <Grid container item direction="column" xs={12} sm={3}>
-                    {" "}
-                    <Grid item>{el.extra_field_name}</Grid>{" "}
-                    <Grid item>
-                      <Typography fontSize={12} fontWeight={300} variant="p">
-                        Rates
-                      </Typography>
-                    </Grid>{" "}
+          <Grid container item xs={12} lg={6}>
+            <Box
+              sx={{
+                backgroundColor: "background.secondary",
+                p: 2,
+                borderRadius: 3,
+              }}
+            >
+              <Grid container item spacing={5}>
+                <Grid container item spacing={1}>
+                  <Grid item xs={12}>
+                    <Typography variant="h6">Timings</Typography>
                   </Grid>
-                  <Grid item xs={12} sm={9}>
-                    <StyledTextField
-                      required
-                      value={el.extra_field_price}
-                      onChange={(e) =>
-                        updatePrice(el.extra_field_name, e.target.value)
-                      }
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          padding: "0px",
-                          "& .MuiInputAdornment-positionStart": {
-                            backgroundColor: "button.main",
-                            height: "56px",
-                            maxHeight: "none",
-                            borderRadius: "4px 0px 0px 4px",
-                            padding: "0px 10px",
-                            "& .MuiTypography-root": { color: "#FFF" },
-                          },
-                          "& .MuiInputAdornment-positionEnd": {
-                            backgroundColor: "button.main",
-                            height: "56px",
-                            maxHeight: "none",
-                            borderRadius: "0px 4px 4px 0px",
-                            padding: "0px 10px",
-                            "& .MuiTypography-root": { color: "#FFF" },
-                          },
-                        },
-                      }}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">PKR</InputAdornment>
-                        ),
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            Per Person
-                          </InputAdornment>
-                        ),
-                      }}
-                      fullWidth
-                    />
-                  </Grid>{" "}
                 </Grid>
-              ))}{" "}
-            </Grid>
+                <Grid container item xs={12} spacing={1}>
+                  {/* <Grid item xs={12} sm={3}>
+              <Typography variant="p">Check-In time:</Typography>
+            </Grid> */}
+                  <Grid item xs={12}>
+                    <TimePicker
+                      value={moment(addHotel.checkIn, "hh:mm a")}
+                      label={"Check-In time"}
+                      onChange={(newValue) => {
+                        newValue
+                          ? dispatch(setCheckIn(newValue.format("hh:mm a")))
+                          : "";
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          required
+                          placeholder="HH:MM am/pm"
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              "& .MuiOutlinedInput-input": { color: "#000" },
+                              "& .MuiInputAdornment-root": {
+                                "& .MuiButtonBase-root": {
+                                  "& .MuiSvgIcon-root": {
+                                    color: "button.main",
+                                  },
+                                },
+                              },
+                            },
+                            backgroundColor: "#FFF",
+                            borderRadius: "5px",
+                          }}
+                          fullWidth
+                          {...params}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container item xs={12} spacing={1}>
+                  {/* <Grid item xs={12} sm={3}>
+              <Typography variant="p">Check-Out time:</Typography>
+            </Grid> */}
+                  <Grid item xs={12}>
+                    <TimePicker
+                      value={moment(addHotel.checkOut, "hh:mm a")}
+                      onChange={(newValue) => {
+                        newValue
+                          ? dispatch(setCheckOut(newValue.format("hh:mm a")))
+                          : "";
+                      }}
+                      label={"Check-Out time"}
+                      renderInput={(params) => (
+                        <TextField
+                          required
+                          placeholder="HH:MM am/pm"
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              "& .MuiOutlinedInput-input": {
+                                color: "#000",
+                              },
+                              "& .MuiInputAdornment-root": {
+                                "& .MuiButtonBase-root": {
+                                  "& .MuiSvgIcon-root": {
+                                    color: "button.main",
+                                  },
+                                },
+                              },
+                            },
+                            backgroundColor: "#FFF",
+                            borderRadius: "5px",
+                          }}
+                          fullWidth
+                          {...params}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Box>
+          </Grid>
+
+          <Grid container item spacing={1} xs={12} lg={6}>
+            <Box
+              sx={{
+                backgroundColor: "background.secondary",
+                p: 2,
+                borderRadius: 3,
+                width: "100%",
+              }}
+            >
+              <Grid container item spacing={5}>
+                <Grid item xs={12}>
+                  <Typography fontWeight={600} fontSize={18} variant="p">
+                    What services do you provide?
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <ProvidedServices />
+                </Grid>
+                <Grid item container xs={6}>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sx={{
+                      opacity: extra_services.find(
+                        (el) => el.extra_field_name === "Breakfast"
+                      )
+                        ? "100%"
+                        : "0%",
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={12}
+                      sx={{ display: "flex", alignItems: "center" }}
+                    >
+                      <StyledTextField
+                        required
+                        InputLabelProps={{ shrink: false }}
+                        label=""
+                        value={
+                          extra_services.find(
+                            (el) => el.extra_field_name === "Breakfast"
+                          )?.extra_field_price
+                        }
+                        onChange={(e) =>
+                          updatePrice("Breakfast", e.target.value)
+                        }
+                        sx={{
+                          "& .MuiInputBase-root": {
+                            padding: "0px",
+                            "& .MuiInputAdornment-positionStart": {
+                              backgroundColor: "button.main",
+                              height: "100%",
+                              maxHeight: "none",
+                              borderRadius: "4px 0px 0px 4px",
+                              padding: "0px 10px",
+                              "& .MuiTypography-root": { color: "#FFF" },
+                            },
+                            "& .MuiInputAdornment-positionEnd": {
+                              backgroundColor: "button.main",
+                              height: "100%",
+                              maxHeight: "none",
+                              borderRadius: "0px 4px 4px 0px",
+                              padding: "0px 10px",
+                              "& .MuiTypography-root": { color: "#FFF" },
+                            },
+                            height: "100%",
+                          },
+                          height: "55px",
+                        }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              PKR
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              Per Person
+                            </InputAdornment>
+                          ),
+                        }}
+                        fullWidth
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sx={{
+                      opacity: extra_services.find(
+                        (el) => el.extra_field_name === "Lunch"
+                      )
+                        ? "100%"
+                        : "0%",
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={12}
+                      sx={{ display: "flex", alignItems: "center" }}
+                    >
+                      <StyledTextField
+                        required
+                        InputLabelProps={{ shrink: false }}
+                        label=""
+                        value={
+                          extra_services.find(
+                            (el) => el.extra_field_name === "Lunch"
+                          )?.extra_field_price
+                        }
+                        onChange={(e) => updatePrice("Lunch", e.target.value)}
+                        sx={{
+                          "& .MuiInputBase-root": {
+                            padding: "0px",
+                            "& .MuiInputAdornment-positionStart": {
+                              backgroundColor: "button.main",
+                              height: "100%",
+                              maxHeight: "none",
+                              borderRadius: "4px 0px 0px 4px",
+                              padding: "0px 10px",
+                              "& .MuiTypography-root": { color: "#FFF" },
+                            },
+                            "& .MuiInputAdornment-positionEnd": {
+                              backgroundColor: "button.main",
+                              height: "100%",
+                              maxHeight: "none",
+                              borderRadius: "0px 4px 4px 0px",
+                              padding: "0px 10px",
+                              "& .MuiTypography-root": { color: "#FFF" },
+                            },
+                            height: "100%",
+                          },
+                          height: "55px",
+                        }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              PKR
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              Per Person
+                            </InputAdornment>
+                          ),
+                        }}
+                        fullWidth
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sx={{
+                      opacity: extra_services.find(
+                        (el) => el.extra_field_name === "HiTea"
+                      )
+                        ? "100%"
+                        : "0%",
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={12}
+                      sx={{ display: "flex", alignItems: "center" }}
+                    >
+                      <StyledTextField
+                        required
+                        InputLabelProps={{ shrink: false }}
+                        label=""
+                        value={
+                          extra_services.find(
+                            (el) => el.extra_field_name === "HiTea"
+                          )?.extra_field_price
+                        }
+                        onChange={(e) => updatePrice("HiTea", e.target.value)}
+                        sx={{
+                          "& .MuiInputBase-root": {
+                            padding: "0px",
+                            "& .MuiInputAdornment-positionStart": {
+                              backgroundColor: "button.main",
+                              height: "100%",
+                              maxHeight: "none",
+                              borderRadius: "4px 0px 0px 4px",
+                              padding: "0px 10px",
+                              "& .MuiTypography-root": { color: "#FFF" },
+                            },
+                            "& .MuiInputAdornment-positionEnd": {
+                              backgroundColor: "button.main",
+                              height: "100%",
+                              maxHeight: "none",
+                              borderRadius: "0px 4px 4px 0px",
+                              padding: "0px 10px",
+                              "& .MuiTypography-root": { color: "#FFF" },
+                            },
+                            height: "100%",
+                          },
+                          height: "55px",
+                        }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              PKR
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              Per Person
+                            </InputAdornment>
+                          ),
+                        }}
+                        fullWidth
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sx={{
+                      opacity: extra_services.find(
+                        (el) => el.extra_field_name === "Dinner"
+                      )
+                        ? "100%"
+                        : "0%",
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={12}
+                      sx={{ display: "flex", alignItems: "center" }}
+                    >
+                      <StyledTextField
+                        required
+                        InputLabelProps={{ shrink: false }}
+                        label=""
+                        value={
+                          extra_services.find(
+                            (el) => el.extra_field_name === "Dinner"
+                          )?.extra_field_price
+                        }
+                        onChange={(e) => updatePrice("Dinner", e.target.value)}
+                        sx={{
+                          "& .MuiInputBase-root": {
+                            padding: "0px",
+                            "& .MuiInputAdornment-positionStart": {
+                              backgroundColor: "button.main",
+                              height: "100%",
+                              maxHeight: "none",
+                              borderRadius: "4px 0px 0px 4px",
+                              padding: "0px 10px",
+                              "& .MuiTypography-root": { color: "#FFF" },
+                            },
+                            "& .MuiInputAdornment-positionEnd": {
+                              backgroundColor: "button.main",
+                              height: "100%",
+                              maxHeight: "none",
+                              borderRadius: "0px 4px 4px 0px",
+                              padding: "0px 10px",
+                              "& .MuiTypography-root": { color: "#FFF" },
+                            },
+                            height: "100%",
+                          },
+                          height: "55px",
+                        }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              PKR
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              Per Person
+                            </InputAdornment>
+                          ),
+                        }}
+                        fullWidth
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Box>
           </Grid>
           {/* <Grid container item spacing={1}>
                     <Grid item xs={12} sm={4}><Typography variant='p'>Days To Refund</Typography></Grid>
