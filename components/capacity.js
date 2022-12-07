@@ -34,8 +34,8 @@ function Capacity(props) {
 
   return (
     <Box>
-      <Grid container spacing={2}>
-        <Grid container item xs={12} sm={6} spacing={1}>
+      <Grid container display={"flex"} flexDirection={"column"} spacing={2}>
+        <Grid container display={"flex"} justifyContent={"space-between"} alignItems={"center"} item xs={12} sm={12} spacing={1}>
           <Grid item xs={4}>
             <Typography fontWeight={400} variant="p">
               Child Capacity:
@@ -44,9 +44,11 @@ function Capacity(props) {
               <><br></br>(below 12 years)  </>
             </Typography>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={5}>
             <StyledTextField
               fullWidth
+              InputLabelProps={{ shrink: false }}
+              label=""
               onChange={(e) => {
                 e.target.value >= 0
                   ? dispatch(setChildCapacity(e.target.value))
@@ -103,15 +105,17 @@ function Capacity(props) {
             />
           </Grid>
         </Grid>
-        <Grid container item xs={12} sm={6} spacing={1}>
+        <Grid container display={"flex"} justifyContent={"space-between"} alignItems={"center"} item xs={12} sm={12} spacing={1}>
           <Grid item xs={4}>
             <Typography fontWeight={400} variant="p">
               Adult Capacity:
             </Typography>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={5}>
             <StyledTextField
               fullWidth
+              InputLabelProps={{ shrink: false }}
+              label=""
               onChange={(e) => {
                 e.target.value >= 0
                   ? dispatch(setAdultCapacity(e.target.value))
@@ -168,15 +172,17 @@ function Capacity(props) {
             />
           </Grid>
         </Grid>
-        <Grid container item xs={12} sm={6} spacing={1}>
+        <Grid container display={"flex"} justifyContent={"space-between"} alignItems={"center"} item xs={12} sm={12} spacing={1}>
           <Grid item xs={4}>
             <Typography fontWeight={400} variant="p">
               Number of Beds:
             </Typography>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={5}>
             <StyledTextField
               fullWidth
+              InputLabelProps={{ shrink: false }}
+              label=""
               onChange={(e) => {
                 e.target.value >= 0
                   ? dispatch(setBedCapacity(e.target.value))
@@ -240,15 +246,17 @@ function Capacity(props) {
             })
           );
           return (
-            <Grid container item xs={12} sm={6} spacing={1}>
+            <Grid container display={"flex"} justifyContent={"space-between"} item xs={12} sm={12} spacing={1}>
               <Grid item xs={12} sm={4}>
                 <Typography fontWeight={400} variant="p">
                   Bed Type:
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={8}>
+              <Grid item xs={12} sm={5}>
                 <FormControl fullWidth>
                   <Select
+                    InputLabelProps={{ shrink: false }}
+                    label=""
                     sx={{
                       "&.MuiOutlinedInput-root": {
                         backgroundColor: "#FFF",
