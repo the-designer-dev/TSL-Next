@@ -45,43 +45,43 @@ function AddRoomForm(props) {
         e.preventDefault()
         const mod = await import('./dropzone')
 
-        // if (room.roomDescription.trim() == "<p></p>") {
-        //     handleScroll(roomDescription.current);
-        // }
-        /* else*/ if (mod.roomImgs.length == 0) {
+        if (room.roomDescription.trim() == "<p></p>") {
+            handleScroll(roomDescription.current);
+        }
+        else if (mod.roomImgs.length == 0) {
             handleScroll(roomImages.current);
         }
-        // else if (room.adultCapacity == 0) {
-        //     handleScroll(roomcapacity.current);
-        // }
-        // else if (room.extraBedCapacity.extra_bed_qty > 0 && room.extraBedCapacity.extra_bed_rates == 0) {
-        //     handleScroll(extraroomcapacity.current);
-        // }
-        // else if (room.bedCapacity == 0) {
-        //     handleScroll(roomcapacity.current);
+        else if (room.adultCapacity == 0) {
+            handleScroll(roomcapacity.current);
+        }
+        else if (room.extraBedCapacity.extra_bed_qty > 0 && room.extraBedCapacity.extra_bed_rates == 0) {
+            handleScroll(extraroomcapacity.current);
+        }
+        else if (room.bedCapacity == 0) {
+            handleScroll(roomcapacity.current);
 
-        // }
-        // else if (room.bedCapacity > 0 && room.bedType.filter(el => el.bedName.length === 0).length > 0) {
-        //     handleScroll(roomcapacity.current);
-        // }
-        // else if (room.refundableRates == 0) {
-        //     handleScroll(refundableRates.current);
-        // } else if (room.freeCancellationDays == null || room.freeCancellationDays == "" || room.appliedForDays == null || room.appliedForDays == "") {
-        //     handleScroll(paymentPolicies.current);
-        // } else if (room.noShowState == true && (room.noShow == null || room.noShow == "")) {
-        //     handleScroll(paymentPolicies.current);
-        // } else if (room.refundablePolicy == true && room.nonRefundableRates == 0) {
-        //     handleScroll(paymentPolicies.current);
+        }
+        else if (room.bedCapacity > 0 && room.bedType.filter(el => el.bedName.length === 0).length > 0) {
+            handleScroll(roomcapacity.current);
+        }
+        else if (room.refundableRates == 0) {
+            handleScroll(refundableRates.current);
+        } else if (room.freeCancellationDays == null || room.freeCancellationDays == "" || room.appliedForDays == null || room.appliedForDays == "") {
+            handleScroll(paymentPolicies.current);
+        } else if (room.noShowState == true && (room.noShow == null || room.noShow == "")) {
+            handleScroll(paymentPolicies.current);
+        } else if (room.refundablePolicy == true && room.nonRefundableRates == 0) {
+            handleScroll(paymentPolicies.current);
 
-        // } else if (room.roomQuantity == 0) {
-        //     handleScroll(roomQty.current);
+        } else if (room.roomQuantity == 0) {
+            handleScroll(roomQty.current);
 
-        // } else {
-        //     props.hotel ?
-        //         dispatch(nextStep2())
-        //         :
-        //         dispatch(nextStep())
-        // }
+        } else {
+            props.hotel ?
+                dispatch(nextStep2())
+                :
+                dispatch(nextStep())
+        }
 
 
     }
@@ -135,9 +135,9 @@ function AddRoomForm(props) {
                                     </Grid>
                                 </Grid>
 
-                                <Grid container item spacing={1}>
+                                <Grid ref={roomDescription} container item spacing={1}>
                                     <Grid item xs={12} sm={12}>
-                                        <MUIRichTextEditor required controls={['bold']} defaultValue={content} onChange={onEditorChange} label="Room Description...." />
+                                        <MUIRichTextEditor required controls={['bold']} defaultValue={content} onChange={onEditorChange} label="Room Description...*" />
                                     </Grid>
                                 </Grid>
 
@@ -163,7 +163,7 @@ function AddRoomForm(props) {
 
                                 }}
                             >
-                                <Grid container item spacing={5}>
+                                <Grid ref={roomQty} container item spacing={5}>
 
 
                                     <Grid container item spacing={1}>
@@ -175,7 +175,7 @@ function AddRoomForm(props) {
                                     <Grid container item spacing={1}>
                                         <Grid item xs={12} sm={12}>
                                             <StyledTextField required InputLabelProps={{ shrink: false }}
-                                                label="" type={"number"} value={room.refundableRates} onChange={(e) => dispatch(setRefundableRates(e.target.value))} sx={{ '& .MuiInputBase-root': { padding: '0px', '& .MuiInputAdornment-positionStart': { backgroundColor: 'button.main', height: '56px', maxHeight: 'none', borderRadius: '4px 0px 0px 4px', padding: '0px 10px', '& .MuiTypography-root': { color: "#FFF" } }, '& .MuiInputAdornment-positionEnd': { backgroundColor: 'button.main', height: '56px', maxHeight: 'none', borderRadius: '0px 4px 4px 0px', padding: '0px 10px', '& .MuiTypography-root': { color: "#FFF" } } } }} InputProps={{ startAdornment: <InputAdornment position="start">Room QTY   </InputAdornment> }} fullWidth />
+                                                label="" type={"number"} value={room.refundableRates} onChange={(e) => dispatch(setRefundableRates(e.target.value))} sx={{ '& .MuiInputBase-root': { padding: '0px', '& .MuiInputAdornment-positionStart': { backgroundColor: 'button.main', height: '56px', maxHeight: 'none', borderRadius: '4px 0px 0px 4px', padding: '0px 10px', '& .MuiTypography-root': { color: "#FFF" } }, '& .MuiInputAdornment-positionEnd': { backgroundColor: 'button.main', height: '56px', maxHeight: 'none', borderRadius: '0px 4px 4px 0px', padding: '0px 10px', '& .MuiTypography-root': { color: "#FFF" } } } }} InputProps={{ startAdornment: <InputAdornment position="start">Room Qty *   </InputAdornment> }} fullWidth />
                                         </Grid>
                                     </Grid>
 
@@ -189,7 +189,7 @@ function AddRoomForm(props) {
 
 
                     <Grid ref={roomImages} container item spacing={2}>
-                        <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Room Images:</Typography></Grid>
+                        <Grid item xs={12} ><Typography fontSize={18} fontWeight={600} variant='p'>Room Images: *</Typography></Grid>
                         <Grid item xs={12} ><Dropfile hotel={false} /></Grid>
                     </Grid>
 
@@ -212,7 +212,7 @@ function AddRoomForm(props) {
                             <Grid container item spacing={5}>
 
 
-                                <Grid container item spacing={1}>
+                                <Grid ref={roomcapacity} container item spacing={1}>
                                     <Grid item xs={12} sm={12}>
                                         <Capacity />
                                     </Grid>
@@ -242,22 +242,22 @@ function AddRoomForm(props) {
                                 borderRadius: 3,
                             }}
                         >
-                            <Grid container item spacing={5}>
+                            <Grid ref={extraroomcapacity} container item spacing={5}>
 
 
                                 <Grid container item spacing={5}>
                                     <Grid item display={"flex"} alignItems={"center"} xs={12} sm={12}>
 
-                                        <Grid item xs={12} sm={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Extra Bed Capacity:</Typography></Grid>
+                                        <Grid item xs={12} sm={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Extra Bed Capacity: *</Typography></Grid>
                                         <Grid item xs={12} sm={6}>
-                                            <StyledTextField fullWidth InputLabelProps={{ shrink: false }}
+                                            <StyledTextField required fullWidth InputLabelProps={{ shrink: false }}
                                                 label="" value={room.extraBedCapacity.extra_bed_qty} sx={{ '& .MuiInputBase-root': { padding: '0px', '& .MuiInputAdornment-positionStart': { backgroundColor: 'button.main', height: '56px', maxHeight: 'none', borderRadius: '4px 0px 0px 4px', '& .MuiTypography-root': { color: "#FFF" } }, '& .MuiInputAdornment-positionEnd': { backgroundColor: 'button.main', height: '56px', maxHeight: 'none', borderRadius: '0px 4px 4px 0px', '& .MuiTypography-root': { color: "#FFF" } } } }} InputProps={{ startAdornment: <InputAdornment position="start"><Button onClick={() => { room.extraBedCapacity.extra_bed_qty > 0 ? dispatch(setExtraBedCapacityQuantity(room.extraBedCapacity.extra_bed_qty - 1)) : '' }}>-</Button></InputAdornment>, endAdornment: <InputAdornment position="end"><Button onClick={() => { dispatch(setExtraBedCapacityQuantity(room.extraBedCapacity.extra_bed_qty + 1)) }}>+</Button></InputAdornment> }} />
                                         </Grid>
 
 
                                     </Grid>
                                     <Grid item display={"flex"} alignItems={"center"} xs={12} sm={12}>
-                                        <Grid item xs={12} sm={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Price:</Typography></Grid>
+                                        <Grid item xs={12} sm={12} ><Typography fontWeight={600} fontSize={18} variant='p'>Price: *</Typography></Grid>
                                         <Grid item xs={12} sm={12}>
                                             <StyledTextField required InputLabelProps={{ shrink: false }}
                                                 label="" type={'number'} value={room.extraBedCapacity.extra_bed_rates} onChange={(e) => dispatch(setExtraBedCapacityRates(e.target.value))} sx={{ '& .MuiInputBase-root': { padding: '0px', '& .MuiInputAdornment-positionStart': { backgroundColor: 'button.main', height: '56px', maxHeight: 'none', borderRadius: '4px 0px 0px 4px', padding: '0px 10px', '& .MuiTypography-root': { color: "#FFF" } }, '& .MuiInputAdornment-positionEnd': { backgroundColor: 'button.main', height: '56px', maxHeight: 'none', borderRadius: '0px 4px 4px 0px', padding: '0px 10px', '& .MuiTypography-root': { color: "#FFF" } } } }} InputProps={{ startAdornment: <InputAdornment position="start">PKR</InputAdornment>, endAdornment: <InputAdornment position="end">Per Bed</InputAdornment> }} fullWidth />
@@ -292,7 +292,7 @@ function AddRoomForm(props) {
                             }}
                         >
 
-                            <Grid container item xs={12} spacing={5}>
+                            <Grid ref={refundableRates} container item xs={12} spacing={5}>
                                 <Grid container item xs={6} spacing={5}>
 
                                     <Grid item xs={6} ><Typography variant='p'>Refundable Rates</Typography></Grid>
@@ -312,7 +312,7 @@ function AddRoomForm(props) {
 
 
 
-                                <Grid item xs={6} spacing={5}>
+                                <Grid ref={paymentPolicies} item xs={6} spacing={5}>
 
                                     <PaymentPolicies />
                                 </Grid>

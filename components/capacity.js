@@ -47,6 +47,7 @@ function Capacity(props) {
           <Grid item xs={5}>
             <StyledTextField
               fullWidth
+              required
               InputLabelProps={{ shrink: false }}
               label=""
               onChange={(e) => {
@@ -108,12 +109,13 @@ function Capacity(props) {
         <Grid container display={"flex"} justifyContent={"space-between"} alignItems={"center"} item xs={12} sm={12} spacing={1}>
           <Grid item xs={4}>
             <Typography fontWeight={400} variant="p">
-              Adult Capacity:
+              Adult Capacity: *
             </Typography>
           </Grid>
           <Grid item xs={5}>
             <StyledTextField
               fullWidth
+              required
               InputLabelProps={{ shrink: false }}
               label=""
               onChange={(e) => {
@@ -175,12 +177,13 @@ function Capacity(props) {
         <Grid container display={"flex"} justifyContent={"space-between"} alignItems={"center"} item xs={12} sm={12} spacing={1}>
           <Grid item xs={4}>
             <Typography fontWeight={400} variant="p">
-              Number of Beds:
+              Number of Beds: *
             </Typography>
           </Grid>
           <Grid item xs={5}>
             <StyledTextField
               fullWidth
+              required
               InputLabelProps={{ shrink: false }}
               label=""
               onChange={(e) => {
@@ -249,12 +252,13 @@ function Capacity(props) {
             <Grid container display={"flex"} justifyContent={"space-between"} item xs={12} sm={12} spacing={1}>
               <Grid item xs={12} sm={4}>
                 <Typography fontWeight={400} variant="p">
-                  Bed Type:
+                  Bed Type: *
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={5}>
                 <FormControl fullWidth>
                   <Select
+                    required
                     InputLabelProps={{ shrink: false }}
                     label=""
                     sx={{

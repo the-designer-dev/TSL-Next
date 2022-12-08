@@ -1,6 +1,6 @@
-import {React , useEffect, useState} from 'react';
+import { React, useEffect, useState } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
-import { Box , Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -13,36 +13,37 @@ function RoomType(props) {
     const rt = useSelector(state => state.addRoom.roomType)
     const [formats, setFormats] = useState(() => ['suite']);
     useEffect(() => {
-        setFormats(rt?rt:'suite')
+        setFormats(rt ? rt : 'suite')
         dispatch(setRoomType('suite'))
-    },[])
+    }, [])
     const handleFormat = (event, newFormats) => {
-    if(newFormats !== null){
-    setFormats(newFormats)
-    dispatch(setRoomType(newFormats))}
+        if (newFormats !== null) {
+            setFormats(newFormats)
+            dispatch(setRoomType(newFormats))
+        }
     };
     return (
         <Box sx={{ width: '100%' }}>
-        <ToggleButtonGroup
-            fullWidth
-            exclusive
-        value={formats}
-        onChange={handleFormat}
-        orientation={`${matches ? `horizontal` : `vertical`}`}
-        aria-label="text formatting"
-        >
-        <ToggleButton   sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}}  value="suite" aria-label="bold">
-            <Typography variant='p'>Suite</Typography>
-        </ToggleButton>
-        <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="executive" aria-label="italic">
-        <Typography variant='p'>Executive Room</Typography>
-        </ToggleButton>
-        <ToggleButton  sx={{'&.MuiToggleButton-root':{'&.Mui-selected':{backgroundColor:'button.main'}}}} value="standard" aria-label="italic">
-        <Typography variant='p'>Standard Room</Typography>
-        </ToggleButton>
-    
-        </ToggleButtonGroup>
-    </Box>
+            <ToggleButtonGroup
+                fullWidth
+                exclusive
+                value={formats}
+                onChange={handleFormat}
+                orientation={`${matches ? `horizontal` : `vertical`}`}
+                aria-label="text formatting"
+            >
+                <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="suite" aria-label="bold">
+                    <Typography variant='p'>Suite</Typography>
+                </ToggleButton>
+                <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="executive" aria-label="italic">
+                    <Typography variant='p'>Executive Room</Typography>
+                </ToggleButton>
+                <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="standard" aria-label="italic">
+                    <Typography variant='p'>Standard Room</Typography>
+                </ToggleButton>
+
+            </ToggleButtonGroup>
+        </Box>
     );
 }
 
