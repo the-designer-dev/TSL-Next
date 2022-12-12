@@ -8,6 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function ProvidedServices() {
   const [formats, setFormats] = React.useState(() => []);
+
   const dispatch = useDispatch();
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);

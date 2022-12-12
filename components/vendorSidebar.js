@@ -125,7 +125,9 @@ function VendorSidebar(props) {
               <Link href={"/vendor/addroom"}>
                 <MenuItem>Add New Room</MenuItem>
               </Link>
-              <MenuItem>Booking Schedule</MenuItem>
+              <Link href={"/vendor/bookingSchedule"}>
+                <MenuItem>Booking Schedule</MenuItem>
+              </Link>
               <Link href={"/vendor/blackoutdates/hotels"}>
                 <MenuItem>Blackout Dates</MenuItem>
               </Link>

@@ -181,14 +181,14 @@ export const lightTheme = createTheme({
     MuiPickersDay: {
       styleOverrides: {
         root: {
-          backgroundColor: "#203B59",
+          backgroundColor: "#fff",
         },
       },
     },
     MuiDialog: {
       styleOverrides: {
         paper: {
-          backgroundColor: "#203B59",
+          backgroundColor: "#fff",
           backgroundImage: "none",
         },
       },

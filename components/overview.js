@@ -101,7 +101,6 @@ function Overview(props) {
         Rules: hotel.rules,
         hotel_extra_fields: hotel.services,
         extra_beds: room.extraBedCapacity,
-
         roomname: room.roomName,
         roomdescription: room.roomDescription,
         adult: room.adultCapacity,
@@ -137,7 +136,7 @@ function Overview(props) {
         })
         .catch((err) => console.log(err));
     }
-    setSuccessModal(true)
+    setSuccessModal(true);
 
     // router.push("/vendor/allrooms");
   };
@@ -147,10 +146,8 @@ function Overview(props) {
   };
   return (
     <FormWrapper>
-
       {formats == "Hotel" ? (
         <Grid container spacing={3}>
-
           <Grid container item spacing={1}>
             <Box sx={{ width: "100%" }}>
               <ToggleButtonGroup
@@ -302,17 +299,17 @@ function Overview(props) {
             </Grid>
             {hotelImgs
               ? hotelImgs.map((el) => (
-                <Grid item xs={3}>
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      borderRadius: "8px",
-                    }}
-                    src={URL.createObjectURL(el)}
-                  />
-                </Grid>
-              ))
+                  <Grid item xs={3}>
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "8px",
+                      }}
+                      src={URL.createObjectURL(el)}
+                    />
+                  </Grid>
+                ))
               : ""}
           </Grid>
           <Grid container item spacing={2}>
@@ -591,17 +588,17 @@ function Overview(props) {
             </Grid>
             {roomImgs
               ? roomImgs.map((el) => (
-                <Grid item xs={3}>
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      borderRadius: "8px",
-                    }}
-                    src={URL.createObjectURL(el)}
-                  />
-                </Grid>
-              ))
+                  <Grid item xs={3}>
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "8px",
+                      }}
+                      src={URL.createObjectURL(el)}
+                    />
+                  </Grid>
+                ))
               : ""}
           </Grid>
           <Grid container item spacing={2}>
@@ -731,7 +728,12 @@ function Overview(props) {
           </Grid>
         </Grid>
       )}
-      <UniversalModal open={successModal} modalBackgroundColor={"#fff"} setOpen={setSuccessModal} redirectURL={'/vendor/allhotels'}>
+      <UniversalModal
+        open={successModal}
+        modalBackgroundColor={"#fff"}
+        setOpen={setSuccessModal}
+        redirectURL={"/vendor/allhotels"}
+      >
         <Typography id="transition-modal-title" variant="h6" component="h2">
           Success!
         </Typography>
