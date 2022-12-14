@@ -32,7 +32,7 @@ function CustomerHeader(props) {
         },
       })
       .then((res) => dispatch(setUser(res.data)))
-      .catch((err) => {});
+      .catch((err) => { });
   }, []);
   return (
     <Box
@@ -66,7 +66,7 @@ function CustomerHeader(props) {
           <Button onClick={() => router.push("/login")}>Login</Button>
           <Button
             onClick={() => router.push("/signup")}
-            sx={{ backgroundColor: "button.main" }}
+            sx={{ backgroundColor: "button.main", color: "text.message" }}
           >
             SignUp
           </Button>

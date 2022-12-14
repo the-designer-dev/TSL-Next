@@ -520,9 +520,9 @@ export default function Home() {
                       sx={
                         focused1
                           ? {
-                              backgroundColor: "#EBEBEB",
-                              boxShadow: "0px 0px 56px 18px rgba(0,0,0,0.25)",
-                            }
+                            backgroundColor: "#EBEBEB",
+                            boxShadow: "0px 0px 56px 18px rgba(0,0,0,0.25)",
+                          }
                           : ""
                       }
                       className="textField1"
@@ -596,10 +596,10 @@ export default function Home() {
                             sx={
                               focused2
                                 ? {
-                                    backgroundColor: "#EBEBEB",
-                                    boxShadow:
-                                      "0px 0px 56px 18px rgba(0,0,0,0.25)",
-                                  }
+                                  backgroundColor: "#EBEBEB",
+                                  boxShadow:
+                                    "0px 0px 56px 18px rgba(0,0,0,0.25)",
+                                }
                                 : ""
                             }
                             className="textField2"
@@ -647,10 +647,10 @@ export default function Home() {
                             sx={
                               focused3
                                 ? {
-                                    backgroundColor: "#EBEBEB",
-                                    boxShadow:
-                                      "0px 0px 56px 18px rgba(0,0,0,0.25)",
-                                  }
+                                  backgroundColor: "#EBEBEB",
+                                  boxShadow:
+                                    "0px 0px 56px 18px rgba(0,0,0,0.25)",
+                                }
                                 : ""
                             }
                             className="textField3"
@@ -700,9 +700,9 @@ export default function Home() {
                       sx={
                         focused4
                           ? {
-                              backgroundColor: "#EBEBEB",
-                              boxShadow: "0px 0px 56px 18px rgba(0,0,0,0.25)",
-                            }
+                            backgroundColor: "#EBEBEB",
+                            boxShadow: "0px 0px 56px 18px rgba(0,0,0,0.25)",
+                          }
                           : ""
                       }
                       className="textField4"
@@ -755,13 +755,15 @@ export default function Home() {
                                   paddingLeft: "8px",
                                 }}
                               >
-                                <Typography color="#FFF" variant="p">
+                                <Typography color="#555C63" variant="p">
                                   Adult
                                 </Typography>
                               </Grid>{" "}
                               <Grid container item>
                                 {" "}
                                 <StyledTextField
+                                  InputLabelProps={{ shrink: false }}
+                                  label=""
                                   onChange={(e) =>
                                     e.target.value > 0
                                       ? setAdultState(e.target.value)
@@ -791,6 +793,8 @@ export default function Home() {
                               <Grid container item>
                                 {" "}
                                 <StyledTextField
+                                  InputLabelProps={{ shrink: false }}
+                                  label=""
                                   onChange={(e) =>
                                     e.target.value > 0
                                       ? setChildState(e.target.value)

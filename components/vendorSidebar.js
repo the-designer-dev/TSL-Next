@@ -139,7 +139,7 @@ function VendorSidebar(props) {
               <Link href={"/vendor/orderlisting"}>
                 <MenuItem>Overview</MenuItem>
               </Link>
-              <Link href={"/vendor/vendorwallet"}>
+              <Link href={"/vendor/vendorWallet"}>
                 <MenuItem>Wallet</MenuItem>
               </Link>
               <MenuItem>Refunds</MenuItem>

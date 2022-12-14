@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../components/adminLayout';
 import StyledContainer from '../../styledComponents/styledContainer';
 import CancelledOrders from '../../assets/Cancelled Orders.png';
@@ -15,7 +15,7 @@ function Index(props) {
   const [pendingWith, setPendingWith] = useState(null)
   const [approved, setApproved] = useState(null)
   const columns = [
-    
+
     { field: 'users_permissions_user', headerName: 'User Id', flex: 0.5, headerAlign: 'center' },
     { field: 'order_id', headerName: 'Order Id', flex: 0.5, headerAlign: 'center' },
     { field: 'order_total', headerName: 'Order Total', flex: 0.5, headerAlign: 'center' },
@@ -23,59 +23,59 @@ function Index(props) {
     { field: 'commission', headerName: 'Commission', flex: 1, headerAlign: 'center' },
     { field: 'earned_amount', headerName: 'Vendor Earning', flex: 0.5, headerAlign: 'center' },
     { field: 'date', headerName: 'Date', flex: 1, headerAlign: 'center' },
-]
+  ]
   useEffect(async () => {
     await axios({
-        method:'GET',
-        url:`${API_URL}/all_wallets`,
-        headers:{
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-        }
+      method: 'GET',
+      url: `${API_URL}/all_wallets`,
+      headers: {
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      }
     }).then((res) => {
       console.log(res.data)
       setTableData(res.data.wallet)
-    setOrderTotal(res.data.wallet_total)
-    setPendingWith(res.data.pending)
-    setApproved(res.data.approved)
+      setOrderTotal(res.data.wallet_total)
+      setPendingWith(res.data.pending ? res.data.pending : 0)
+      setApproved(res.data.approved ? res.data.approved : 0)
     })
 
 
-    
-} , [])
- 
-    return (
-        <StyledContainer>
-          <Grid container spacing={3}>
-                <Grid item xs={12}>
-                <Typography fontWeight={500} variant='h5'>Vendor Wallet</Typography>
-                </Grid>
-                <Grid container item spacing={2} alignItems="stretch">
-                <Grid item xs={12} sm={4}>
-                <SmallDetailsCard heading='Wallet' number={`Rs ${orderTotal}/-`} img={CancelledOrders} /></Grid>
-                
-                <Grid item xs={12} sm={4}>
-                <SmallDetailsCard heading='Pending Withdrawals' number={`Rs ${pendingWith}/-`} img={CancelledOrders} />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                <SmallDetailsCard heading='Approved Withdrawals' number={`Rs ${approved}/-`} img={CancelledOrders} />
-                </Grid>
-                </Grid>
 
-                </Grid>
-                <Grid item xs={12} sx={{paddingTop:'16px'}} >
-                <StyledDatagrid columns={columns} rows={tableData} />
-                </Grid>
-        </StyledContainer>
-    );
+  }, [])
+
+  return (
+    <StyledContainer>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography fontWeight={500} variant='h5'>Vendor Wallet</Typography>
+        </Grid>
+        <Grid container item spacing={2} alignItems="stretch">
+          <Grid item xs={12} sm={4}>
+            <SmallDetailsCard heading='Wallet' number={`Rs ${orderTotal}/-`} img={CancelledOrders} /></Grid>
+
+          <Grid item xs={12} sm={4}>
+            <SmallDetailsCard heading='Pending Withdrawals' number={`Rs ${pendingWith}/-`} img={CancelledOrders} />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <SmallDetailsCard heading='Approved Withdrawals' number={`Rs ${approved}/-`} img={CancelledOrders} />
+          </Grid>
+        </Grid>
+
+      </Grid>
+      <Grid item xs={12} sx={{ paddingTop: '16px' }} >
+        <StyledDatagrid columns={columns} rows={tableData} />
+      </Grid>
+    </StyledContainer>
+  );
 }
 
 
 Index.getLayout = function getLayout(Index) {
-    return (
-      <AdminLayout>
-        {Index}
-      </AdminLayout>
-    )
-  }
+  return (
+    <AdminLayout>
+      {Index}
+    </AdminLayout>
+  )
+}
 
 export default Index;

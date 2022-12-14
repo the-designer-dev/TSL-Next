@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Checkbox, Grid, Typography } from "@mui/material";
 import Image from "next/image";
-import logo from "../assets/Main Logo.png";
+import logo from "../assets/Main Logo(Black).png";
 import StyledTextField from "../styledComponents/styledTextField";
 import StyledButton from "../styledComponents/styledButton";
 import { API_URL } from "../config";
