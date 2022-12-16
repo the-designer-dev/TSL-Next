@@ -74,6 +74,7 @@ const Dropfile = (props) => {
           ))} */}
       <Grid item xs={12}>
         <Dropzone
+          styles={{ color: "#fff" }}
           onChangeStatus={handleChangeStatus}
           onSubmit={handleSubmit}
           accept="image/*"

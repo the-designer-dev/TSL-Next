@@ -285,6 +285,10 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
 	background-color: #2ab572 !important;
 }
 
+.dzu-inputLabel {
+	color : #2ab572 !important;
+}
+
 .logo-wrapper img {
 	width: 200px !important;
 }
@@ -416,6 +420,10 @@ span.nice-dates-day.-today.-selected.-selected-start.-wide::before {
 .mobileCalendar:nth-child(3) {
 	justify-content: space-between;
 	width: 100%;
+}
+
+#mui-rte-toolbar .MuiSvgIcon-root{
+	color: #fff;
 }
 
 .mobileCalendar .MuiDateRangePickerDay-root {

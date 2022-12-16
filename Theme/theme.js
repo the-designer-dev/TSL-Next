@@ -137,6 +137,11 @@ export const lightTheme = createTheme({
     },
   },
   overrides: {
+    MuiSvgIcon: {
+      root: {
+        color: '#fff',
+      },
+    },
     MUIRichTextEditor: {
       toolbar: {
         backgroundColor: "#2AB572",

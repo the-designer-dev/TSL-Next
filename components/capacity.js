@@ -79,6 +79,7 @@ function Capacity(props) {
                 startAdornment: (
                   <InputAdornment position="start">
                     <Button
+                      sx={{ color: "#ffffff" }}
                       onClick={() => {
                         room.childCapacity > 0
                           ? dispatch(setChildCapacity(room.childCapacity - 1))
@@ -92,6 +93,7 @@ function Capacity(props) {
                 endAdornment: (
                   <InputAdornment position="end">
                     <Button
+                      sx={{ color: "#ffffff" }}
                       onClick={() => {
                         dispatch(
                           setChildCapacity(Number(room.childCapacity) + 1)
@@ -147,6 +149,7 @@ function Capacity(props) {
                 startAdornment: (
                   <InputAdornment position="start">
                     <Button
+                      sx={{ color: "#ffffff" }}
                       onClick={() => {
                         room.adultCapacity > 0
                           ? dispatch(setAdultCapacity(room.adultCapacity - 1))
@@ -160,6 +163,7 @@ function Capacity(props) {
                 endAdornment: (
                   <InputAdornment position="end">
                     <Button
+                      sx={{ color: "#ffffff" }}
                       onClick={() => {
                         dispatch(
                           setAdultCapacity(Number(room.adultCapacity) + 1)
@@ -215,6 +219,7 @@ function Capacity(props) {
                 startAdornment: (
                   <InputAdornment position="start">
                     <Button
+                      sx={{ color: "#ffffff" }}
                       onClick={() => {
                         room.bedCapacity > 0
                           ? dispatch(setBedCapacity(room.bedCapacity - 1))
@@ -228,6 +233,7 @@ function Capacity(props) {
                 endAdornment: (
                   <InputAdornment position="end">
                     <Button
+                      sx={{ color: "#ffffff" }}
                       onClick={() => {
                         dispatch(setBedCapacity(Number(room.bedCapacity) + 1));
                       }}

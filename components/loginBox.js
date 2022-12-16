@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Box, Checkbox, Grid, Typography } from "@mui/material";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
 import Image from "next/image";
 import logo from "../assets/Main Logo(Black).png";
 import StyledTextField from "../styledComponents/styledTextField";
@@ -13,6 +17,7 @@ import { useRouter } from "next/router";
 function LoginBox(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [viewPassword, setViewPassword] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   function submit(e) {
@@ -100,7 +105,23 @@ function LoginBox(props) {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 fullWidth
-                type={"password"}
+                type={viewPassword ? "text" : "password"}
+                InputProps={{
+                  endAdornment:
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => { setViewPassword(!viewPassword) }}
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                        }}
+                        edge="end"
+                      >
+                        {viewPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                      </IconButton>
+                    </InputAdornment>
+
+                }}
               />
             </Grid>
           </Grid>

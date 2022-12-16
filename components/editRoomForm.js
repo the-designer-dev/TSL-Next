@@ -36,9 +36,9 @@ function EditRoomForm(props) {
     !SSR ? (contentHTML = convertFromHTML(room.roomDescription)) : "";
     !SSR
       ? (state = ContentState.createFromBlockArray(
-          contentHTML.contentBlocks,
-          contentHTML.entityMap
-        ))
+        contentHTML.contentBlocks,
+        contentHTML.entityMap
+      ))
       : "";
     !SSR ? (content = JSON.stringify(convertToRaw(state))) : "";
   }, []);
@@ -156,13 +156,14 @@ function EditRoomForm(props) {
                   startAdornment: (
                     <InputAdornment position="start">
                       <Button
+                        sx={{ color: "#ffffff" }}
                         onClick={() => {
                           room.extraBedCapacity.extra_bed_qty > 0
                             ? dispatch(
-                                setExtraBedCapacityQuantity(
-                                  room.extraBedCapacity.extra_bed_qty - 1
-                                )
+                              setExtraBedCapacityQuantity(
+                                room.extraBedCapacity.extra_bed_qty - 1
                               )
+                            )
                             : "";
                         }}
                       >
@@ -173,6 +174,7 @@ function EditRoomForm(props) {
                   endAdornment: (
                     <InputAdornment position="end">
                       <Button
+                        sx={{ color: "#ffffff" }}
                         onClick={() => {
                           dispatch(
                             setExtraBedCapacityQuantity(

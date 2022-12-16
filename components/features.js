@@ -578,6 +578,8 @@ export default function Features() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <StyledTextField
+                  InputLabelProps={{ shrink: false }}
+                  label=""
                   onChange={(e) => setServiceName(e.target.value)}
                   fullWidth
                 />
@@ -591,6 +593,8 @@ export default function Features() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <StyledTextField
+                  InputLabelProps={{ shrink: false }}
+                  label=""
                   onChange={(e) => setserviceDescription(e.target.value)}
                   fullWidth
                 />
@@ -605,6 +609,8 @@ export default function Features() {
 
               <Grid item xs={11} sm={5}>
                 <StyledTextField
+                  InputLabelProps={{ shrink: false }}
+                  label=""
                   placeholder="Search"
                   fullWidth
                   onChange={(e) => searchIcon(e)}
@@ -642,19 +648,19 @@ export default function Features() {
                 <Grid item xs={12} sm={6}>
                   {icon.length > 0
                     ? icon.map((el) => (
-                        <Button
-                          onClick={() => {
-                            setSelectedIcon(
-                              el.raster_sizes[0].formats[0].preview_url
-                            );
-                          }}
-                        >
-                          <img
-                            style={{ height: "20px" }}
-                            src={el.raster_sizes[0].formats[0].preview_url}
-                          />
-                        </Button>
-                      ))
+                      <Button
+                        onClick={() => {
+                          setSelectedIcon(
+                            el.raster_sizes[0].formats[0].preview_url
+                          );
+                        }}
+                      >
+                        <img
+                          style={{ height: "20px" }}
+                          src={el.raster_sizes[0].formats[0].preview_url}
+                        />
+                      </Button>
+                    ))
                     : ""}
                 </Grid>
               </Grid>

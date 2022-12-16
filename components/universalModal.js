@@ -16,7 +16,7 @@ export default function UniversalModal({ open, setOpen, children, modalBackgroun
     left: '50%',
     transform: 'translate(-50%, -50%)',
     minWidth: '300px',
-    backgroundColor: modalBackgroundColor ? modalBackgroundColor : '#000',
+    backgroundColor: modalBackgroundColor ? modalBackgroundColor : '#fff',
     boxShadow: 24,
     borderRadius: '12px',
     padding: '20px'

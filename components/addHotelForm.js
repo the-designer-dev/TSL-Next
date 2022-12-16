@@ -8,6 +8,7 @@ import Dropfile from "./dropzone";
 import Features from "./features";
 import { nextStep, prevStep } from "../redux/formSlice";
 import { convertToRaw, convertFromHTML, ContentState } from "draft-js";
+import InvertColorsIcon from '@mui/icons-material/InvertColors'
 import { convertToHTML } from "draft-convert";
 import {
   setName,
@@ -345,9 +346,9 @@ function AddHotelForm(props) {
     !SSR ? (contentHTML = convertFromHTML(addHotel.description)) : "";
     !SSR
       ? (state = ContentState.createFromBlockArray(
-          contentHTML.contentBlocks,
-          contentHTML.entityMap
-        ))
+        contentHTML.contentBlocks,
+        contentHTML.entityMap
+      ))
       : "";
     !SSR ? (content = convertFromHTML(addHotel.description)) : "";
   }, []);

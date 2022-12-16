@@ -786,7 +786,7 @@ export default function Home() {
                                   paddingLeft: "8px",
                                 }}
                               >
-                                <Typography color="#FFF" variant="p">
+                                <Typography color="#555C63" variant="p">
                                   Child
                                 </Typography>
                               </Grid>{" "}
