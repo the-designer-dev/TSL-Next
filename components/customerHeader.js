@@ -66,7 +66,7 @@ function CustomerHeader(props) {
           <Button onClick={() => router.push("/login")}>Login</Button>
           <Button
             onClick={() => router.push("/signup")}
-            sx={{ backgroundColor: "button.main", color: "text.message" }}
+            sx={{ backgroundColor: "button.main", color: "primary.main" }}
           >
             SignUp
           </Button>

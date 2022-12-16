@@ -1,5 +1,5 @@
 import { Box, Grid } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import momentPlugin from "@fullcalendar/moment";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -11,18 +11,52 @@ import listPlugin from "@fullcalendar/list";
 import EventModal from "../../components/addEventModal";
 import bootstrap5Plugin from "@fullcalendar/bootstrap5";
 import VendorLayout from "../../components/vendorLayout";
+import axios from "axios";
+import { API_URL } from "../../config";
 
 function BlackoutCalendar(props) {
   const [range, setRange] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [selectable, setSelectable] = useState(false);
+  const [tableData, setTableData] = useState([]);
+
   const allBlackoutDates = useSelector(
     (state) => state.blackoutDates.blackoutDates
   ).map((el) => {
     return { ...el, end: el.end + "T01:00:00" };
   });
   const calender = useRef();
+
+  useEffect(async () => {
+    const orders = await axios({
+      method: "GET",
+      url: `${API_URL}/orders`,
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    }).then((res) => res.data);
+    setTableData(
+      orders.map((el) => {
+        return {
+          id: el.id,
+          title: `${el.roomname}    ${new Date(
+            el.booking_start_date
+          )} ----- ${new Date(el.booking_end_date)}`,
+          start: el.booking_start_date,
+          end: el.booking_end_date,
+          overlap: false,
+          backgroundColor:
+            el.order_status === "completed"
+              ? "#2ab76f"
+              : el.order_status === "cancelled"
+              ? "#b10101"
+              : "#c9b854",
+        };
+      })
+    );
+  }, []);
 
   return (
     <Box sx={{ height: "calc( 100vh - 107px )", padding: "30px" }}>
@@ -52,7 +86,7 @@ function BlackoutCalendar(props) {
         ]}
         themeSystem="bootstrap5"
         selectable={selectable}
-        events={allBlackoutDates}
+        events={tableData}
         nextDayThreshold="00:00:00"
         headerToolbar={{
           left: "",

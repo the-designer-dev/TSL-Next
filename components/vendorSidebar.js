@@ -152,7 +152,7 @@ function VendorSidebar(props) {
               >
                 Tours
               </Typography>
-              <Link href={"/vendor/tour/packageinfo"}>
+              <Link href={"/vendor/tour/addtour"}>
                 <MenuItem>Add New Tour</MenuItem>
               </Link>
               <Typography
