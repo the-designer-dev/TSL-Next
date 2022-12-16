@@ -539,12 +539,20 @@ function Book(props) {
                 </Typography>
               </Grid>
             </Grid>
-            {console.log(rows)}
             <TotalTable
               columns={columns}
               rows={rows.filter((el) => el.quantity !== "x0")}
               total={price}
             />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                paddingTop: "10px",
+              }}
+            >
+              <StyledButton onClick={() => checkOut()}>Check out</StyledButton>
+            </Box>
           </Grid>
         </Grid>
       </StyledContainer>
