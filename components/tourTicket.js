@@ -2,22 +2,23 @@ import React from 'react';
 import { Grid, Typography } from '@mui/material';
 import StyledTextField from '../styledComponents/styledTextField';
 import CustomizeTextArea from '../styledComponents/styledTextarea';
-import {setTickets} from '../redux/addTour'
-import {useDispatch , useSelector} from 'react-redux'
+import { setTickets } from '../redux/addTour'
+import { useDispatch, useSelector } from 'react-redux'
 function TourTicket(props) {
     const dispatch = useDispatch()
     const tour = useSelector(state => state.addTour)
 
-    function changeTicketName(e){
+    function changeTicketName(e) {
         var ticketVar = tour.tickets.map(el => el)
-        ticketVar[props.id -1] = {...ticketVar[props.id -1] , name: e.target.value} 
-        dispatch(setTickets(ticketVar)) 
+        ticketVar[props.id - 1] = { ...ticketVar[props.id - 1], name: e.target.value }
+        dispatch(setTickets(ticketVar))
     }
 
-    function changeTicketDesc(e){
+    function changeTicketDesc(e) {
         var ticketVar = tour.tickets.map(el => el)
-        ticketVar[props.id -1] = {...ticketVar[props.id -1] , description: e.target.value} 
-        dispatch(setTickets(ticketVar))}
+        ticketVar[props.id - 1] = { ...ticketVar[props.id - 1], description: e.target.value }
+        dispatch(setTickets(ticketVar))
+    }
 
     return (
         <Grid container item justifyContent='center' spacing={2} xs={12}>
@@ -31,7 +32,8 @@ function TourTicket(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={8} sm={8}>
-                    <StyledTextField onChange={(e) => {changeTicketName(e)}} required fullWidth placeholder='Enter Ticket Name' />
+                    <StyledTextField InputLabelProps={{ shrink: false }}
+                        label="" onChange={(e) => { changeTicketName(e) }} required fullWidth placeholder='Enter Ticket Name' />
                 </Grid>
             </Grid>
             <Grid container item xs={10}>

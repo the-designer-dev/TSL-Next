@@ -41,9 +41,9 @@ function AddServicesForm(props) {
       })
     ] = {
       ...extra_services[
-        extra_services.findIndex((el) => {
-          return el.extra_field_name === name;
-        })
+      extra_services.findIndex((el) => {
+        return el.extra_field_name === name;
+      })
       ],
       extra_field_price: price,
     };
@@ -194,7 +194,6 @@ function AddServicesForm(props) {
                       sx={{ display: "flex", alignItems: "center" }}
                     >
                       <StyledTextField
-                        required
                         InputLabelProps={{ shrink: false }}
                         label=""
                         value={
@@ -262,7 +261,6 @@ function AddServicesForm(props) {
                       sx={{ display: "flex", alignItems: "center" }}
                     >
                       <StyledTextField
-                        required
                         InputLabelProps={{ shrink: false }}
                         label=""
                         value={
@@ -328,7 +326,6 @@ function AddServicesForm(props) {
                       sx={{ display: "flex", alignItems: "center" }}
                     >
                       <StyledTextField
-                        required
                         InputLabelProps={{ shrink: false }}
                         label=""
                         value={
@@ -394,7 +391,6 @@ function AddServicesForm(props) {
                       sx={{ display: "flex", alignItems: "center" }}
                     >
                       <StyledTextField
-                        required
                         InputLabelProps={{ shrink: false }}
                         label=""
                         value={

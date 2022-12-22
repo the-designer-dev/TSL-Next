@@ -100,6 +100,8 @@ function TourPackageInfo() {
 						</Grid>
 						<Grid item xs={12} sm={8}>
 							<StyledTextField
+								InputLabelProps={{ shrink: false }}
+								label=""
 								value={addTour.title}
 								onChange={(e) => dispatch(setTitle(e.target.value))}
 								required
@@ -117,6 +119,8 @@ function TourPackageInfo() {
 						</Grid>
 						<Grid item xs={12} sm={8}>
 							<StyledTextField
+								InputLabelProps={{ shrink: false }}
+								label=""
 								value={addTour.city}
 								onChange={(e) => dispatch(setCity(e.target.value))}
 								required
@@ -179,6 +183,8 @@ function TourPackageInfo() {
 						</Grid>
 						<Grid item xs={12} sm={8}>
 							<StyledTextField
+								InputLabelProps={{ shrink: false }}
+								label=""
 								required
 								value={addTour.city}
 								onChange={(e) => dispatch(setCity(e.target.value))}
@@ -285,6 +291,8 @@ function TourPackageInfo() {
 								</Grid>
 								<Grid item xs={12} sm={8}>
 									<StyledTextField
+										InputLabelProps={{ shrink: false }}
+										label=""
 										value={addTour.min_group_size}
 										onChange={(e) =>
 											dispatch(setMin_group_size(e.target.value))
@@ -313,12 +321,24 @@ function TourPackageInfo() {
 										InputProps={{
 											startAdornment: (
 												<InputAdornment position="start">
-													<Button>-</Button>
+													<Button
+														sx={{ color: "#ffffff" }}
+														onClick={() =>
+															dispatch(
+																setMin_group_size(addTour.min_group_size - 1)
+															)}
+													>-</Button>
 												</InputAdornment>
 											),
 											endAdornment: (
 												<InputAdornment position="end">
-													<Button>+</Button>
+													<Button
+														sx={{ color: "#ffffff" }}
+														onClick={() =>
+															dispatch(
+																setMin_group_size(addTour.min_group_size + 1)
+															)}
+													>+</Button>
 												</InputAdornment>
 											),
 										}}
@@ -344,6 +364,8 @@ function TourPackageInfo() {
 								</Grid>
 								<Grid item xs={12} sm={8}>
 									<StyledTextField
+										InputLabelProps={{ shrink: false }}
+										label=""
 										value={addTour.max_group_size}
 										onChange={(e) =>
 											dispatch(setMax_group_size(e.target.value))
@@ -373,6 +395,7 @@ function TourPackageInfo() {
 											startAdornment: (
 												<InputAdornment position="start">
 													<Button
+														sx={{ color: "#ffffff" }}
 														onClick={() =>
 															dispatch(
 																setMax_group_size(addTour.max_group_size - 1)
@@ -386,6 +409,7 @@ function TourPackageInfo() {
 											endAdornment: (
 												<InputAdornment position="end">
 													<Button
+														sx={{ color: "#ffffff" }}
 														onClick={() =>
 															dispatch(
 																setMax_group_size(addTour.max_group_size + 1)
@@ -419,6 +443,64 @@ function TourPackageInfo() {
 									</Typography>
 								</Grid>
 								<Grid item xs={12} sm={8}>
+									<StyledTextField
+										InputLabelProps={{ shrink: false }}
+										label=""
+										value={addTour.min_age}
+										onChange={(e) =>
+											dispatch(setMin_age(e.target.value))}
+										fullWidth
+										size="small"
+										sx={{
+											"& .MuiInputBase-root": {
+												padding: "0px",
+												"& .MuiInputAdornment-positionStart": {
+													backgroundColor: "button.main",
+													height: "40px",
+													maxHeight: "none",
+													borderRadius: "4px 0px 0px 4px",
+													"& .MuiTypography-root": { color: "#FFF" },
+												},
+												"& .MuiInputAdornment-positionEnd": {
+													backgroundColor: "button.main",
+													height: "40px",
+													maxHeight: "none",
+													borderRadius: "0px 4px 4px 0px",
+													"& .MuiTypography-root": { color: "#FFF" },
+												},
+											},
+										}}
+										InputProps={{
+											startAdornment: (
+												<InputAdornment position="start">
+													<Button
+														sx={{ color: "#ffffff" }}
+														onClick={() =>
+															dispatch(setMin_age(addTour.min_age - 1)
+															)
+														}
+													>
+														-
+													</Button>
+												</InputAdornment>
+											),
+											endAdornment: (
+												<InputAdornment position="end">
+													<Button
+														sx={{ color: "#ffffff" }}
+														onClick={() =>
+															dispatch(setMin_age(addTour.min_age + 1)
+															)
+														}
+													>
+														+
+													</Button>
+												</InputAdornment>
+											),
+										}}
+									/>
+								</Grid>
+								{/* <Grid item xs={12} sm={8}>
 									<Box sx={{ minWidth: 120 }}>
 										<FormControl fullWidth>
 											<InputLabel id="demo-simple-select-label">Age</InputLabel>
@@ -426,7 +508,7 @@ function TourPackageInfo() {
 												labelId="demo-simple-select-label"
 												id="demo-simple-select"
 												value={addTour.min_age}
-												label="Language"
+												label="Age"
 												onChange={(e) => dispatch(setMin_age(e.target.value))}
 											>
 												<MenuItem value={1}>1</MenuItem>
@@ -437,7 +519,7 @@ function TourPackageInfo() {
 											</Select>
 										</FormControl>
 									</Box>
-								</Grid>
+								</Grid> */}
 							</Grid>
 
 							<Grid container item xs={12} sm={5} alignItems="center">
@@ -679,6 +761,8 @@ function TourPackageInfo() {
 									</Grid>
 									<Grid item xs={12} sm={4}>
 										<DatePicker
+											InputLabelProps={{ shrink: false }}
+											label=""
 											value={addTour.available_daterange_start}
 											onChange={(newValue) => {
 												dispatch(setAvailable_daterange_start(newValue));
@@ -709,6 +793,8 @@ function TourPackageInfo() {
 									</Grid>
 									<Grid item xs={12} sm={4}>
 										<DatePicker
+											InputLabelProps={{ shrink: false }}
+											label=""
 											value={addTour.available_daterange_end}
 											onChange={(newValue) => {
 												dispatch(setAvailable_daterange_end(newValue));
@@ -920,13 +1006,13 @@ function TourPackageInfo() {
 											value="yes"
 											control={<Radio />}
 											label="Yes"
-											sx={{ color: "white" }}
+											sx={{ color: "#000" }}
 										/>
 										<FormControlLabel
 											value="no"
 											control={<Radio />}
 											label="No"
-											sx={{ color: "white" }}
+											sx={{ color: "#000" }}
 										/>
 									</RadioGroup>
 								</FormControl>
@@ -962,13 +1048,13 @@ function TourPackageInfo() {
 											value="yes"
 											control={<Radio />}
 											label="Yes"
-											sx={{ color: "white" }}
+											sx={{ color: "#000" }}
 										/>
 										<FormControlLabel
 											value="no"
 											control={<Radio />}
 											label="No"
-											sx={{ color: "white" }}
+											sx={{ color: "#000" }}
 										/>
 									</RadioGroup>
 								</FormControl>

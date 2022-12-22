@@ -2,7 +2,7 @@ import * as React from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { useDispatch , useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import addTour, { setDays_available } from '../redux/addTour';
 
 export default function DaysToggle() {
@@ -15,31 +15,31 @@ export default function DaysToggle() {
     const matches = useMediaQuery("(min-width:990px)");
     return (
         <ToggleButtonGroup
-            value={addTour.days_available}
+            value={formats}
             onChange={handleFormat}
             orientation={`${matches ? `horizontal` : `vertical`}`}
             aria-label="text formatting"
             fullWidth
         >
-            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="monday" aria-label="monday">
+            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main', color: '#fff' } } }} value="monday" aria-label="monday">
                 Monday
             </ToggleButton>
-            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="tuesday" aria-label="tuesday">
+            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main', color: '#fff' } } }} value="tuesday" aria-label="tuesday">
                 Tuesday
             </ToggleButton>
-            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="wednesday" aria-label="wednesday">
+            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main', color: '#fff' } } }} value="wednesday" aria-label="wednesday">
                 Wednesday
             </ToggleButton>
-            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="thursday" aria-label="thursday">
+            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main', color: '#fff' } } }} value="thursday" aria-label="thursday">
                 Thursday
             </ToggleButton>
-            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="friday" aria-label="friday">
+            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main', color: '#fff' } } }} value="friday" aria-label="friday">
                 Friday
             </ToggleButton>
-            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="saturday" aria-label="saturday">
+            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main', color: '#fff' } } }} value="saturday" aria-label="saturday">
                 Saturday
             </ToggleButton>
-            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main' } } }} value="sunday" aria-label="sunday">
+            <ToggleButton sx={{ '&.MuiToggleButton-root': { '&.Mui-selected': { backgroundColor: 'button.main', color: '#fff' } } }} value="sunday" aria-label="sunday">
                 Sunday
             </ToggleButton>
         </ToggleButtonGroup>
