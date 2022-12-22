@@ -161,7 +161,7 @@ function Overview(props) {
                 <ToggleButton
                   sx={{
                     "&.MuiToggleButton-root": {
-                      "&.Mui-selected": { backgroundColor: "button.main" },
+                      "&.Mui-selected": { color: "#ffffff", backgroundColor: "button.main" },
                     },
                   }}
                   value="Hotel"
@@ -172,7 +172,7 @@ function Overview(props) {
                 <ToggleButton
                   sx={{
                     "&.MuiToggleButton-root": {
-                      "&.Mui-selected": { backgroundColor: "button.main" },
+                      "&.Mui-selected": { color: "#ffffff", backgroundColor: "button.main" },
                     },
                   }}
                   value="Room"
@@ -299,17 +299,17 @@ function Overview(props) {
             </Grid>
             {hotelImgs
               ? hotelImgs.map((el) => (
-                  <Grid item xs={3}>
-                    <img
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        borderRadius: "8px",
-                      }}
-                      src={URL.createObjectURL(el)}
-                    />
-                  </Grid>
-                ))
+                <Grid item xs={3}>
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "8px",
+                    }}
+                    src={URL.createObjectURL(el)}
+                  />
+                </Grid>
+              ))
               : ""}
           </Grid>
           <Grid container item spacing={2}>
@@ -444,7 +444,7 @@ function Overview(props) {
                   <ToggleButton
                     sx={{
                       "&.MuiToggleButton-root": {
-                        "&.Mui-selected": { backgroundColor: "button.main" },
+                        "&.Mui-selected": { color: "#ffffff", backgroundColor: "button.main" },
                       },
                     }}
                     value="Hotel"
@@ -458,7 +458,7 @@ function Overview(props) {
                 <ToggleButton
                   sx={{
                     "&.MuiToggleButton-root": {
-                      "&.Mui-selected": { backgroundColor: "button.main" },
+                      "&.Mui-selected": { color: "#ffffff", backgroundColor: "button.main" },
                     },
                   }}
                   value="Room"
@@ -588,17 +588,17 @@ function Overview(props) {
             </Grid>
             {roomImgs
               ? roomImgs.map((el) => (
-                  <Grid item xs={3}>
-                    <img
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        borderRadius: "8px",
-                      }}
-                      src={URL.createObjectURL(el)}
-                    />
-                  </Grid>
-                ))
+                <Grid item xs={3}>
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "8px",
+                    }}
+                    src={URL.createObjectURL(el)}
+                  />
+                </Grid>
+              ))
               : ""}
           </Grid>
           <Grid container item spacing={2}>

@@ -37,46 +37,46 @@ const Dropfile = (props) => {
     <Grid container spacing={1}>
       {images.length > 0
         ? images.map((el) => (
-            <Grid item xs={3}>
-              <img
-                style={{ width: "100%", height: "100%", borderRadius: "8px" }}
-                src={URL.createObjectURL(el)}
-              />
-            </Grid>
-          ))
+          <Grid item xs={3}>
+            <img
+              style={{ width: "100%", height: "100%", borderRadius: "8px" }}
+              src={URL.createObjectURL(el)}
+            />
+          </Grid>
+        ))
         : imgs.map((el) => (
-            <Grid item xs={3}>
-              <img
-                style={{ width: "100%", height: "100%", borderRadius: "8px" }}
-                src={`${API_URL}${el.url}`}
-              />
-            </Grid>
-          ))}
-      {roomImgs.map((el) => (
+          <Grid item xs={3}>
+            <img
+              style={{ width: "100%", height: "100%", borderRadius: "8px" }}
+              src={`${API_URL}${el.url}`}
+            />
+          </Grid>
+        ))}
+      {/* {roomImgs.map((el) => (
         <Grid item xs={3}>
           <img
             style={{ width: "100%", height: "100%", borderRadius: "8px" }}
             src={URL.createObjectURL(el)}
           />
         </Grid>
-      ))}
-      {/* {props.hotel
+      ))} */}
+      {props.hotel
         ? hotelImgs.map((el) => (
-            <Grid item xs={3}>
-              <img
-                style={{ width: "100%", height: "100%", borderRadius: "8px" }}
-                src={URL.createObjectURL(el)}
-              />
-            </Grid>
-          ))
+          <Grid item xs={3}>
+            <img
+              style={{ width: "100%", height: "100%", borderRadius: "8px" }}
+              src={URL.createObjectURL(el)}
+            />
+          </Grid>
+        ))
         : roomImgs.map((el) => (
-            <Grid item xs={3}>
-              <img
-                style={{ width: "100%", height: "100%", borderRadius: "8px" }}
-                src={URL.createObjectURL(el)}
-              />
-            </Grid>
-          ))} */}
+          <Grid item xs={3}>
+            <img
+              style={{ width: "100%", height: "100%", borderRadius: "8px" }}
+              src={URL.createObjectURL(el)}
+            />
+          </Grid>
+        ))}
       <Grid item xs={12}>
         <Dropzone
           styles={{ color: "#fff" }}
