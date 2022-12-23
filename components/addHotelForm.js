@@ -8,7 +8,7 @@ import Dropfile from "./dropzone";
 import Features from "./features";
 import { nextStep, prevStep } from "../redux/formSlice";
 import { convertToRaw, convertFromHTML, ContentState } from "draft-js";
-import InvertColorsIcon from '@mui/icons-material/InvertColors'
+import InvertColorsIcon from "@mui/icons-material/InvertColors";
 import { convertToHTML } from "draft-convert";
 import {
   setName,
@@ -341,16 +341,17 @@ function AddHotelForm(props) {
   const SSR = typeof window === "undefined";
   var contentHTML;
   var state;
-  var content;
+  const [content, setContent] = useState("");
   useEffect(() => {
-    !SSR ? (contentHTML = convertFromHTML(addHotel.description)) : "";
+    !SSR ? (contentHTML = convertFromHTML(room.roomDescription)) : "";
+    console.log(contentHTML);
     !SSR
       ? (state = ContentState.createFromBlockArray(
-        contentHTML.contentBlocks,
-        contentHTML.entityMap
-      ))
+          contentHTML.contentBlocks,
+          contentHTML.entityMap
+        ))
       : "";
-    !SSR ? (content = convertFromHTML(addHotel.description)) : "";
+    !SSR ? setContent(JSON.stringify(convertToRaw(state))) : "";
   }, []);
   const onEditorChange = (event) => {
     console.log(event.getCurrentContent());
