@@ -100,8 +100,8 @@ function ShowMap(props) {
         >
           {longitude ? (
             <Marker
-              latitude={longitude}
-              longitude={latitude}
+              latitude={latitude}
+              longitude={longitude}
               onDragStart={(e) => onMarkerDragStart(e)}
               onDragEnd={(e) => onMarkerDragEnd(e)}
               onDrag={(e) => onMarkerDrag(e)}

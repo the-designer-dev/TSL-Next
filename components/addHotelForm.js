@@ -1,6 +1,6 @@
 import { Box, FormControl, Grid, MenuItem, Typography } from "@mui/material";
 import FormWrapper from "../styledComponents/formWrapper";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import StyledTextField from "../styledComponents/styledTextField";
 import LocationPicker from "./locationPicker";
 import dynamic from "next/dynamic";
@@ -343,8 +343,8 @@ function AddHotelForm(props) {
   var state;
   const [content, setContent] = useState("");
   useEffect(() => {
-    !SSR ? (contentHTML = convertFromHTML(room.roomDescription)) : "";
-    console.log(contentHTML);
+    !SSR ? (contentHTML = convertFromHTML(addHotel.description)) : "";
+
     !SSR
       ? (state = ContentState.createFromBlockArray(
           contentHTML.contentBlocks,
