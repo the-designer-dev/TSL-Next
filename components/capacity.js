@@ -20,7 +20,10 @@ function Capacity(props) {
   useEffect(() => {
     var arr = [];
     for (let index = 0; index < room.bedCapacity; index++) {
-      arr.push({ bedName: room.bedType[index] ? room.bedType[index].bedName : "", bedValue: room.bedType[index] ? room.bedType[index].bedValue : "" });
+      arr.push({
+        bedName: room.bedType[index] ? room.bedType[index].bedName : "",
+        bedValue: room.bedType[index] ? room.bedType[index].bedValue : "",
+      });
     }
     dispatch(setBedType(arr));
   }, [room.bedCapacity]);
@@ -35,16 +38,32 @@ function Capacity(props) {
   return (
     <Box>
       <Grid container display={"flex"} flexDirection={"column"} spacing={2}>
-        <Grid container display={"flex"} justifyContent={"space-between"} alignItems={"center"} item xs={12} sm={12} spacing={1}>
-          <Grid item xs={4}>
+        <Grid
+          container
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          item
+          xs={12}
+          sm={12}
+          spacing={1}
+        >
+          <Grid item lg={4}>
             <Typography fontWeight={400} variant="p">
               Child Capacity:
             </Typography>
-            <Typography fontWeight={200} fontSize={10} lineHeight={0} variant="span">
-              <><br></br>(below 12 years)  </>
+            <Typography
+              fontWeight={200}
+              fontSize={10}
+              lineHeight={0}
+              variant="span"
+            >
+              <>
+                <br></br>(below 12 years){" "}
+              </>
             </Typography>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item lg={8} md={12}>
             <StyledTextField
               fullWidth
               required
@@ -108,13 +127,22 @@ function Capacity(props) {
             />
           </Grid>
         </Grid>
-        <Grid container display={"flex"} justifyContent={"space-between"} alignItems={"center"} item xs={12} sm={12} spacing={1}>
-          <Grid item xs={4}>
+        <Grid
+          container
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          item
+          xs={12}
+          sm={12}
+          spacing={1}
+        >
+          <Grid item lg={4}>
             <Typography fontWeight={400} variant="p">
               Adult Capacity: *
             </Typography>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item lg={8} md={12}>
             <StyledTextField
               fullWidth
               required
@@ -178,13 +206,22 @@ function Capacity(props) {
             />
           </Grid>
         </Grid>
-        <Grid container display={"flex"} justifyContent={"space-between"} alignItems={"center"} item xs={12} sm={12} spacing={1}>
-          <Grid item xs={4}>
+        <Grid
+          container
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          item
+          xs={12}
+          sm={12}
+          spacing={1}
+        >
+          <Grid item lg={4}>
             <Typography fontWeight={400} variant="p">
               Number of Beds: *
             </Typography>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item lg={8} md={12}>
             <StyledTextField
               fullWidth
               required
@@ -255,7 +292,15 @@ function Capacity(props) {
             })
           );
           return (
-            <Grid container display={"flex"} justifyContent={"space-between"} item xs={12} sm={12} spacing={1}>
+            <Grid
+              container
+              display={"flex"}
+              justifyContent={"space-between"}
+              item
+              xs={12}
+              sm={12}
+              spacing={1}
+            >
               <Grid item xs={12} sm={4}>
                 <Typography fontWeight={400} variant="p">
                   Bed Type: *
@@ -306,7 +351,7 @@ function Capacity(props) {
           );
         })}
       </Grid>
-    </Box >
+    </Box>
   );
 }
 export default Capacity;

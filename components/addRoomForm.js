@@ -278,7 +278,7 @@ function AddRoomForm(props) {
             </Box>
           </Grid>
 
-          <Grid item xs={12} lg={6} spacing={2}>
+          <Grid container item xs={12} lg={6} spacing={2}>
             <Grid item xs={12}>
               <Typography variant="h6">
                 Tell Us About Extra Bed Capacity
@@ -289,11 +289,13 @@ function AddRoomForm(props) {
                 backgroundColor: "background.secondary",
                 p: 2,
                 borderRadius: 3,
+                width: "100%",
               }}
             >
-              <Grid ref={extraroomcapacity} container item spacing={5}>
+              <Grid ref={extraroomcapacity} container item>
                 <Grid container item spacing={5}>
                   <Grid
+                    container
                     item
                     display={"flex"}
                     alignItems={"center"}
@@ -372,6 +374,7 @@ function AddRoomForm(props) {
                     </Grid>
                   </Grid>
                   <Grid
+                    container
                     item
                     display={"flex"}
                     alignItems={"center"}
@@ -451,11 +454,11 @@ function AddRoomForm(props) {
               }}
             >
               <Grid ref={refundableRates} container item xs={12} spacing={5}>
-                <Grid container item xs={6} spacing={5}>
-                  <Grid item xs={6}>
+                <Grid container item lg={6} xs={12} spacing={5}>
+                  <Grid item lg={6} md={12}>
                     <Typography variant="p">Refundable Rates</Typography>
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item lg={6} md={12}>
                     <StyledTextField
                       required
                       InputLabelProps={{ shrink: false }}
@@ -500,12 +503,12 @@ function AddRoomForm(props) {
                   </Grid>
                   {room.refundablePolicy ? (
                     <Grid container item xs={12} sm={12}>
-                      <Grid item xs={6} sm={6}>
+                      <Grid item lg={6} md={12}>
                         <Typography variant="p">
                           Non-Refundable Rates
                         </Typography>
                       </Grid>
-                      <Grid item xs={6} sm={6}>
+                      <Grid item lg={6} md={12}>
                         <StyledTextField
                           InputLabelProps={{ shrink: false }}
                           label=""
@@ -556,7 +559,7 @@ function AddRoomForm(props) {
                   )}
                 </Grid>
 
-                <Grid ref={paymentPolicies} item xs={6} spacing={5}>
+                <Grid ref={paymentPolicies} item lg={6} md={12} spacing={5}>
                   <PaymentPolicies />
                 </Grid>
               </Grid>
