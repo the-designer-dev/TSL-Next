@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import StyledTextField from "../styledComponents/styledTextField";
 import { InputAdornment } from "@mui/material";
@@ -206,7 +206,7 @@ function Capacity(props) {
             />
           </Grid>
         </Grid>
-        <Grid
+        {/* <Grid
           container
           display={"flex"}
           justifyContent={"space-between"}
@@ -282,7 +282,7 @@ function Capacity(props) {
               }}
             />
           </Grid>
-        </Grid>
+        </Grid> */}
         {room.bedType.map((el, index) => {
           console.log(el);
           console.log(
@@ -308,8 +308,9 @@ function Capacity(props) {
               </Grid>
               <Grid item xs={12} sm={5}>
                 <FormControl fullWidth>
-                  <Select
+                  <TextField
                     required
+                    select
                     InputLabelProps={{ shrink: false }}
                     label=""
                     sx={{
@@ -344,7 +345,7 @@ function Capacity(props) {
                     >
                       Single
                     </MenuItem>
-                  </Select>
+                  </TextField>
                 </FormControl>
               </Grid>
             </Grid>

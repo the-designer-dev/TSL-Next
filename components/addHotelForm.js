@@ -8,7 +8,6 @@ import Dropfile from "./dropzone";
 import Features from "./features";
 import { nextStep, prevStep } from "../redux/formSlice";
 import { convertToRaw, convertFromHTML, ContentState } from "draft-js";
-import InvertColorsIcon from "@mui/icons-material/InvertColors";
 import { convertToHTML } from "draft-convert";
 import {
   setName,
@@ -380,9 +379,6 @@ function AddHotelForm(props) {
             >
               <Grid container item spacing={5}>
                 <Grid container item spacing={1}>
-                  {/* <Grid item xs={12} sm={4}>
-                <Typography variant="p">Name of your hotel</Typography>
-              </Grid> */}
                   <Grid item xs={12} sm={12}>
                     <StyledTextField
                       required
@@ -394,11 +390,6 @@ function AddHotelForm(props) {
                   </Grid>
                 </Grid>
                 <Grid container item spacing={1}>
-                  {/* <Grid item xs={12} sm={4}>
-                <Typography variant="p">
-                  Which city is your hotel located in?
-                </Typography>
-              </Grid> */}
                   <Grid item xs={12} sm={12}>
                     <StyledTextField
                       select
@@ -416,9 +407,6 @@ function AddHotelForm(props) {
                   </Grid>
                 </Grid>
                 <Grid container item spacing={1}>
-                  {/* <Grid item xs={12} sm={4}>
-                <Typography variant="p">Address</Typography>
-              </Grid> */}
                   <Grid item xs={12} sm={12}>
                     <StyledTextField
                       required
@@ -433,11 +421,6 @@ function AddHotelForm(props) {
                   </Grid>
                 </Grid>
                 <Grid container item spacing={2}>
-                  {/* <Grid item xs={12}>
-                <Typography fontSize={18} fontWeight={600} variant="p">
-                  Hotel Description:
-                </Typography>
-              </Grid> */}
                   <Grid item xs={12}>
                     <MUIRichTextEditor
                       required

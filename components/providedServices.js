@@ -5,9 +5,12 @@ import { Typography } from "@mui/material";
 import { setServices } from "../redux/addHotel";
 import { useDispatch, useSelector } from "react-redux";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useEffect } from "react";
 
 export default function ProvidedServices() {
   const [formats, setFormats] = React.useState(() => []);
+  const addHotel = useSelector((state) => state.addHotel);
+  var extra_services = addHotel.services;
 
   const dispatch = useDispatch();
   const handleFormat = (event, newFormats) => {
@@ -20,6 +23,11 @@ export default function ProvidedServices() {
       )
     );
   };
+
+  useEffect(() => {
+    setFormats(extra_services.map((el) => el.extra_field_name));
+  }, []);
+
   const matches = useMediaQuery("(min-width:370px)");
   return (
     <ToggleButtonGroup

@@ -1,19 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 export const addRoomSlice = createSlice({
-  name: 'addRoom',
+  name: "addRoom",
   initialState: {
-    roomName: '',
-    roomDescription: '',
+    roomName: "",
+    roomDescription: "",
     roomImages: [],
     adultCapacity: 0,
     childCapacity: 0,
-    bedCapacity: 0,
+    bedCapacity: 1,
     bedType: [],
     refundableRates: 0,
     nonRefundableRates: 0,
     extraBedCapacity: { extra_bed_rates: 0, extra_bed_qty: 0 },
     dateRange: [],
-    roomType: '',
+    roomType: "",
     roomQuantity: 0,
     roomAmenities: [],
     roomFacilities: [],
@@ -24,86 +24,110 @@ export const addRoomSlice = createSlice({
     cancelledWithinDays: null,
     noShow: null,
     noShowState: true,
-    refundablePolicy: false
-
+    refundablePolicy: false,
   },
   reducers: {
     setRoomName: (state, action) => {
-      state.roomName = action.payload
+      state.roomName = action.payload;
     },
     setRoomDescription: (state, action) => {
-      state.roomDescription = action.payload
+      state.roomDescription = action.payload;
     },
     setRoomImages: (state, action) => {
-      state.roomImages = action.payload
+      state.roomImages = action.payload;
     },
     setAdultCapacity: (state, action) => {
-      state.adultCapacity = action.payload
+      state.adultCapacity = action.payload;
     },
     setChildCapacity: (state, action) => {
-      state.childCapacity = action.payload
+      state.childCapacity = action.payload;
     },
     setBedCapacity: (state, action) => {
-      state.bedCapacity = action.payload
+      state.bedCapacity = action.payload;
     },
     setBedType: (state, action) => {
-      state.bedType = action.payload
+      state.bedType = action.payload;
     },
     setRefundableRates: (state, action) => {
-      state.refundableRates = action.payload
+      state.refundableRates = action.payload;
     },
     setNonRefundableRates: (state, action) => {
-      state.nonRefundableRates = action.payload
+      state.nonRefundableRates = action.payload;
     },
     setDateRange: (state, action) => {
-      state.dateRange = action.payload
+      state.dateRange = action.payload;
     },
     setRoomType: (state, action) => {
-      state.roomType = action.payload
+      state.roomType = action.payload;
     },
     setRoomQuantity: (state, action) => {
-      state.roomQuantity = action.payload
+      state.roomQuantity = action.payload;
     },
     setRoomAmenities: (state, action) => {
-      state.roomAmenities = action.payload
+      state.roomAmenities = action.payload;
     },
     setRoomFacilities: (state, action) => {
-      state.roomFacilities = action.payload
+      state.roomFacilities = action.payload;
     },
     setRoomRules: (state, action) => {
-      state.roomRules = action.payload
+      state.roomRules = action.payload;
     },
     setRoomIncludes: (state, action) => {
-      state.roomIncludes = action.payload
+      state.roomIncludes = action.payload;
     },
     setExtraBedCapacityRates: (state, action) => {
-      state.extraBedCapacity.extra_bed_rates = action.payload
+      state.extraBedCapacity.extra_bed_rates = action.payload;
     },
     setExtraBedCapacityQuantity: (state, action) => {
-      state.extraBedCapacity.extra_bed_qty = action.payload
+      state.extraBedCapacity.extra_bed_qty = action.payload;
     },
     setRefundablePolicy: (state, action) => {
-      state.refundablePolicy = action.payload
+      state.refundablePolicy = action.payload;
     },
     setFreeCancellationDays: (state, action) => {
-      state.freeCancellationDays = action.payload
+      state.freeCancellationDays = action.payload;
     },
     setAppliedForDays: (state, action) => {
-      state.appliedForDays = action.payload
+      state.appliedForDays = action.payload;
     },
     setCancelledWithinDays: (state, action) => {
-      state.cancelledWithinDays = action.payload
+      state.cancelledWithinDays = action.payload;
     },
     setNoShow: (state, action) => {
-      state.noShow = action.payload
+      state.noShow = action.payload;
     },
     setNoShowState: (state, action) => {
-      state.noShowState = action.payload
+      state.noShowState = action.payload;
     },
-  }
-})
+  },
+});
 
 // Action creators
-export const { setRoomName, setRoomDescription, setRoomImages, setAdultCapacity, setChildCapacity, setBedCapacity, setDateRange, setRoomType, setRoomQuantity, setRoomAmenities, setRoomFacilities, setRoomRules, setRoomIncludes, setRefundableRates, setNonRefundableRates, setBedType, setExtraBedCapacityRates, setExtraBedCapacityQuantity, setRefundablePolicy, setFreeCancellationDays, setAppliedForDays, setCancelledWithinDays, setNoShow, setNoShowState } = addRoomSlice.actions;
+export const {
+  setRoomName,
+  setRoomDescription,
+  setRoomImages,
+  setAdultCapacity,
+  setChildCapacity,
+  setBedCapacity,
+  setDateRange,
+  setRoomType,
+  setRoomQuantity,
+  setRoomAmenities,
+  setRoomFacilities,
+  setRoomRules,
+  setRoomIncludes,
+  setRefundableRates,
+  setNonRefundableRates,
+  setBedType,
+  setExtraBedCapacityRates,
+  setExtraBedCapacityQuantity,
+  setRefundablePolicy,
+  setFreeCancellationDays,
+  setAppliedForDays,
+  setCancelledWithinDays,
+  setNoShow,
+  setNoShowState,
+} = addRoomSlice.actions;
 
 export default addRoomSlice.reducer;

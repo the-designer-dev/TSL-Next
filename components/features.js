@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -20,7 +20,7 @@ import StyledTextField from "../styledComponents/styledTextField";
 import axios from "axios";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import { client_id, client_secret, ICON_KEY } from "../config";
+import { API_URL, client_id, client_secret, ICON_KEY } from "../config";
 import StyledButton from "../styledComponents/styledButton";
 var selectedAmenities = [];
 var selectedFacilities = [];
@@ -133,6 +133,56 @@ export default function Features() {
     }
     dispatch(setFacilities(selectedFacilities));
   }
+
+  useEffect(() => {
+    const func = async () => {
+      axios({
+        method: "Get",
+        url: `${API_URL}/amenities`,
+      }).then((res) => {
+        setStateFacilities(
+          Array.from(
+            res.data.hotelsFacilities.reduce((a, d) => {
+              if (
+                !a.find(
+                  (el) =>
+                    el.service_name === d.service_name ||
+                    d.service_name === "Elevator" ||
+                    d.service_name === "Free Wifi" ||
+                    d.service_name === "Swimming Pool" ||
+                    d.service_name === "Restaurant"
+                )
+              ) {
+                a.push(d);
+              }
+              return a;
+            }, [])
+          )
+        );
+
+        setStateAmenities(
+          Array.from(
+            res.data.hotelAmenities.reduce((a, d) => {
+              if (
+                !a.find(
+                  (el) =>
+                    el.service_name === d.service_name ||
+                    d.service_name === "Elevator" ||
+                    d.service_name === "Free Wifi" ||
+                    d.service_name === "Swimming Pool" ||
+                    d.service_name === "Restaurant"
+                )
+              ) {
+                a.push(d);
+              }
+              return a;
+            }, [])
+          )
+        );
+      });
+    };
+    func();
+  }, []);
 
   function addService() {
     if (serviceType === "Facility") {
@@ -648,19 +698,19 @@ export default function Features() {
                 <Grid item xs={12} sm={6}>
                   {icon.length > 0
                     ? icon.map((el) => (
-                      <Button
-                        onClick={() => {
-                          setSelectedIcon(
-                            el.raster_sizes[0].formats[0].preview_url
-                          );
-                        }}
-                      >
-                        <img
-                          style={{ height: "20px" }}
-                          src={el.raster_sizes[0].formats[0].preview_url}
-                        />
-                      </Button>
-                    ))
+                        <Button
+                          onClick={() => {
+                            setSelectedIcon(
+                              el.raster_sizes[0].formats[0].preview_url
+                            );
+                          }}
+                        >
+                          <img
+                            style={{ height: "20px" }}
+                            src={el.raster_sizes[0].formats[0].preview_url}
+                          />
+                        </Button>
+                      ))
                     : ""}
                 </Grid>
               </Grid>

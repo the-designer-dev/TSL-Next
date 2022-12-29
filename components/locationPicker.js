@@ -8,7 +8,7 @@ import { mapboxApiKey } from "./mapComponent";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTourCoordinates } from "../redux/addTour";
 import { setCoordinates } from "../redux/addHotel";
 function LocationPicker(props) {
@@ -19,6 +19,7 @@ function LocationPicker(props) {
   const [latitude, setLatitude] = useState(
     selectedLocation ? selectedLocation.center[0] : null
   );
+  const addHotel = useSelector((state) => state.addHotel);
   const [address, setAddress] = useState([]);
   const dispatch = useDispatch();
   const [viewport, setViewport] = useState({
@@ -29,6 +30,12 @@ function LocationPicker(props) {
     borderRadius: "20px",
     zoom: 15,
   });
+  useEffect(() => {
+    if (!props.tour) {
+      setLongitude(addHotel.coordinates[0].latitude);
+      setLatitude(addHotel.coordinates[0].longitude);
+    }
+  }, []);
   function onSelect(value) {
     setSelectedLocation(value);
     setViewport({

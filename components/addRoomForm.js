@@ -307,7 +307,7 @@ function AddRoomForm(props) {
                         Extra Bed Capacity:{" "}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12}>
                       <StyledTextField
                         required
                         fullWidth

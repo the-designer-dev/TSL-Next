@@ -24,23 +24,24 @@ import DateRange from "./dateRange";
 import RoomType from "./roomType";
 import RoomFeatures from "./roomFeatures";
 import PaymentPolicies from "./paymentPolicies";
+import { useState } from "react";
 function EditRoomForm(props) {
   const dispatch = useDispatch();
   const room = useSelector((state) => state.addRoom);
   const SSR = typeof window === "undefined";
   var contentHTML;
   var state;
-  var content;
+  const [content, setContent] = useState("");
   useEffect(() => {
     console.log(room.roomDescription);
     !SSR ? (contentHTML = convertFromHTML(room.roomDescription)) : "";
     !SSR
       ? (state = ContentState.createFromBlockArray(
-        contentHTML.contentBlocks,
-        contentHTML.entityMap
-      ))
+          contentHTML.contentBlocks,
+          contentHTML.entityMap
+        ))
       : "";
-    !SSR ? (content = JSON.stringify(convertToRaw(state))) : "";
+    !SSR ? setContent(JSON.stringify(convertToRaw(state))) : "";
   }, []);
   const onEditorChange = (event) => {
     const plainText = convertToHTML(event.getCurrentContent());
@@ -160,10 +161,10 @@ function EditRoomForm(props) {
                         onClick={() => {
                           room.extraBedCapacity.extra_bed_qty > 0
                             ? dispatch(
-                              setExtraBedCapacityQuantity(
-                                room.extraBedCapacity.extra_bed_qty - 1
+                                setExtraBedCapacityQuantity(
+                                  room.extraBedCapacity.extra_bed_qty - 1
+                                )
                               )
-                            )
                             : "";
                         }}
                       >

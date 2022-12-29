@@ -6,13 +6,15 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DeleteOutlined } from "@mui/icons-material";
 import StyledButton from "../styledComponents/styledButton";
 import { setFaqs } from "../redux/addHotel";
 function FAQs(props) {
   const dispatch = useDispatch();
   const [faqs, setStateFaqs] = useState([]);
+  const allFaqs = useSelector((state) => state.addHotel.faqs);
+
   const [answer, setAnswer] = useState("");
   const [question, setQuestion] = useState("");
   var faqVar = [];
@@ -39,7 +41,7 @@ function FAQs(props) {
     <Grid container spacing={2}>
       <Grid container item>
         <Grid item xs={12}>
-          {faqs.map((el) => (
+          {allFaqs.map((el) => (
             <Accordion
               sx={{
                 "& .MuiAccordionSummary-root": {
