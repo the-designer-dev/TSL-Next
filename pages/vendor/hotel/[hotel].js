@@ -76,9 +76,9 @@ function SingleHotel(props) {
   const { data, error } = useSWR([hotel, token], fetch2);
   const [filteredData, setFilteredData] = useState(data);
   const [editActive, setEditActive] = useState(false);
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    console.log(data);
     setFilteredData(data);
     dispatch(setName(data?.hotelname));
     dispatch(setCity(data?.hotelcity));
@@ -398,8 +398,44 @@ function SingleHotel(props) {
     "Other",
   ];
 
-  async function deleteImage(image) {
+  const submit = async (e) => {
+    // e.preventDefault();
+    const formData = new FormData();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const data2 = {
+      hotelname: addHotel.name,
+      hoteldescription: addHotel.description,
+      hoteladdress: addHotel.address,
+      hotelcity: addHotel.city,
+      users_permissions_user: user.id,
+      daystorefund: addHotel.daysToRefund,
+      checkintime: addHotel.checkIn,
+      checkouttime: addHotel.checkOut,
+      latitude: addHotel.coordinates[0].longitude,
+      longitude: addHotel.coordinates[0].latitude,
+      faqs: addHotel.faqs,
+      amenities: addHotel.amenities,
+      facilities: addHotel.facilities,
+      Rules: addHotel.rules,
+      hotel_extra_fields: addHotel.services,
+      images: data.images,
+    };
+    formData.append("data", JSON.stringify(data2));
+    files.forEach((element) => {
+      formData.append("files.hotelimages", element, element.name);
+    });
+    axios
+      .put(`${API_URL}/hotels/${hotel}`, formData, { headers: headers })
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  async function deleteImage(image, i) {
     console.log(image);
+    data.images.splice(i, 1);
     await axios({
       method: "DELETE",
       url: `${API_URL}/upload/files/${image.id}
@@ -428,6 +464,7 @@ function SingleHotel(props) {
     dispatch(setDescription(plainText));
   };
   var extra_services = addHotel.services;
+
   function updatePrice(name, price) {
     extra_services = extra_services.map((obj) => ({
       ...obj,
@@ -660,599 +697,384 @@ function SingleHotel(props) {
             </Grid>
           </Grid>
         ) : (
-          <Grid container justifyContent={"flex-end"} spacing={4}>
-            <Grid item xs={12}>
-              <Grid container item xs={12} spacing={2}>
-                <Grid item>
-                  <img src={hotelImagesIcon.src} />
+          <form onSubmit={(e) => submit(e)}>
+            <Grid container justifyContent={"flex-end"} spacing={4}>
+              <Grid item xs={12}>
+                <Grid container item xs={12} spacing={2}>
+                  <Grid item>
+                    <img src={hotelImagesIcon.src} />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Box sx={{ height: "100%", maxHeight: "500px", padding: "20px" }}>
-                <Grid container item spacing={2}>
-                  {data?.images.map((el) => (
-                    <Grid item md={3} xs={12}>
-                      <Box
-                        sx={{
-                          position: "relative",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                      >
-                        <button
-                          onClick={() => {
-                            deleteImage(el);
-                          }}
-                          style={{
-                            position: "absolute",
-                            right: "-10px",
-                            border: "unset",
-                            top: "-12px",
-                            padding: "0px",
-                            backgroundColor: "transparent",
-                          }}
-                        >
-                          <img
-                            style={{
-                              width: "20px",
-                              height: "20px",
-
-                              objectFit: "contain",
-                            }}
-                            src={Cross.src}
-                          />
-                        </button>
-                        <img
-                          style={{
+                <Box
+                  sx={{ height: "100%", maxHeight: "500px", padding: "20px" }}
+                >
+                  <Grid container item spacing={2}>
+                    {data?.images.map((el, i) => (
+                      <Grid item md={3} xs={12}>
+                        <Box
+                          sx={{
+                            position: "relative",
                             width: "100%",
                             height: "100%",
-                            objectFit: "cover",
-                            borderRadius: "8px",
                           }}
-                          src={`${API_URL}${el.url}`}
-                        />
-                      </Box>
-                    </Grid>
-                  ))}
-                  <Grid item md={3} xs={12}>
-                    <button
-                      style={{
-                        border: "unset",
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "#bebebe",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      <img
-                        style={{
-                          objectFit: "contain",
+                        >
+                          <button
+                            type="button"
+                            onClick={() => {
+                              deleteImage(el, i);
+                            }}
+                            style={{
+                              position: "absolute",
+                              right: "-10px",
+                              border: "unset",
+                              top: "-12px",
+                              padding: "0px",
+                              backgroundColor: "transparent",
+                            }}
+                          >
+                            <img
+                              style={{
+                                width: "20px",
+                                height: "20px",
+
+                                objectFit: "contain",
+                              }}
+                              src={Cross.src}
+                            />
+                          </button>
+                          <img
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              borderRadius: "8px",
+                            }}
+                            src={`${API_URL}${el.url}`}
+                          />
+                        </Box>
+                      </Grid>
+                    ))}
+                    {files?.map((el, i) => (
+                      <Grid item md={3} xs={12}>
+                        <Box
+                          sx={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                          }}
+                        >
+                          <button
+                            onClick={() => {
+                              setFiles((files) => files.splice(i, 1));
+                            }}
+                            style={{
+                              position: "absolute",
+                              right: "-10px",
+                              border: "unset",
+                              top: "-12px",
+                              padding: "0px",
+                              backgroundColor: "transparent",
+                            }}
+                          >
+                            <img
+                              style={{
+                                width: "20px",
+                                height: "20px",
+
+                                objectFit: "contain",
+                              }}
+                              src={Cross.src}
+                            />
+                          </button>
+                          <img
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              borderRadius: "8px",
+                            }}
+                            src={URL.createObjectURL(el)}
+                          />
+                        </Box>
+                      </Grid>
+                    ))}
+                    <Grid item md={3} xs={12}>
+                      <input
+                        type="file"
+                        id="files"
+                        name="files"
+                        multiple
+                        onChange={(e) => {
+                          setFiles(Array.from(e.target.files));
                         }}
-                        src={Plus.src}
+                        style={{
+                          display: "none",
+                        }}
                       />
-                    </button>
+                      <label
+                        for="files"
+                        style={{
+                          border: "unset",
+                          width: "100%",
+                          height: "100%",
+                          backgroundColor: "#bebebe",
+                          borderRadius: "8px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img
+                          style={{
+                            objectFit: "contain",
+                          }}
+                          src={Plus.src}
+                        />
+                      </label>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+
+              <Grid container item xs={12} lg={6} spacing={2}>
+                <Grid container item spacing={2}>
+                  <Grid item xs={12}>
+                    <Typography variant="h6">
+                      Tell us more about your hotel
+                    </Typography>
                   </Grid>
                 </Grid>
-              </Box>
-            </Grid>
-
-            <Grid container item xs={12} lg={6} spacing={2}>
-              <Grid container item spacing={2}>
-                <Grid item xs={12}>
+                <Box
+                  sx={{
+                    backgroundColor: "background.secondary",
+                    p: 2,
+                    borderRadius: 3,
+                    m: 2,
+                  }}
+                >
+                  <Grid container item spacing={5}>
+                    <Grid container item spacing={1}>
+                      <Grid item xs={12} sm={12}>
+                        <StyledTextField
+                          InputLabelProps={{ shrink: true }}
+                          required
+                          label="Name of your hotel"
+                          value={addHotel.name}
+                          fullWidth
+                          onChange={(e) =>
+                            dispatch(setName(e.currentTarget.value))
+                          }
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid container item spacing={1}>
+                      <Grid item xs={12} sm={12}>
+                        <StyledTextField
+                          select
+                          InputLabelProps={{ shrink: true }}
+                          label={"Which City Is Your Hotel Located In?"}
+                          required
+                          value={addHotel.city}
+                          fullWidth
+                          onChange={(e) => dispatch(setCity(e.target.value))}
+                          placeholder="Enter City"
+                        >
+                          {citiesArr.map((el) => (
+                            <MenuItem value={el}>{el}</MenuItem>
+                          ))}
+                        </StyledTextField>
+                      </Grid>
+                    </Grid>
+                    <Grid container item spacing={1}>
+                      <Grid item xs={12} sm={12}>
+                        <StyledTextField
+                          required
+                          InputLabelProps={{ shrink: true }}
+                          label={"Hotel Address"}
+                          value={addHotel.address}
+                          fullWidth
+                          onChange={(e) =>
+                            dispatch(setAddress(e.currentTarget.value))
+                          }
+                          placeholder="Enter Address"
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid container item spacing={2}>
+                      <Grid item xs={12}>
+                        <MUIRichTextEditor
+                          required
+                          defaultValue={content}
+                          onChange={onEditorChange}
+                          label="Hotel Description"
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+              <Grid
+                container
+                item
+                spacing={2}
+                xs={12}
+                lg={6}
+                direction="column"
+              >
+                <Grid item>
                   <Typography variant="h6">
-                    Tell us more about your hotel
+                    Place a pin to locate your hotel
                   </Typography>
                 </Grid>
-              </Grid>
-              <Box
-                sx={{
-                  backgroundColor: "background.secondary",
-                  p: 2,
-                  borderRadius: 3,
-                  m: 2,
-                }}
-              >
-                <Grid container item spacing={5}>
-                  <Grid container item spacing={1}>
-                    <Grid item xs={12} sm={12}>
-                      <StyledTextField
-                        InputLabelProps={{ shrink: true }}
-                        required
-                        label="Name of your hotel"
-                        value={addHotel.name}
-                        fullWidth
-                        onChange={(e) =>
-                          dispatch(setName(e.currentTarget.value))
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container item spacing={1}>
-                    <Grid item xs={12} sm={12}>
-                      <StyledTextField
-                        select
-                        InputLabelProps={{ shrink: true }}
-                        label={"Which City Is Your Hotel Located In?"}
-                        required
-                        value={addHotel.city}
-                        fullWidth
-                        onChange={(e) => dispatch(setCity(e.target.value))}
-                        placeholder="Enter City"
-                      >
-                        {citiesArr.map((el) => (
-                          <MenuItem value={el}>{el}</MenuItem>
-                        ))}
-                      </StyledTextField>
-                    </Grid>
-                  </Grid>
-                  <Grid container item spacing={1}>
-                    <Grid item xs={12} sm={12}>
-                      <StyledTextField
-                        required
-                        InputLabelProps={{ shrink: true }}
-                        label={"Hotel Address"}
-                        value={addHotel.address}
-                        fullWidth
-                        onChange={(e) =>
-                          dispatch(setAddress(e.currentTarget.value))
-                        }
-                        placeholder="Enter Address"
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container item spacing={2}>
+                <Box
+                  sx={{
+                    width: "100%",
+                    backgroundColor: "background.secondary",
+                    p: 2,
+                    borderRadius: 3,
+                    m: 2,
+                  }}
+                >
+                  <Grid container item spacing={5}>
                     <Grid item xs={12}>
-                      <MUIRichTextEditor
-                        required
-                        defaultValue={content}
-                        onChange={onEditorChange}
-                        label="Hotel Description"
-                      />
+                      <LocationPicker />
                     </Grid>
                   </Grid>
-                </Grid>
-              </Box>
-            </Grid>
-            <Grid container item spacing={2} xs={12} lg={6} direction="column">
-              <Grid item>
-                <Typography variant="h6">
-                  Place a pin to locate your hotel
-                </Typography>
+                </Box>
               </Grid>
-              <Box
-                sx={{
-                  width: "100%",
-                  backgroundColor: "background.secondary",
-                  p: 2,
-                  borderRadius: 3,
-                  m: 2,
-                }}
-              >
-                <Grid container item spacing={5}>
-                  <Grid item xs={12}>
-                    <LocationPicker />
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
 
-            <Grid container item spacing={2}>
-              <Grid item xs={12}>
-                <Typography fontSize={18} fontWeight={600} variant="p">
-                  Tell us more about the features of your hotel:
-                </Typography>
+              <Grid container item spacing={2}>
+                <Grid item xs={12}>
+                  <Typography fontSize={18} fontWeight={600} variant="p">
+                    Tell us more about the features of your hotel:
+                  </Typography>
+                </Grid>
+                <Box
+                  sx={{
+                    width: "100%",
+                    backgroundColor: "background.secondary",
+                    borderRadius: 3,
+                    m: 2,
+                  }}
+                >
+                  <Grid container item spacing={5}>
+                    <Grid item xs={12}>
+                      <Features />
+                    </Grid>
+                  </Grid>
+                </Box>
               </Grid>
-              <Box
-                sx={{
-                  width: "100%",
-                  backgroundColor: "background.secondary",
-                  borderRadius: 3,
-                  m: 2,
-                }}
-              >
-                <Grid container item spacing={5}>
+              <Grid container item xs={12} lg={6} direction="column">
+                <Grid container item spacing={1}>
                   <Grid item xs={12}>
-                    <Features />
+                    <Typography variant="h6">Timings</Typography>
                   </Grid>
                 </Grid>
-              </Box>
-            </Grid>
-            <Grid container item xs={12} lg={6} direction="column">
-              <Grid container item spacing={1}>
-                <Grid item xs={12}>
-                  <Typography variant="h6">Timings</Typography>
-                </Grid>
-              </Grid>
-              <Box
-                sx={{
-                  backgroundColor: "background.secondary",
-                  p: 2,
-                  borderRadius: 3,
-                  m: 2,
-                }}
-              >
-                <Grid container item spacing={5}>
-                  <Grid container item xs={12} spacing={1}>
-                    <Grid item xs={12}>
-                      <TimePicker
-                        value={moment(addHotel.checkIn, "hh:mm a")}
-                        label={"Check-In time"}
-                        onChange={(newValue) => {
-                          newValue
-                            ? dispatch(setCheckIn(newValue.format("hh:mm a")))
-                            : "";
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            required
-                            placeholder="HH:MM am/pm"
-                            sx={{
-                              "& .MuiOutlinedInput-root": {
-                                "& .MuiOutlinedInput-input": { color: "#000" },
-                                "& .MuiInputAdornment-root": {
-                                  "& .MuiButtonBase-root": {
-                                    "& .MuiSvgIcon-root": {
-                                      color: "button.main",
+                <Box
+                  sx={{
+                    backgroundColor: "background.secondary",
+                    p: 2,
+                    borderRadius: 3,
+                    m: 2,
+                  }}
+                >
+                  <Grid container item spacing={5}>
+                    <Grid container item xs={12} spacing={1}>
+                      <Grid item xs={12}>
+                        <TimePicker
+                          value={moment(addHotel.checkIn, "hh:mm a")}
+                          label={"Check-In time"}
+                          onChange={(newValue) => {
+                            newValue
+                              ? dispatch(setCheckIn(newValue.format("hh:mm a")))
+                              : "";
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              required
+                              placeholder="HH:MM am/pm"
+                              sx={{
+                                "& .MuiOutlinedInput-root": {
+                                  "& .MuiOutlinedInput-input": {
+                                    color: "#000",
+                                  },
+                                  "& .MuiInputAdornment-root": {
+                                    "& .MuiButtonBase-root": {
+                                      "& .MuiSvgIcon-root": {
+                                        color: "button.main",
+                                      },
                                     },
                                   },
                                 },
-                              },
-                              backgroundColor: "#FFF",
-                              borderRadius: "5px",
-                            }}
-                            fullWidth
-                            {...params}
-                          />
-                        )}
-                      />
+                                backgroundColor: "#FFF",
+                                borderRadius: "5px",
+                              }}
+                              fullWidth
+                              {...params}
+                            />
+                          )}
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid container item xs={12} spacing={1}>
-                    {/* <Grid item xs={12} sm={3}>
+                    <Grid container item xs={12} spacing={1}>
+                      {/* <Grid item xs={12} sm={3}>
               <Typography variant="p">Check-Out time:</Typography>
             </Grid> */}
-                    <Grid item xs={12}>
-                      <TimePicker
-                        value={moment(addHotel.checkOut, "hh:mm a")}
-                        onChange={(newValue) => {
-                          newValue
-                            ? dispatch(setCheckOut(newValue.format("hh:mm a")))
-                            : "";
-                        }}
-                        label={"Check-Out time"}
-                        renderInput={(params) => (
-                          <TextField
-                            required
-                            placeholder="HH:MM am/pm"
-                            sx={{
-                              "& .MuiOutlinedInput-root": {
-                                "& .MuiOutlinedInput-input": {
-                                  color: "#000",
-                                },
-                                "& .MuiInputAdornment-root": {
-                                  "& .MuiButtonBase-root": {
-                                    "& .MuiSvgIcon-root": {
-                                      color: "button.main",
+                      <Grid item xs={12}>
+                        <TimePicker
+                          value={moment(addHotel.checkOut, "hh:mm a")}
+                          onChange={(newValue) => {
+                            newValue
+                              ? dispatch(
+                                  setCheckOut(newValue.format("hh:mm a"))
+                                )
+                              : "";
+                          }}
+                          label={"Check-Out time"}
+                          renderInput={(params) => (
+                            <TextField
+                              required
+                              placeholder="HH:MM am/pm"
+                              sx={{
+                                "& .MuiOutlinedInput-root": {
+                                  "& .MuiOutlinedInput-input": {
+                                    color: "#000",
+                                  },
+                                  "& .MuiInputAdornment-root": {
+                                    "& .MuiButtonBase-root": {
+                                      "& .MuiSvgIcon-root": {
+                                        color: "button.main",
+                                      },
                                     },
                                   },
                                 },
-                              },
-                              backgroundColor: "#FFF",
-                              borderRadius: "5px",
-                            }}
-                            fullWidth
-                            {...params}
-                          />
-                        )}
-                      />
+                                backgroundColor: "#FFF",
+                                borderRadius: "5px",
+                              }}
+                              fullWidth
+                              {...params}
+                            />
+                          )}
+                        />
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </Box>
-            </Grid>
-
-            <Grid
-              container
-              item
-              spacing={1}
-              xs={12}
-              lg={6}
-              direction={"column"}
-            >
-              <Grid item>
-                <Typography fontWeight={600} fontSize={18} variant="p">
-                  What services do you provide?
-                </Typography>
+                </Box>
               </Grid>
-              <Box
-                sx={{
-                  backgroundColor: "background.secondary",
-                  p: 2,
-                  borderRadius: 3,
-                  width: "100%",
-                  m: 2,
-                }}
+
+              <Grid
+                container
+                item
+                spacing={1}
+                xs={12}
+                lg={6}
+                direction={"column"}
               >
-                <Grid container item spacing={5}>
-                  <Grid item xs={6}>
-                    <ProvidedServices />
-                  </Grid>
-                  <Grid item container xs={6}>
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sx={{
-                        opacity: extra_services.find(
-                          (el) => el.extra_field_name === "Breakfast"
-                        )
-                          ? "100%"
-                          : "0%",
-                      }}
-                    >
-                      <Grid
-                        item
-                        xs={12}
-                        sx={{ display: "flex", alignItems: "center" }}
-                      >
-                        <StyledTextField
-                          InputLabelProps={{ shrink: false }}
-                          label=""
-                          value={
-                            extra_services.find(
-                              (el) => el.extra_field_name === "Breakfast"
-                            )?.extra_field_price
-                          }
-                          onChange={(e) =>
-                            updatePrice("Breakfast", e.target.value)
-                          }
-                          sx={{
-                            "& .MuiInputBase-root": {
-                              padding: "0px",
-                              "& .MuiInputAdornment-positionStart": {
-                                backgroundColor: "button.main",
-                                height: "100%",
-                                maxHeight: "none",
-                                borderRadius: "4px 0px 0px 4px",
-                                padding: "0px 10px",
-                                "& .MuiTypography-root": { color: "#FFF" },
-                              },
-                              "& .MuiInputAdornment-positionEnd": {
-                                backgroundColor: "button.main",
-                                height: "100%",
-                                maxHeight: "none",
-                                borderRadius: "0px 4px 4px 0px",
-                                padding: "0px 10px",
-                                "& .MuiTypography-root": { color: "#FFF" },
-                              },
-                              height: "100%",
-                            },
-                            height: "55px",
-                          }}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                PKR
-                              </InputAdornment>
-                            ),
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                Per Person
-                              </InputAdornment>
-                            ),
-                          }}
-                          fullWidth
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sx={{
-                        opacity: extra_services.find(
-                          (el) => el.extra_field_name === "Lunch"
-                        )
-                          ? "100%"
-                          : "0%",
-                      }}
-                    >
-                      <Grid
-                        item
-                        xs={12}
-                        sx={{ display: "flex", alignItems: "center" }}
-                      >
-                        <StyledTextField
-                          InputLabelProps={{ shrink: false }}
-                          label=""
-                          value={
-                            extra_services.find(
-                              (el) => el.extra_field_name === "Lunch"
-                            )?.extra_field_price
-                          }
-                          onChange={(e) => updatePrice("Lunch", e.target.value)}
-                          sx={{
-                            "& .MuiInputBase-root": {
-                              padding: "0px",
-                              "& .MuiInputAdornment-positionStart": {
-                                backgroundColor: "button.main",
-                                height: "100%",
-                                maxHeight: "none",
-                                borderRadius: "4px 0px 0px 4px",
-                                padding: "0px 10px",
-                                "& .MuiTypography-root": { color: "#FFF" },
-                              },
-                              "& .MuiInputAdornment-positionEnd": {
-                                backgroundColor: "button.main",
-                                height: "100%",
-                                maxHeight: "none",
-                                borderRadius: "0px 4px 4px 0px",
-                                padding: "0px 10px",
-                                "& .MuiTypography-root": { color: "#FFF" },
-                              },
-                              height: "100%",
-                            },
-                            height: "55px",
-                          }}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                PKR
-                              </InputAdornment>
-                            ),
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                Per Person
-                              </InputAdornment>
-                            ),
-                          }}
-                          fullWidth
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sx={{
-                        opacity: extra_services.find(
-                          (el) => el.extra_field_name === "HiTea"
-                        )
-                          ? "100%"
-                          : "0%",
-                      }}
-                    >
-                      <Grid
-                        item
-                        xs={12}
-                        sx={{ display: "flex", alignItems: "center" }}
-                      >
-                        <StyledTextField
-                          InputLabelProps={{ shrink: false }}
-                          label=""
-                          value={
-                            extra_services.find(
-                              (el) => el.extra_field_name === "HiTea"
-                            )?.extra_field_price
-                          }
-                          onChange={(e) => updatePrice("HiTea", e.target.value)}
-                          sx={{
-                            "& .MuiInputBase-root": {
-                              padding: "0px",
-                              "& .MuiInputAdornment-positionStart": {
-                                backgroundColor: "button.main",
-                                height: "100%",
-                                maxHeight: "none",
-                                borderRadius: "4px 0px 0px 4px",
-                                padding: "0px 10px",
-                                "& .MuiTypography-root": { color: "#FFF" },
-                              },
-                              "& .MuiInputAdornment-positionEnd": {
-                                backgroundColor: "button.main",
-                                height: "100%",
-                                maxHeight: "none",
-                                borderRadius: "0px 4px 4px 0px",
-                                padding: "0px 10px",
-                                "& .MuiTypography-root": { color: "#FFF" },
-                              },
-                              height: "100%",
-                            },
-                            height: "55px",
-                          }}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                PKR
-                              </InputAdornment>
-                            ),
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                Per Person
-                              </InputAdornment>
-                            ),
-                          }}
-                          fullWidth
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sx={{
-                        opacity: extra_services.find(
-                          (el) => el.extra_field_name === "Dinner"
-                        )
-                          ? "100%"
-                          : "0%",
-                      }}
-                    >
-                      <Grid
-                        item
-                        xs={12}
-                        sx={{ display: "flex", alignItems: "center" }}
-                      >
-                        <StyledTextField
-                          InputLabelProps={{ shrink: false }}
-                          label=""
-                          value={
-                            extra_services.find(
-                              (el) => el.extra_field_name === "Dinner"
-                            )?.extra_field_price
-                          }
-                          onChange={(e) =>
-                            updatePrice("Dinner", e.target.value)
-                          }
-                          sx={{
-                            "& .MuiInputBase-root": {
-                              padding: "0px",
-                              "& .MuiInputAdornment-positionStart": {
-                                backgroundColor: "button.main",
-                                height: "100%",
-                                maxHeight: "none",
-                                borderRadius: "4px 0px 0px 4px",
-                                padding: "0px 10px",
-                                "& .MuiTypography-root": { color: "#FFF" },
-                              },
-                              "& .MuiInputAdornment-positionEnd": {
-                                backgroundColor: "button.main",
-                                height: "100%",
-                                maxHeight: "none",
-                                borderRadius: "0px 4px 4px 0px",
-                                padding: "0px 10px",
-                                "& .MuiTypography-root": { color: "#FFF" },
-                              },
-                              height: "100%",
-                            },
-                            height: "55px",
-                          }}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                PKR
-                              </InputAdornment>
-                            ),
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                Per Person
-                              </InputAdornment>
-                            ),
-                          }}
-                          fullWidth
-                        />
-                      </Grid>
-                    </Grid>
-                  </Grid>
+                <Grid item>
+                  <Typography fontWeight={600} fontSize={18} variant="p">
+                    What services do you provide?
+                  </Typography>
                 </Grid>
-              </Box>
-            </Grid>
-
-            <Grid container item spacing={2}>
-              <Grid item xs={12}>
-                <Typography fontSize={18} fontWeight={600} variant="p">
-                  Frequently Asked Questions
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
                 <Box
                   sx={{
                     backgroundColor: "background.secondary",
@@ -1262,16 +1084,317 @@ function SingleHotel(props) {
                     m: 2,
                   }}
                 >
-                  <FAQs />
+                  <Grid container item spacing={5}>
+                    <Grid item xs={6}>
+                      <ProvidedServices />
+                    </Grid>
+                    <Grid item container xs={6}>
+                      <Grid
+                        container
+                        item
+                        xs={12}
+                        sx={{
+                          opacity: extra_services.find(
+                            (el) => el.extra_field_name === "Breakfast"
+                          )
+                            ? "100%"
+                            : "0%",
+                        }}
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <StyledTextField
+                            InputLabelProps={{ shrink: false }}
+                            label=""
+                            value={
+                              extra_services.find(
+                                (el) => el.extra_field_name === "Breakfast"
+                              )?.extra_field_price
+                            }
+                            onChange={(e) =>
+                              updatePrice("Breakfast", e.target.value)
+                            }
+                            sx={{
+                              "& .MuiInputBase-root": {
+                                padding: "0px",
+                                "& .MuiInputAdornment-positionStart": {
+                                  backgroundColor: "button.main",
+                                  height: "100%",
+                                  maxHeight: "none",
+                                  borderRadius: "4px 0px 0px 4px",
+                                  padding: "0px 10px",
+                                  "& .MuiTypography-root": { color: "#FFF" },
+                                },
+                                "& .MuiInputAdornment-positionEnd": {
+                                  backgroundColor: "button.main",
+                                  height: "100%",
+                                  maxHeight: "none",
+                                  borderRadius: "0px 4px 4px 0px",
+                                  padding: "0px 10px",
+                                  "& .MuiTypography-root": { color: "#FFF" },
+                                },
+                                height: "100%",
+                              },
+                              height: "55px",
+                            }}
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  PKR
+                                </InputAdornment>
+                              ),
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  Per Person
+                                </InputAdornment>
+                              ),
+                            }}
+                            fullWidth
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xs={12}
+                        sx={{
+                          opacity: extra_services.find(
+                            (el) => el.extra_field_name === "Lunch"
+                          )
+                            ? "100%"
+                            : "0%",
+                        }}
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <StyledTextField
+                            InputLabelProps={{ shrink: false }}
+                            label=""
+                            value={
+                              extra_services.find(
+                                (el) => el.extra_field_name === "Lunch"
+                              )?.extra_field_price
+                            }
+                            onChange={(e) =>
+                              updatePrice("Lunch", e.target.value)
+                            }
+                            sx={{
+                              "& .MuiInputBase-root": {
+                                padding: "0px",
+                                "& .MuiInputAdornment-positionStart": {
+                                  backgroundColor: "button.main",
+                                  height: "100%",
+                                  maxHeight: "none",
+                                  borderRadius: "4px 0px 0px 4px",
+                                  padding: "0px 10px",
+                                  "& .MuiTypography-root": { color: "#FFF" },
+                                },
+                                "& .MuiInputAdornment-positionEnd": {
+                                  backgroundColor: "button.main",
+                                  height: "100%",
+                                  maxHeight: "none",
+                                  borderRadius: "0px 4px 4px 0px",
+                                  padding: "0px 10px",
+                                  "& .MuiTypography-root": { color: "#FFF" },
+                                },
+                                height: "100%",
+                              },
+                              height: "55px",
+                            }}
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  PKR
+                                </InputAdornment>
+                              ),
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  Per Person
+                                </InputAdornment>
+                              ),
+                            }}
+                            fullWidth
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xs={12}
+                        sx={{
+                          opacity: extra_services.find(
+                            (el) => el.extra_field_name === "HiTea"
+                          )
+                            ? "100%"
+                            : "0%",
+                        }}
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <StyledTextField
+                            InputLabelProps={{ shrink: false }}
+                            label=""
+                            value={
+                              extra_services.find(
+                                (el) => el.extra_field_name === "HiTea"
+                              )?.extra_field_price
+                            }
+                            onChange={(e) =>
+                              updatePrice("HiTea", e.target.value)
+                            }
+                            sx={{
+                              "& .MuiInputBase-root": {
+                                padding: "0px",
+                                "& .MuiInputAdornment-positionStart": {
+                                  backgroundColor: "button.main",
+                                  height: "100%",
+                                  maxHeight: "none",
+                                  borderRadius: "4px 0px 0px 4px",
+                                  padding: "0px 10px",
+                                  "& .MuiTypography-root": { color: "#FFF" },
+                                },
+                                "& .MuiInputAdornment-positionEnd": {
+                                  backgroundColor: "button.main",
+                                  height: "100%",
+                                  maxHeight: "none",
+                                  borderRadius: "0px 4px 4px 0px",
+                                  padding: "0px 10px",
+                                  "& .MuiTypography-root": { color: "#FFF" },
+                                },
+                                height: "100%",
+                              },
+                              height: "55px",
+                            }}
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  PKR
+                                </InputAdornment>
+                              ),
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  Per Person
+                                </InputAdornment>
+                              ),
+                            }}
+                            fullWidth
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xs={12}
+                        sx={{
+                          opacity: extra_services.find(
+                            (el) => el.extra_field_name === "Dinner"
+                          )
+                            ? "100%"
+                            : "0%",
+                        }}
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <StyledTextField
+                            InputLabelProps={{ shrink: false }}
+                            label=""
+                            value={
+                              extra_services.find(
+                                (el) => el.extra_field_name === "Dinner"
+                              )?.extra_field_price
+                            }
+                            onChange={(e) =>
+                              updatePrice("Dinner", e.target.value)
+                            }
+                            sx={{
+                              "& .MuiInputBase-root": {
+                                padding: "0px",
+                                "& .MuiInputAdornment-positionStart": {
+                                  backgroundColor: "button.main",
+                                  height: "100%",
+                                  maxHeight: "none",
+                                  borderRadius: "4px 0px 0px 4px",
+                                  padding: "0px 10px",
+                                  "& .MuiTypography-root": { color: "#FFF" },
+                                },
+                                "& .MuiInputAdornment-positionEnd": {
+                                  backgroundColor: "button.main",
+                                  height: "100%",
+                                  maxHeight: "none",
+                                  borderRadius: "0px 4px 4px 0px",
+                                  padding: "0px 10px",
+                                  "& .MuiTypography-root": { color: "#FFF" },
+                                },
+                                height: "100%",
+                              },
+                              height: "55px",
+                            }}
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  PKR
+                                </InputAdornment>
+                              ),
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  Per Person
+                                </InputAdornment>
+                              ),
+                            }}
+                            fullWidth
+                          />
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Box>
               </Grid>
-            </Grid>
-            <Grid container item xs={12} spacing={2} justifyContent="flex-end">
-              <Grid item>
-                <StyledButton type="submit">Submit</StyledButton>
+
+              <Grid container item spacing={2}>
+                <Grid item xs={12}>
+                  <Typography fontSize={18} fontWeight={600} variant="p">
+                    Frequently Asked Questions
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Box
+                    sx={{
+                      backgroundColor: "background.secondary",
+                      p: 2,
+                      borderRadius: 3,
+                      width: "100%",
+                      m: 2,
+                    }}
+                  >
+                    <FAQs />
+                  </Box>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                item
+                xs={12}
+                spacing={2}
+                justifyContent="flex-end"
+              >
+                <Grid item>
+                  <StyledButton type="submit">Submit</StyledButton>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          </form>
         )}
       </FormWrapper>
     </StyledContainer>

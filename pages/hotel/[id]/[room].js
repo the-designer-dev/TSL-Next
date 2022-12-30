@@ -154,7 +154,7 @@ function Book(props) {
           : console.log("not entered");
       }
       var reqData = {
-        total_days: moment(checkout).diff(moment(checkin), "days") + 1,
+        total_days: moment(checkout).diff(moment(checkin), "days"),
         booking_start_date: checkin,
         booking_end_date: checkout,
         room_qty: roomQuantity,

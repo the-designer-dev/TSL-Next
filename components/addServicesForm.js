@@ -19,6 +19,7 @@ import {
   setServices,
   setDaysToRefund,
   setFaqs,
+  setTaxes,
 } from "../redux/addHotel";
 import { nextStep, prevStep } from "../redux/formSlice";
 import moment from "moment";
@@ -41,9 +42,9 @@ function AddServicesForm(props) {
       })
     ] = {
       ...extra_services[
-      extra_services.findIndex((el) => {
-        return el.extra_field_name === name;
-      })
+        extra_services.findIndex((el) => {
+          return el.extra_field_name === name;
+        })
       ],
       extra_field_price: price,
     };
@@ -442,10 +443,51 @@ function AddServicesForm(props) {
               </Grid>
             </Box>
           </Grid>
-          {/* <Grid container item spacing={1}>
-                    <Grid item xs={12} sm={4}><Typography variant='p'>Days To Refund</Typography></Grid>
-                    <Grid item xs={12} sm={8}><StyledTextField required value={addHotel.daysToRefund} onChange={(e) => dispatch(setDaysToRefund(e.target.value))} type='number' fullWidth placeholder='Enter days' /></Grid>
-                    </Grid> */}
+          <Grid container item spacing={1}>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="p">Taxes</Typography>
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <StyledTextField
+                required
+                value={addHotel.daysToRefund}
+                onChange={(e) => dispatch(setTaxes(e.target.value))}
+                type="number"
+                label=""
+                InputLabelProps={{ shrink: true }}
+                fullWidth
+                placeholder="Enter days"
+                sx={{
+                  "& .MuiInputBase-root": {
+                    padding: "0px",
+                    "& .MuiInputAdornment-positionStart": {
+                      backgroundColor: "button.main",
+                      height: "100%",
+                      maxHeight: "none",
+                      borderRadius: "4px 0px 0px 4px",
+                      padding: "0px 10px",
+                      "& .MuiTypography-root": { color: "#FFF" },
+                    },
+                    "& .MuiInputAdornment-positionEnd": {
+                      backgroundColor: "button.main",
+                      height: "100%",
+                      maxHeight: "none",
+                      borderRadius: "0px 4px 4px 0px",
+                      padding: "0px 10px",
+                      "& .MuiTypography-root": { color: "#FFF" },
+                    },
+                    height: "100%",
+                  },
+                  height: "55px",
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">%</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+          </Grid>
           <Grid container item spacing={2}>
             <Grid item xs={12}>
               <Typography fontSize={18} fontWeight={600} variant="p">
